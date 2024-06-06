@@ -73,6 +73,12 @@ MonoBehaviour:
         - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1421257420-0
         - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1789272648-0
         - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-832575517-0
+        - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-1026869662-0
+        - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-786751232-0
+        - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-285563604-0
+        - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-441260565-0
+        - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-428541917-0
+        - globalObjectIdString: GlobalObjectId_V1-2-99c9720ab356a0642a771bea13969a05-667954598-0
         values:
         - colorIndex: 2
           iconNameOrGuid: Folder Icon
@@ -101,7 +107,7 @@ MonoBehaviour:
         - colorIndex: 0
           iconNameOrGuid: Light Icon
         - colorIndex: 0
-          iconNameOrGuid: Light Icon
+          iconNameOrGuid: ReflectionProbe Icon
         - colorIndex: 0
           iconNameOrGuid: Light Icon
         - colorIndex: 0
@@ -184,3 +190,15 @@ MonoBehaviour:
           iconNameOrGuid: Folder Icon
         - colorIndex: 0
           iconNameOrGuid: LightProbes Icon
+        - colorIndex: 1
+          iconNameOrGuid: StandaloneInputModule Icon
+        - colorIndex: 1
+          iconNameOrGuid: StandaloneInputModule Icon
+        - colorIndex: 0
+          iconNameOrGuid: LightProbes Icon
+        - colorIndex: 1
+          iconNameOrGuid: Light Icon
+        - colorIndex: 0
+          iconNameOrGuid: ReflectionProbe Icon
+        - colorIndex: 1
+          iconNameOrGuid: Light Icon
