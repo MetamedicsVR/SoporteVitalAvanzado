@@ -101,109 +101,109 @@ MonoBehaviour:
           iconNameOrGuid: AvatarMask On Icon
         - colorIndex: 0
           iconNameOrGuid: AvatarMask On Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: ReflectionProbe Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: DirectionalLight Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: DirectionalLight Icon
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: PreMatQuad
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: PreMatQuad
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: PreMatQuad
-        - colorIndex: 0
+        - colorIndex: 1
           iconNameOrGuid: PreMatQuad
         - colorIndex: 0
           iconNameOrGuid: Camera Icon
         - colorIndex: 9
           iconNameOrGuid: Folder Icon
-        - colorIndex: 0
-          iconNameOrGuid: LightProbes Icon
-        - colorIndex: 7
-          iconNameOrGuid: StandaloneInputModule Icon
-        - colorIndex: 7
-          iconNameOrGuid: StandaloneInputModule Icon
-        - colorIndex: 0
-          iconNameOrGuid: LightProbes Icon
         - colorIndex: 1
+          iconNameOrGuid: LightProbes Icon
+        - colorIndex: 7
+          iconNameOrGuid: StandaloneInputModule Icon
+        - colorIndex: 7
+          iconNameOrGuid: StandaloneInputModule Icon
+        - colorIndex: 1
+          iconNameOrGuid: LightProbes Icon
+        - colorIndex: 8
           iconNameOrGuid: Light Icon
-        - colorIndex: 0
-          iconNameOrGuid: ReflectionProbe Icon
         - colorIndex: 1
+          iconNameOrGuid: ReflectionProbe Icon
+        - colorIndex: 8
           iconNameOrGuid: Light Icon
         - colorIndex: 1
           iconNameOrGuid: ReflectionProbe Icon
