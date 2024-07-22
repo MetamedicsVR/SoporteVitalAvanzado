@@ -19,21 +19,29 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     {
         base.OnInstance();
         actionKeywords = new Dictionary<NPC.NPCAction, List<string>>();
-        actionKeywords[NPC.NPCAction.Idle] = new List<string>();
-        actionKeywords[NPC.NPCAction.Idle].Add("para");
-        actionKeywords[NPC.NPCAction.OpenLine] = new List<string>();
-        actionKeywords[NPC.NPCAction.OpenLine].Add("");
+        actionKeywords[NPC.NPCAction.Rest] = new List<string>();
+        actionKeywords[NPC.NPCAction.Rest].Add("para");
+        actionKeywords[NPC.NPCAction.CheckConsciousness] = new List<string>();
+        actionKeywords[NPC.NPCAction.CheckConsciousness].Add("");
+        actionKeywords[NPC.NPCAction.CheckAirWay] = new List<string>();
+        actionKeywords[NPC.NPCAction.CheckAirWay].Add("");
         actionKeywords[NPC.NPCAction.Ventilations] = new List<string>();
         actionKeywords[NPC.NPCAction.Ventilations].Add("ventilacion");
-        actionKeywords[NPC.NPCAction.Shock] = new List<string>();
-        actionKeywords[NPC.NPCAction.Shock].Add("");
+        actionKeywords[NPC.NPCAction.CheckPulse] = new List<string>();
+        actionKeywords[NPC.NPCAction.CheckPulse].Add("");
+        actionKeywords[NPC.NPCAction.Compressions] = new List<string>();
+        actionKeywords[NPC.NPCAction.Compressions].Add("");
+        actionKeywords[NPC.NPCAction.CheckDefibrilator] = new List<string>();
+        actionKeywords[NPC.NPCAction.CheckDefibrilator].Add("");
+        actionKeywords[NPC.NPCAction.ChargeDefibrilator] = new List<string>();
+        actionKeywords[NPC.NPCAction.ChargeDefibrilator].Add("");
+        actionKeywords[NPC.NPCAction.DischargeDefibrilator] = new List<string>();
+        actionKeywords[NPC.NPCAction.DischargeDefibrilator].Add("");
         actionKeywords[NPC.NPCAction.Epinephrine] = new List<string>();
         actionKeywords[NPC.NPCAction.Epinephrine].Add("epinefrina");
         actionKeywords[NPC.NPCAction.Epinephrine].Add("adrenalina");
         actionKeywords[NPC.NPCAction.Lidocaine] = new List<string>();
         actionKeywords[NPC.NPCAction.Lidocaine].Add("");
-        actionKeywords[NPC.NPCAction.Defibrillator] = new List<string>();
-        actionKeywords[NPC.NPCAction.Defibrillator].Add("");
     }
 
     private void Start()

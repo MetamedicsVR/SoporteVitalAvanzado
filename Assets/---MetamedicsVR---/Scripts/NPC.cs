@@ -21,41 +21,51 @@ public class NPC : MonoBehaviour
 
     public enum NPCAction
     {
-        Idle,
-        WalkToSpot,
+        Rest,
         CheckConsciousness,
-        OpenAirWay,
-        Guedel,
+        CheckAirWay,
+        Ventilations,
         CheckPulse,
         Compressions,
         CheckDefibrilator,
         ChargeDefibrilator,
         DischargeDefibrilator,
-        OpenLine,
-        Ventilations,
-        Shock,
         Epinephrine,
-        Lidocaine,
-        Defibrillator
+        Lidocaine
     }
 
     public void GiveOrder(NPCAction action)
     {
+        //Anim_Andar
+        //Anim_GoToComprimir
+        //Anim_Comprimir
+        //Anim_CogerAlgo
+        //Anim_GoToVentilar
+        //Anim_Ventilar
         switch (action)
         {
-            case NPCAction.Compressions:
+            case NPCAction.Rest:
+                animator.Play("Anim_idle");
                 break;
-            case NPCAction.OpenLine:
+            case NPCAction.CheckConsciousness:
+                break;
+            case NPCAction.CheckAirWay:
                 break;
             case NPCAction.Ventilations:
                 break;
-            case NPCAction.Shock:
+            case NPCAction.CheckPulse:
+                break;
+            case NPCAction.Compressions:
+                break;
+            case NPCAction.CheckDefibrilator:
+                break;
+            case NPCAction.ChargeDefibrilator:
+                break;
+            case NPCAction.DischargeDefibrilator:
                 break;
             case NPCAction.Epinephrine:
                 break;
             case NPCAction.Lidocaine:
-                break;
-            case NPCAction.Defibrillator:
                 break;
         }
     }
@@ -68,5 +78,10 @@ public class NPC : MonoBehaviour
     public bool CanPerformAction(NPCAction action)
     {
         return true;
+    }
+
+    public void GoToSpot(NPCSpot npcSpot)
+    {
+    
     }
 }
