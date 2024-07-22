@@ -7943,7 +7943,7 @@ PrefabInstance:
     - target: {fileID: 501668526453753549, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
         type: 3}
       propertyPath: m_Name
-      value: NPC_B1
+      value: NPC_B3
       objectReference: {fileID: 0}
     - target: {fileID: 653182147233251505, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
         type: 3}
@@ -12647,10 +12647,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 338989988}
-    - targetCorrespondingSourceObject: {fileID: 501668526453753549, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 338989987}
   m_SourcePrefab: {fileID: 100100000, guid: 11ccc376c90913f41aae1aeea3e2cb2e, type: 3}
 --- !u!4 &338989983 stripped
 Transform:
@@ -12676,29 +12672,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Rubio
-  animator: {fileID: 338989986}
+  characterName: 1
   startingSpot: {fileID: 0}
---- !u!95 &338989986 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6583616855167501837, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
-    type: 3}
-  m_PrefabInstance: {fileID: 338989982}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &338989987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338989984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8607546e703ae7c418b84d44252eaf7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 338989988}
-  target: {fileID: 0}
 --- !u!195 &338989988
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -20580,15 +20555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Gafas
-  animator: {fileID: 487702281}
+  characterName: 2
   startingSpot: {fileID: 0}
---- !u!95 &487702281 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2529019950134982078, guid: e46c25ec69a3a9948bd8ad9d6077ab08,
-    type: 3}
-  m_PrefabInstance: {fileID: 487702277}
-  m_PrefabAsset: {fileID: 0}
 --- !u!195 &487702282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -35067,7 +35035,7 @@ PrefabInstance:
     - target: {fileID: 501668526453753549, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
         type: 3}
       propertyPath: m_Name
-      value: NPC_B1 (1)
+      value: NPC_B4
       objectReference: {fileID: 0}
     - target: {fileID: 653182147233251505, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
         type: 3}
@@ -35262,7 +35230,7 @@ PrefabInstance:
     - target: {fileID: 990115106085231735, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.38899994
+      value: 1.542
       objectReference: {fileID: 0}
     - target: {fileID: 990115106085231735, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
         type: 3}
@@ -38314,6 +38282,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -11.142752
       objectReference: {fileID: 0}
+    - target: {fileID: 6868042270576976261, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6901732695916518879, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -39771,10 +39744,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1357098039}
-    - targetCorrespondingSourceObject: {fileID: 501668526453753549, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1357098038}
   m_SourcePrefab: {fileID: 100100000, guid: 11ccc376c90913f41aae1aeea3e2cb2e, type: 3}
 --- !u!1001 &1096032716
 PrefabInstance:
@@ -46320,20 +46289,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1095441443}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1357098038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357098036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8607546e703ae7c418b84d44252eaf7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 1357098039}
-  target: {fileID: 0}
 --- !u!195 &1357098039
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -46368,15 +46323,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Rubio
-  animator: {fileID: 1357098041}
+  characterName: 3
   startingSpot: {fileID: 0}
---- !u!95 &1357098041 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6583616855167501837, guid: 11ccc376c90913f41aae1aeea3e2cb2e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1095441443}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1362960089
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55806,7 +55754,7 @@ PrefabInstance:
     - target: {fileID: 6267498511853820652, guid: 1034ed37de671844dba85e115694b629,
         type: 3}
       propertyPath: m_Name
-      value: medico_3
+      value: NPC B1
       objectReference: {fileID: 0}
     - target: {fileID: 6421141166139645072, guid: 1034ed37de671844dba85e115694b629,
         type: 3}
@@ -56339,11 +56287,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6267498511853820652, guid: 1034ed37de671844dba85e115694b629,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1797915110}
+      addedObject: {fileID: 1797915109}
     - targetCorrespondingSourceObject: {fileID: 6267498511853820652, guid: 1034ed37de671844dba85e115694b629,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1797915109}
+      addedObject: {fileID: 1797915110}
   m_SourcePrefab: {fileID: 100100000, guid: 1034ed37de671844dba85e115694b629, type: 3}
 --- !u!4 &1797915106 stripped
 Transform:
@@ -56375,8 +56323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Chica
-  animator: {fileID: 0}
+  characterName: 0
   startingSpot: {fileID: 0}
 --- !u!195 &1797915110
 NavMeshAgent:
@@ -59178,10 +59125,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1797915106}
+  - {fileID: 487702278}
   - {fileID: 338989983}
   - {fileID: 1357098037}
-  - {fileID: 487702278}
-  - {fileID: 1797915106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1919086923 stripped
@@ -62533,6 +62480,7 @@ GameObject:
   - component: {fileID: 2062851878}
   - component: {fileID: 2062851877}
   - component: {fileID: 2062851876}
+  - component: {fileID: 2062851881}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -62553,7 +62501,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   voiceServices: []
-  npcs: []
+  npcs:
+  - {fileID: 1797915109}
+  - {fileID: 487702280}
+  - {fileID: 338989985}
+  - {fileID: 1357098040}
 --- !u!114 &2062851877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62607,6 +62559,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2062851881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062851875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e1e6fc4e396074ca9f558efbb2d401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warningPanel: {fileID: 0}
+  errorPanel: {fileID: 0}
+  monitorAttached: 0
 --- !u!4 &2071363387 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6044b622f1d7f5b49a14bc23a8f920c3,

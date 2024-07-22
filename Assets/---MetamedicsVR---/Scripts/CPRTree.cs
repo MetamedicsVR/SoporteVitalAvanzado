@@ -84,83 +84,84 @@ public class CPRTree : MonoBehaviour
         return targetActions.Count + actionsToCheck.Count;
     }
 
-    private int test;
+    private int test = -1;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
         {
             test++;
-        }
-        switch (test)
-        {
-            case 0:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.Rest);
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.Rest);
-                NPCManager.GetInstance().FindNPC("Chica").GiveOrder(NPC.NPCAction.Rest);
-                NPCManager.GetInstance().FindNPC("Otro").GiveOrder(NPC.NPCAction.Rest);
-                break;
-            case 1:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.CheckConsciousness);
-                break;
-            case 2:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.CheckAirWay); //Open if closed
-                break;
-            case 3:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.Ventilations); //Put güedel if needed
-                break;
-            case 4:
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.CheckPulse);
-                break;
-            case 5:
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.Compressions);
-                break;
-            case 6:
-                NPCManager.GetInstance().FindNPC("Chica").GiveOrder(NPC.NPCAction.CheckDefibrilator);
-                break;
-            case 7:
-                NPCManager.GetInstance().FindNPC("Chica").GiveOrder(NPC.NPCAction.ChargeDefibrilator);
-                break;
-            case 8:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.Rest);
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.Rest);
-                break;
-            case 9:
-                NPCManager.GetInstance().FindNPC("Chica").GiveOrder(NPC.NPCAction.DischargeDefibrilator);
-                break;
-            case 10:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.Ventilations);
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.Compressions);
-                break;
-            case 11:
-                NPCManager.GetInstance().FindNPC("Otro").GiveOrder(NPC.NPCAction.Compressions);
-                break;
-            case 12:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.Rest);
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.Rest);
-                break;
-            case 13:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.CheckAirWay);
-                NPCManager.GetInstance().FindNPC("Otro").GiveOrder(NPC.NPCAction.CheckPulse);
-                break;
-            case 14:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.Rest);
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.Rest);
-                break;
-            case 15:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.Ventilations);
-                NPCManager.GetInstance().FindNPC("Rubio").GiveOrder(NPC.NPCAction.Compressions);
-                break;
-            case 16:
-                NPCManager.GetInstance().FindNPC("Chica").GiveOrder(NPC.NPCAction.Epinephrine);
-                break;
-            case 17:
-                NPCManager.GetInstance().FindNPC("Chica").GiveOrder(NPC.NPCAction.Lidocaine);
-                break;
-            case 18:
-                NPCManager.GetInstance().FindNPC("Gafas").GiveOrder(NPC.NPCAction.CheckAirWay);
-                NPCManager.GetInstance().FindNPC("Otro").GiveOrder(NPC.NPCAction.CheckPulse);
-                break;
+            print("Test Next");
+            switch (test)
+            {
+                case 0:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Calvo).GiveOrder(NPC.NPCAction.Rest);
+                    break;
+                case 1:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckConsciousness);
+                    break;
+                case 2:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckAirWay); //Open if closed
+                    break;
+                case 3:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Ventilations); //Put güedel if needed
+                    break;
+                case 4:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.CheckPulse);
+                    break;
+                case 5:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Compressions);
+                    break;
+                case 6:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.CheckDefibrilator);
+                    break;
+                case 7:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.ChargeDefibrilator);
+                    break;
+                case 8:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    break;
+                case 9:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.DischargeDefibrilator);
+                    break;
+                case 10:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Ventilations);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Compressions);
+                    break;
+                case 11:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Calvo).GiveOrder(NPC.NPCAction.Compressions);
+                    break;
+                case 12:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    break;
+                case 13:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckAirWay);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Calvo).GiveOrder(NPC.NPCAction.CheckPulse);
+                    break;
+                case 14:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    break;
+                case 15:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Ventilations);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Compressions);
+                    break;
+                case 16:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.Epinephrine);
+                    break;
+                case 17:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.Lidocaine);
+                    break;
+                case 18:
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckAirWay);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Calvo).GiveOrder(NPC.NPCAction.CheckPulse);
+                    break;
+            }
         }
     }
 

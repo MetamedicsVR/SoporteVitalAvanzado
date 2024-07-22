@@ -15,6 +15,14 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     private NPC selectedNPC;
     private Dictionary<NPC.NPCAction, List<string>> actionKeywords;
 
+    public enum NPCName
+    {
+        Chica,
+        Rubio,
+        Gafas,
+        Calvo
+    }
+
     protected override void OnInstance()
     {
         base.OnInstance();
@@ -60,7 +68,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         string cleanText = Regex.Replace(transcription.Normalize(NormalizationForm.FormD), @"[^a-zA-Z\s]", "").ToLower();
         string[] words = cleanText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-        List<string> npcNames = CheckNPCNames(words);
+        List<NPCName> npcNames = CheckNPCNames(words);
         if (npcNames.Count > 0)
         {
             if (npcNames.Count > 1)
@@ -81,24 +89,24 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         {
             //if (NameMatch(word))
             {
-                SelectNPC(word);
+                SelectNPC((NPCName)Enum.Parse(typeof(NPCName), word));
             }
             if (ActionMatch(word))
             {
-                GiveOrder(word);
+                GiveOrder((NPC.NPCAction)Enum.Parse(typeof(NPC.NPCAction), word));
             }
         }
     }
 
-    private List<string> CheckNPCNames(string[] words)
+    private List<NPCName> CheckNPCNames(string[] words)
     {
-        List<string> foundNames = new List<string>();
-        string[] npcNames = NPCNames();
+        List<NPCName> foundNames = new List<NPCName>();
+        string[] npcNames = Enum.GetNames(typeof(NPCName));
         for (int i = 0; i < words.Length; i++)
         {
             if (npcNames.Contains(words[i]))
             {
-                foundNames.Add(words[i]);
+                foundNames.Add((NPCName)Enum.Parse(typeof(NPCName), words[i]));
             }
         }
         return foundNames;
@@ -109,9 +117,9 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         return ((NPC.NPCAction[])Enum.GetValues(typeof(NPC.NPCAction))).Select(action => action.ToString().ToLower()).ToArray().Contains(word);
     }
 
-    public void SelectNPC(string characterName)
+    public void SelectNPC(NPCName name)
     {
-        NPC found = FindNPC(characterName);
+        NPC found = FindNPC(name);
         if (found)
         {
             selectedNPC = found;
@@ -123,21 +131,16 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         return selectedNPC;
     }
 
-    public NPC FindNPC(string name)
+    public NPC FindNPC(NPCName name)
     {
         return npcs.FirstOrDefault(npc => npc.characterName == name);
     }
 
-    public string[] NPCNames()
-    {
-        return npcs.Select(npc => npc.characterName.ToLower()).ToArray();
-    }
-
-    public void GiveOrder(string order)
+    public void GiveOrder(NPC.NPCAction action)
     {
         if (selectedNPC)
         {
-            //selectedNPC.GiveOrder(order);
+            selectedNPC.GiveOrder(action);
         }
     }
 }
