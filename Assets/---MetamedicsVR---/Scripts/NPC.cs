@@ -8,6 +8,9 @@ public class NPC : MonoBehaviour
     public NPCManager.NPCName characterName;
     public NPCSpot startingSpot;
 
+    [Header("Tools")]
+    public GameObject ambu;
+
     private Animator animator;
     private NavMeshAgent navMeshAgent;
     private NPCSpot currentSpot;
@@ -28,9 +31,10 @@ public class NPC : MonoBehaviour
         Walk,
         CheckConsciousness,
         CheckAirWay,
-        Ventilations,
+        PutGuedel,
         CheckPulse,
         Compressions,
+        Ventilations,
         CheckDefibrilator,
         ChargeDefibrilator,
         DischargeDefibrilator,
@@ -55,15 +59,17 @@ public class NPC : MonoBehaviour
             animator.Play("Anim_Andar");
             SetCurrentSpot(NPCSpotManager.GetInstance().GetAvailableSpot(correctSpotType));
             navMeshAgent.SetDestination(currentSpot.transform.position);
-            yield return new WaitUntil(() => Vector3.Distance(currentSpot.transform.position, transform.position) < 1);
-            float lerpDuration = 1;
+            yield return new WaitUntil(() => Vector3.Distance(currentSpot.transform.position, transform.position) < 0.5f);
+            float lerpDuration = 0.5f;
             Vector3 startPosition = transform.position;
+            Quaternion startingRotation = transform.rotation;
             float elapsedTime = 0f;
             animator.CrossFade("Anim_idle", lerpDuration);
             while (elapsedTime < lerpDuration)
             {
                 elapsedTime += Time.deltaTime;
                 transform.position = Vector3.Lerp(startPosition, currentSpot.transform.position, Mathf.Clamp01(elapsedTime / lerpDuration));
+                transform.rotation = Quaternion.Lerp(startingRotation, currentSpot.transform.rotation, Mathf.Clamp01(elapsedTime / lerpDuration));
                 yield return null;
             }
             transform.position = currentSpot.transform.position;
@@ -74,19 +80,32 @@ public class NPC : MonoBehaviour
                 animator.Play("Anim_idle");
                 break;
             case NPCAction.CheckConsciousness:
-                //animator.Play("");
+                animator.Play("Anim_ComprobarConsciencia");
+                yield return new WaitForSeconds(1);
+                NPCManager.GetInstance().patientAnimator.Play("Anim_PacienteComprobarConsciencia");
                 break;
             case NPCAction.CheckAirWay:
                 animator.Play("Anim_GoToComprobarRespiracion");
+                yield return new WaitForSeconds(2);
+                NPCManager.GetInstance().patientAnimator.Play("Anim_AbrirBocaPaciente");
+                yield return new WaitForSeconds(15);
+                NPCManager.GetInstance().patientAnimator.Play("Anim_CerrarBocaPaciente");
+                yield return new WaitForSeconds(2);
+                animator.CrossFade("Anim_idle", 1);
                 break;
-            case NPCAction.Ventilations:
-                animator.Play("Anim_GoToVentilar");
+            case NPCAction.PutGuedel:
+                //animator.Play(""); ???
                 break;
             case NPCAction.CheckPulse:
                 animator.Play("Anim_GoToComprobarPulso");
                 break;
             case NPCAction.Compressions:
                 animator.Play("Anim_GoToComprobarRespiracion");
+                NPCManager.GetInstance().patientAnimator.Play("Anim_Comprimido");
+                break;
+            case NPCAction.Ventilations:
+                ambu.SetActive(true);
+                animator.Play("Anim_GoToVentilar");
                 break;
             case NPCAction.CheckDefibrilator:
                 break;
@@ -99,6 +118,7 @@ public class NPC : MonoBehaviour
             case NPCAction.Lidocaine:
                 break;
         }
+        //TODO Añadir Crossfade a Idle después de cada animación
     }
 
     private void SetCurrentSpot(NPCSpot npcSpot)
@@ -130,9 +150,10 @@ public class NPC : MonoBehaviour
         switch (action)
         {
             case NPCAction.CheckConsciousness:
-            case NPCAction.CheckAirWay:
             case NPCAction.Ventilations:
+            case NPCAction.PutGuedel:
                 return NPCSpot.SpotType.Ventilations;
+            case NPCAction.CheckAirWay:
             case NPCAction.CheckPulse:
             case NPCAction.Compressions:
             case NPCAction.CheckDefibrilator:

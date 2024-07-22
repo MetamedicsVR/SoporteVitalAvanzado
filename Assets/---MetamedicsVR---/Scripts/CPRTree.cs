@@ -104,13 +104,14 @@ public class CPRTree : MonoBehaviour
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckConsciousness);
                     break;
                 case 2:
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckAirWay); //Open if closed
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.CheckAirWay); //Open if closed
                     break;
                 case 3:
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Ventilations); //Put güedel if needed
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.CheckPulse);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.PutGuedel);
                     break;
                 case 4:
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.CheckPulse);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Ventilations);
                     break;
                 case 5:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Compressions);

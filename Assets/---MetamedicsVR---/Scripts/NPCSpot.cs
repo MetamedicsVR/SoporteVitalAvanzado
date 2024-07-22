@@ -15,4 +15,16 @@ public class NPCSpot : MonoBehaviour
         Ventilations,
         Medication
     }
+
+#if UNITY_EDITOR
+    private float spotRadius = 0.5f;
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 1, 0);
+        Gizmos.DrawSphere(transform.position, spotRadius);
+        Gizmos.color = new Color(0, 0, 1);
+        Gizmos.DrawSphere(transform.position + transform.forward * spotRadius, spotRadius/4);
+    }
+#endif
 }
