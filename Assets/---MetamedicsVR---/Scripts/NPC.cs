@@ -10,6 +10,7 @@ public class NPC : MonoBehaviour
 
     [Header("Tools")]
     public GameObject ambu;
+    public GameObject guedel;
 
     private Animator animator;
     private NavMeshAgent navMeshAgent;
@@ -83,6 +84,7 @@ public class NPC : MonoBehaviour
                 animator.Play("Anim_ComprobarConsciencia");
                 yield return new WaitForSeconds(1);
                 NPCManager.GetInstance().patientAnimator.Play("Anim_PacienteComprobarConsciencia");
+                yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.CheckAirWay:
                 animator.Play("Anim_GoToComprobarRespiracion");
@@ -91,21 +93,30 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(15);
                 NPCManager.GetInstance().patientAnimator.Play("Anim_CerrarBocaPaciente");
                 yield return new WaitForSeconds(2);
-                animator.CrossFade("Anim_idle", 1);
                 break;
             case NPCAction.PutGuedel:
-                //animator.Play(""); ???
+                guedel.SetActive(true);
+                animator.Play("Anim_IntroduceGuedel");
+                yield return new WaitForSeconds(1.5f);
+                NPCManager.GetInstance().patientAnimator.Play("Anim_AbrirBocaGuedel");
+                yield return new WaitForSeconds(2f);
+                guedel.SetActive(false);
+                yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.CheckPulse:
                 animator.Play("Anim_GoToComprobarPulso");
+                yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.Compressions:
-                animator.Play("Anim_GoToComprobarRespiracion");
+                animator.Play("Anim_GoToComprimir");
+                yield return new WaitForSeconds(0.75f);
                 NPCManager.GetInstance().patientAnimator.Play("Anim_Comprimido");
+                yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.Ventilations:
                 ambu.SetActive(true);
                 animator.Play("Anim_GoToVentilar");
+                yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.CheckDefibrilator:
                 break;
@@ -118,7 +129,7 @@ public class NPC : MonoBehaviour
             case NPCAction.Lidocaine:
                 break;
         }
-        //TODO Añadir Crossfade a Idle después de cada animación
+        animator.Play("Anim_idle");
     }
 
     private void SetCurrentSpot(NPCSpot npcSpot)
