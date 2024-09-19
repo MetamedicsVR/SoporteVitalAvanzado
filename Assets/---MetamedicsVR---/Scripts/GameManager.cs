@@ -82,13 +82,19 @@ public class GameManager : MonoBehaviourInstance<GameManager>
         {
             case SceneName.Lobby:
                 return "Lobby";
+            case SceneName.Briefing:
+                return "Briefing";
+            case SceneName.BoxVital:
+                return "BoxVital";
         }
         return "";
     }
 
     public enum SceneName
     {
-        Lobby
+        Lobby,
+        Briefing,
+        BoxVital
     }
 
     public enum Device

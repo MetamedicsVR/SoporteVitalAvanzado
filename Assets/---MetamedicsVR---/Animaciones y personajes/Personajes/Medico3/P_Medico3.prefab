@@ -2995,6 +2995,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7015599170932364073}
   - component: {fileID: 5416629203549775267}
+  - component: {fileID: 624996324519822010}
+  - component: {fileID: 640438224215300095}
   m_Layer: 0
   m_Name: P_Medico3
   m_TagString: Untagged
@@ -3054,6 +3056,44 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &624996324519822010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4371963232080799116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: 0
+  startingSpot: {fileID: 0}
+  ambu: {fileID: 5381434680568564513}
+  guedel: {fileID: 0}
+--- !u!195 &640438224215300095
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4371963232080799116}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4561381334074582112
 GameObject:
   m_ObjectHideFlags: 0
@@ -8574,6 +8614,12 @@ PrefabInstance:
 --- !u!4 &4748310203449053595 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4684c04ed95fcb44faede3f466426077,
+    type: 3}
+  m_PrefabInstance: {fileID: 5075516671784711792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5381434680568564513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4684c04ed95fcb44faede3f466426077,
     type: 3}
   m_PrefabInstance: {fileID: 5075516671784711792}
   m_PrefabAsset: {fileID: 0}

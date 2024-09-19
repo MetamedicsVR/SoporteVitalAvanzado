@@ -16,4 +16,9 @@ public class NPCSpotManager : MonoBehaviourInstance<NPCSpotManager>
     {
         return spots.First(spot => spot.type == spotType && spot.available);
     }
+
+    public NPCSpot GetNearestAvailableSpot(NPCSpot.SpotType spotType, Vector3 position)
+    {
+        return spots.Where(spot => spot.type == spotType && spot.available).OrderBy(spot => Vector3.Distance(spot.transform.position, position)).FirstOrDefault();
+    }
 }

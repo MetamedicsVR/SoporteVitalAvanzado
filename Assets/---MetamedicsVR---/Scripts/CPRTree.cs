@@ -96,7 +96,7 @@ public class CPRTree : MonoBehaviour
             {
                 case 0:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.Rest);
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.Rest);
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Calvo).GiveOrder(NPC.NPCAction.Rest);
                     break;
@@ -104,10 +104,10 @@ public class CPRTree : MonoBehaviour
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckConsciousness);
                     break;
                 case 2:
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.CheckAirWay); //Open if closed
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.CheckAirWay); //Open if closed
                     break;
                 case 3:
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.CheckPulse);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.CheckPulse);
                     break;
                 case 4:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.PutGuedel);
@@ -116,7 +116,7 @@ public class CPRTree : MonoBehaviour
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Ventilations);
                     break;
                 case 6:
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Compressions);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.Compressions);
                     //NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.CheckDefibrilator);
                     break;
                 case 7:
@@ -124,21 +124,21 @@ public class CPRTree : MonoBehaviour
                     break;
                 case 8:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.Rest);
                     break;
                 case 9:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.DischargeDefibrilator);
                     break;
                 case 10:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Ventilations);
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Compressions);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.Compressions);
                     break;
                 case 11:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Calvo).GiveOrder(NPC.NPCAction.Compressions);
                     break;
                 case 12:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.Rest);
                     break;
                 case 13:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.CheckAirWay);
@@ -146,11 +146,11 @@ public class CPRTree : MonoBehaviour
                     break;
                 case 14:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Rest);
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Rest);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.Rest);
                     break;
                 case 15:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Chica).GiveOrder(NPC.NPCAction.Ventilations);
-                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Gafas).GiveOrder(NPC.NPCAction.Compressions);
+                    NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Negro).GiveOrder(NPC.NPCAction.Compressions);
                     break;
                 case 16:
                     NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubio).GiveOrder(NPC.NPCAction.Epinephrine);

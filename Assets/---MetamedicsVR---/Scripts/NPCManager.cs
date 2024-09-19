@@ -20,7 +20,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     {
         Chica,
         Rubio,
-        Gafas,
+        Negro,
         Calvo
     }
 
