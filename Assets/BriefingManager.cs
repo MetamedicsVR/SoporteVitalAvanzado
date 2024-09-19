@@ -8,11 +8,15 @@ public class BriefingManager : MonoBehaviour
     public GameObject textoBriefing;
 
     public bool [] briefingQuizesList;
-
+    public bool[] valoresCorrectosBriefingQuiz;
     public GameObject [] quizzesBriefingList;
 
     public GameObject npcSaludador;
+    public GameObject [] checkmarksYes;
+    public GameObject [] checkmarksNoes;
+    public GameObject  analiticsPanel;
 
+    public bool [] quizesFinalizadosCorrectamenteAnaliticasExternas;
     public int thisPanelNumber;
     // Start is called before the first frame update
     void Start()
@@ -34,15 +38,23 @@ public class BriefingManager : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            CompleteBriefingQuizFalse(1);
+            CompleteBriefingQuizTrue(1);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            CompleteBriefingQuizFalse(2);
+            CompleteBriefingQuizTrue(2);
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
             CompleteBriefingQuizFalse(3);
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha5))
+        {
+            CompleteBriefingQuizFalse(4);
+        }
+        else if (Input.GetKeyUp(KeyCode.Alpha6))
+        {
+            CompleteBriefingQuizFalse(5);
         }
     }
 
@@ -80,6 +92,39 @@ public class BriefingManager : MonoBehaviour
     public void InvokableSetActiveFalseQuizPanel() 
     {
         quizzesBriefingList[thisPanelNumber].SetActive(false);
-        quizzesBriefingList[thisPanelNumber + 1].SetActive(true);
+        if (thisPanelNumber + 1  < quizzesBriefingList.Length)
+        {
+            quizzesBriefingList[thisPanelNumber + 1].SetActive(true);
+        }
+        else
+        {
+            Invoke("InvokeAnaliticsPanel", 3);
+        }     
+    }
+
+    public void InvokeAnaliticsPanel() 
+    {
+        analiticsPanel.SetActive(true);
+        CheckAnaliticsAndSend();
+    }
+
+    public void CheckAnaliticsAndSend() 
+    {
+       
+        for (int i = 0; i < briefingQuizesList.Length; i++)
+        {
+            if (valoresCorrectosBriefingQuiz[i] == briefingQuizesList[i])
+            {
+                checkmarksYes[i].SetActive(true);
+                checkmarksNoes[i].SetActive(false);
+                quizesFinalizadosCorrectamenteAnaliticasExternas[i] = true;
+            }
+            else
+            {
+                checkmarksYes[i].SetActive(false);
+                checkmarksNoes[i].SetActive(true);
+                quizesFinalizadosCorrectamenteAnaliticasExternas[i] = false;
+            }
+        }
     }
 }
