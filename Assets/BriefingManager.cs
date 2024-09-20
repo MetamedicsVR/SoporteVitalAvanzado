@@ -18,12 +18,13 @@ public class BriefingManager : MonoBehaviour
 
     public bool [] quizesFinalizadosCorrectamenteAnaliticasExternas;
     public int thisPanelNumber;
+    public GameObject briefingPanelEnd;
     // Start is called before the first frame update
     void Start()
     {
         Invoke("ShowPanelBriefing",12);
-        Invoke("HidePanelBriefing", 15);// BORRAR CUANDO INTERACCION OK
-        Invoke("DebugInvokableQuiz01", 18);// BORRAR CUANDO INTERACCION OK
+        //Invoke("HidePanelBriefing", 15);// BORRAR CUANDO INTERACCION OK
+        //Invoke("DebugInvokableQuiz01", 18);// BORRAR CUANDO INTERACCION OK
     }
     public void DebugInvokableQuiz01() 
     {
@@ -65,7 +66,8 @@ public class BriefingManager : MonoBehaviour
 
     public void HidePanelBriefing()
     {
-        npcSaludador.GetComponent<Animator>().CrossFade("Anim_IdleSentado",1);
+        print("HidePanelBriefing");
+        npcSaludador.GetComponent<Animator>().Play("Anim_IdleSentado");
         textoBriefing.transform.GetComponentInChildren<Animator>().Play("PanelDialogoDesaparece");
         Invoke("SetActiveFalsePanelBriefing", 1);
     }
@@ -73,6 +75,7 @@ public class BriefingManager : MonoBehaviour
     public void SetActiveFalsePanelBriefing() 
     {
         textoBriefing.SetActive(false);
+        quizzesBriefingList[0].SetActive(true);
     }
 
     public void CompleteBriefingQuizTrue(int quizNumber) 
@@ -109,8 +112,7 @@ public class BriefingManager : MonoBehaviour
     }
 
     public void CheckAnaliticsAndSend() 
-    {
-       
+    {       
         for (int i = 0; i < briefingQuizesList.Length; i++)
         {
             if (valoresCorrectosBriefingQuiz[i] == briefingQuizesList[i])
@@ -126,5 +128,17 @@ public class BriefingManager : MonoBehaviour
                 quizesFinalizadosCorrectamenteAnaliticasExternas[i] = false;
             }
         }
+    }
+
+    public void HidePanelPostQuizBriefing() 
+    {
+        analiticsPanel.GetComponentInChildren<Animator>().Play("PanelDialogoDesaparece");
+        Invoke("AparecePanelFinal",2);
+    }
+
+    public void AparecePanelFinal() 
+    {
+        analiticsPanel.SetActive(false);
+        briefingPanelEnd.SetActive(true);
     }
 }
