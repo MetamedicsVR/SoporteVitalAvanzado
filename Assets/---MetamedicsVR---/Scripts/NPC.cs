@@ -23,6 +23,37 @@ public class NPC : MonoBehaviour
         SetCurrentSpot(startingSpot);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+            }         
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Chica))
+            {
+                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha3))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Negro))
+            {
+                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha4))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Rubio))
+            {
+                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+            }
+        }
+    }
     private NPCAction currentAction;
     private Coroutine actionCoroutine;
 
@@ -79,27 +110,25 @@ public class NPC : MonoBehaviour
         switch (action)
         {
             case NPCAction.Rest:
-                animator.Play("Anim_idle");
+                print("Rest");
+
                 break;
             case NPCAction.CheckConsciousness:
-                animator.Play("Anim_ComprobarConsciencia");
-                yield return new WaitForSeconds(1);
-                NPCManager.GetInstance().patientAnimator.Play("Anim_PacienteComprobarConsciencia");
-                yield return new WaitForSeconds(9999);
+
+                animator.Play("Anim_ComprobarConciencia");
+                NPCManager.GetInstance().patientAnimator.Play("Anim_ComprobarConcienciaPaciente");
+                yield return new WaitForSeconds(7.5f);
                 break;
             case NPCAction.CheckAirWay:
-                animator.Play("Anim_GoToComprobarRespiracion");
-                yield return new WaitForSeconds(2);
-                NPCManager.GetInstance().patientAnimator.Play("Anim_AbrirBocaPaciente");
-                yield return new WaitForSeconds(15);
-                NPCManager.GetInstance().patientAnimator.Play("Anim_CerrarBocaPaciente");
-                yield return new WaitForSeconds(2);
+
+                animator.Play("Anim_ComprobarRespiracion");
+                NPCManager.GetInstance().patientAnimator.Play("Anim_ComprobarRespiracionPaciente");
+                yield return new WaitForSeconds(12);
                 break;
             case NPCAction.PutGuedel:
                 guedel.SetActive(true);
-                animator.Play("Anim_IntroduceGuedel");
-                yield return new WaitForSeconds(1.5f);
-                NPCManager.GetInstance().patientAnimator.Play("Anim_AbrirBocaGuedel");
+                animator.Play("Anim_IntroducirGuedel");
+                NPCManager.GetInstance().patientAnimator.Play("Anim_IntroducirGuedelPaciente");
                 yield return new WaitForSeconds(2f);
                 guedel.SetActive(false);
                 yield return new WaitForSeconds(9999);
@@ -161,10 +190,11 @@ public class NPC : MonoBehaviour
     {
         switch (action)
         {
-            case NPCAction.CheckConsciousness:
+      
             case NPCAction.Ventilations:
             case NPCAction.PutGuedel:
                 return NPCSpot.SpotType.Ventilations;
+            case NPCAction.CheckConsciousness:
             case NPCAction.CheckAirWay:
             case NPCAction.CheckPulse:
             case NPCAction.Compressions:
