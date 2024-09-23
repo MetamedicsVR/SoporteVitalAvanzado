@@ -74,28 +74,23 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         {
             if (npcNames.Count > 1)
             {
-
+                SelectNPC(npcNames[npcNames.Count - 1]);
             }
             SelectNPC(npcNames[0]);
         }
         else if (selectedNPC)
         {
-
+            foreach (string word in words)
+            {
+                if (ActionMatch(word))
+                {
+                    GiveOrder((NPC.NPCAction)Enum.Parse(typeof(NPC.NPCAction), word));
+                }
+            }
         }
         else
         {
             //Instrucción sin NPC seleccionado
-        }
-        foreach (string word in words)
-        {
-            //if (NameMatch(word))
-            {
-                SelectNPC((NPCName)Enum.Parse(typeof(NPCName), word));
-            }
-            if (ActionMatch(word))
-            {
-                GiveOrder((NPC.NPCAction)Enum.Parse(typeof(NPC.NPCAction), word));
-            }
         }
     }
 
@@ -143,5 +138,10 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         {
             selectedNPC.GiveOrder(action);
         }
+    }
+
+    public void GotTranscription(string s)
+    {
+        print("El jugador ha dicho: " + s);
     }
 }

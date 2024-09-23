@@ -9,6 +9,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
 
     public struct PlayerOrder
     {
+        public string timeStamp;
         public string characterName;
         public NPC.NPCAction order;
         public bool isCorrect;
@@ -22,7 +23,11 @@ public class Analytics : MonoBehaviourInstance<Analytics>
 
     public void InsertData(string characterName, NPC.NPCAction order, bool isCorrect, string explanation)
     {
+        float timeElapsed = Time.time;
+        int minutes = (int)(timeElapsed / 60);
+        int seconds = (int)(timeElapsed % 60);
         PlayerOrder playerOrder = new PlayerOrder();
+        playerOrder.timeStamp = string.Format("{0:00}:{1:00}", minutes, seconds);
         playerOrder.characterName = characterName;
         playerOrder.order = order;
         playerOrder.isCorrect = isCorrect;

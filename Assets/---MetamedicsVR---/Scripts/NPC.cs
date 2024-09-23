@@ -74,6 +74,7 @@ public class NPC : MonoBehaviour
                 yield return null;
             }
             transform.position = currentSpot.transform.position;
+            transform.rotation = currentSpot.transform.rotation;
         }
         switch (action)
         {
