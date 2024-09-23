@@ -10785,7 +10785,7 @@ MonoBehaviour:
   - {fileID: 577607579}
   - {fileID: 1479421302}
   - {fileID: 1350419724}
-  - {fileID: 0}
+  - {fileID: 1481911325}
 --- !u!1001 &513199437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31804,7 +31804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7128fe0a431a0b6418e9e8a3e9a91513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 4
+  type: 3
   available: 1
 --- !u!4 &1488919833 stripped
 Transform:
@@ -34956,6 +34956,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7502693817f787f429d3e54539ffcc56, type: 3}
+--- !u!95 &1685864882 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3416317391452079570, guid: ac8088ab8ea4cd04185d30b590375877,
+    type: 3}
+  m_PrefabInstance: {fileID: 372012659}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1693346463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41782,7 +41788,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  patientAnimator: {fileID: 0}
+  patientAnimator: {fileID: 1685864882}
 --- !u!114 &2062851877
 MonoBehaviour:
   m_ObjectHideFlags: 0
