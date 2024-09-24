@@ -12,6 +12,8 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     public NPC[] npcs;
     public Animator patientAnimator;
     public GameObject[] patchesInPatient;
+    public GameObject vitalSignsMonitor;
+    public GameObject cableSuero;
 
     private NPC selectedNPC;
     private Dictionary<NPC.NPCAction, List<string>> actionKeywords;

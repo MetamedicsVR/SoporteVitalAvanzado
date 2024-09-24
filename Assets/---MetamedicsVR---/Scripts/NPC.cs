@@ -33,28 +33,28 @@ public class NPC : MonoBehaviour
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.PlacePatches));
+                StartCoroutine(FollowOrder(NPCAction.ChargeDefibrilator));
             }         
         }
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.CheckAirWay));
+                StartCoroutine(FollowOrder(NPCAction.DischargeDefibrilator));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+                StartCoroutine(FollowOrder(NPCAction.PlaceVVP));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha4))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.CheckPulse));
+                StartCoroutine(FollowOrder(NPCAction.Epinephrine));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha5))
@@ -149,7 +149,9 @@ public class NPC : MonoBehaviour
             {
                 targetSpot.npcInSpot.GiveOrder(NPCAction.Rest);
             }
+            SetCurrentSpot(targetSpot);
             animator.Play("Anim_Andar");
+
             navMeshAgent.SetDestination(currentSpot.transform.position);
             yield return new WaitUntil(() => Vector3.Distance(currentSpot.transform.position, transform.position) < 0.5f);
             float lerpDuration = 0.5f;
@@ -209,37 +211,46 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.CheckDefibrilator:
-                animator.Play("");
-                yield return new WaitForSeconds(9999);
+                animator.Play("Anim_TocarBotonesDea");
+                yield return new WaitForSeconds(2);
+                NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
+                yield return new WaitForSeconds(6);
                 break;
             case NPCAction.PlacePatches:
                 animator.Play("Anim_ColocarParchesDea");
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(1.5f);
                 NPCManager.GetInstance().patchesInPatient[0].SetActive(true);
+                yield return new WaitForSeconds(0.5f);
                 NPCManager.GetInstance().patchesInPatient[1].SetActive(true);
-                yield return new WaitForSeconds(9999);
-                // PLACE PATCHES HELIO
+                yield return new WaitForSeconds(5);
                 break;
             case NPCAction.ChargeDefibrilator:
-                animator.Play("");
-                yield return new WaitForSeconds(9999);
+                animator.Play("Anim_TocarBotonesDea");
+                yield return new WaitForSeconds(2);
+                NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
+                yield return new WaitForSeconds(6);
                 break;
             case NPCAction.DischargeDefibrilator:
-                animator.Play("");
-                yield return new WaitForSeconds(9999);
+                animator.Play("Anim_TocarBotonesDea");
+                yield return new WaitForSeconds(2);
+                NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
+                yield return new WaitForSeconds(8);
+                NPCManager.GetInstance().patientAnimator.Play("Anim_RecibeShock");
                 break;
             case NPCAction.PlaceVVP:
                 animator.Play("Anim_Colocaraguja");
-                yield return new WaitForSeconds(0.1f);
+                //yield return new WaitForSeconds(0.1f);
                 NPCManager.GetInstance().patientAnimator.Play("Anim_PacienteColocarAguja");
+                yield return new WaitForSeconds(7.5f);
+                NPCManager.GetInstance().cableSuero.gameObject.SetActive(true);
                 yield return new WaitForSeconds(9999);
-                // PLACE vvp HELIO
                 break;
             case NPCAction.Epinephrine:
+                animator.Play("Anim_ExtraerMedicamento");
+                yield return new WaitForSeconds(1);
                 syringe.SetActive(true);
                 medication.SetActive(true);
-                animator.Play("");
-                yield return new WaitForSeconds(9999);
+                yield return new WaitForSeconds(10);
                 syringe.SetActive(false);
                 medication.SetActive(false);
                 break;
