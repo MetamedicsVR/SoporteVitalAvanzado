@@ -7,13 +7,15 @@ public class NPCSpot : MonoBehaviour
     public SpotType type;
 
     public bool available;
+    public NPCManager.NPCName npcInSpot;
 
     public enum SpotType
     {
         Generic,
         Compressions,
         Ventilations,
-        Medication
+        Medication,
+        Dropper
     }
 
 #if UNITY_EDITOR
