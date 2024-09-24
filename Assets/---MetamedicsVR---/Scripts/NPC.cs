@@ -265,6 +265,7 @@ public class NPC : MonoBehaviour
             
         }
         animator.Play("Anim_idle");
+        actionCoroutine = null;
     }
 
     private void SetCurrentSpot(NPCSpot npcSpot)
@@ -288,7 +289,7 @@ public class NPC : MonoBehaviour
 
     public bool CanPerformAction(NPCAction action)
     {
-        return true;
+        return actionCoroutine != null;
     }
 
     public NPCSpot.SpotType GetCorrectSpotType(NPCAction action)

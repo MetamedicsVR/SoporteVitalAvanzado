@@ -68,6 +68,7 @@ public class CPRTree : MonoBehaviour
                         if (IsNextStep(selectedNPC, choseAction))
                         {
                             NPCManager.GetInstance().GiveOrder(choseAction);
+                            currentActions.Add(choseAction);
                         }
                         else
                         {
@@ -99,7 +100,10 @@ public class CPRTree : MonoBehaviour
     {
         if (npc.CanPerformAction(action))
         {
-            return ActionsDiference(nextStepIndex, new List<NPC.NPCAction>(currentActions)) < ActionsDiference(nextStepIndex, new List<NPC.NPCAction>(currentActions));
+            List<NPC.NPCAction> copyOfCurrentActions = new List<NPC.NPCAction>(currentActions);
+            List<NPC.NPCAction> futureCurremtActions = new List<NPC.NPCAction>(currentActions);
+            futureCurremtActions.Add(action);
+            return ActionsDiference(nextStepIndex, copyOfCurrentActions) < ActionsDiference(nextStepIndex, futureCurremtActions);
         }
         return false;
     }

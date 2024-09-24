@@ -14,7 +14,8 @@ public class NPCSpot : MonoBehaviour
         Compressions,
         Ventilations,
         Medication,
-        Dropper
+        Dropper,
+        VitalSigns
     }
 
 #if UNITY_EDITOR
