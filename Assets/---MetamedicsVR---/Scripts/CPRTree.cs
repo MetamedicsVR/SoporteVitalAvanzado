@@ -1,9 +1,15 @@
+using Meta.WitAi;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class CPRTree : MonoBehaviour
 {
+    public VoiceService[] voiceServices;
+
     public GameObject warningPanel;
     public GameObject errorPanel;
 
@@ -27,8 +33,58 @@ public class CPRTree : MonoBehaviour
 
     private void Start()
     {
+        foreach (VoiceService service in voiceServices)
+        {
+            if (service)
+            {
+                service.VoiceEvents.OnFullTranscription.AddListener(OnTranscriptionReceived);
+            }
+        }
         canGiveOrders = false;
         StartCoroutine(Experience());
+    }
+
+    private void OnTranscriptionReceived(string transcription)
+    {
+        if (canGiveOrders)
+        {
+            string cleanText = Regex.Replace(transcription.Normalize(NormalizationForm.FormD), @"[^a-zA-Z\s]", "").ToLower();
+            string[] words = cleanText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            List<NPCManager.NPCName> npcNames = NPCManager.GetInstance().CheckNPCNames(words);
+            if (npcNames.Count > 0)
+            {
+                NPCManager.GetInstance().SelectNPC(npcNames[npcNames.Count - 1]);
+            }
+            NPC selectedNPC = NPCManager.GetInstance().GetSelectedNPC();
+            if (selectedNPC)
+            {
+                List<string> actionMatches = NPCManager.GetInstance().ActionMatches(words);
+                if (actionMatches.Count > 0)
+                {
+                    NPC.NPCAction choseAction = (NPC.NPCAction)Enum.Parse(typeof(NPC.NPCAction), actionMatches[actionMatches.Count - 1]);
+                    if (selectedNPC.CanPerformAction(choseAction))
+                    {
+                        if (IsNextStep(selectedNPC, choseAction))
+                        {
+                            NPCManager.GetInstance().GiveOrder(choseAction);
+                        }
+                        else
+                        {
+                            //Acción errónea
+                        }
+                    }
+                    else
+                    {
+                        //No puede realizar la acción
+                    }
+                }
+            }
+            else
+            {
+                //Instrucción sin NPC seleccionado
+            }
+        }
     }
 
     public IEnumerator Experience()
@@ -37,28 +93,6 @@ public class CPRTree : MonoBehaviour
         //2.Avisa al resto de los compañeros(entra B1, B2 y B3)
         yield return null;
         canGiveOrders = true;
-    }
-
-    public void SelectNPC(NPC npc)
-    {
-
-    }
-
-    public void GiveOrder(NPC npc, NPC.NPCAction action)
-    {
-        if (canGiveOrders && npc.CanPerformAction(action))
-        {
-            bool isCorrect = IsNextStep(npc, action);
-            //Analytics.GetInstance().InsertData(npc.characterName, action, isCorrect);
-            if (isCorrect)
-            {
-                //Proceder
-            }
-            else
-            {
-                //Cartel de error
-            }
-        }
     }
 
     public bool IsNextStep(NPC npc, NPC.NPCAction action)
@@ -84,6 +118,7 @@ public class CPRTree : MonoBehaviour
         return targetActions.Count + actionsToCheck.Count;
     }
 
+#if UNITY_EDITOR
     private int test = -1;
 
     private void Update()
@@ -165,6 +200,7 @@ public class CPRTree : MonoBehaviour
             }
         }
     }
+#endif
 
     /*
 1.	El jugador valora la escena en la que se encuentra(Observar donde está el paciente y que todo es seguro). Se coloca los guantes.Error inocuo
@@ -205,28 +241,6 @@ public class CPRTree : MonoBehaviour
 34.	B3 la carga, confirma la medicación, dosis y vía de administración y se la administra.
 35.	Tras dos minutos, J1 indica parar la RCP para B1 y B4 reevalúen (ver arriba). . Error crítico, parar.
 36.	Se visualiza en el monitor un electro normal y el paciente tiene pulso.
-
-
-                                                       MODULO 0 BRIEFING
-Aparece en la sala P1, J1, B1, B2 y B3 en una sala con sillas colocadas en redondo.
-P1 hace una breve sinopsis del caso que se va a realizar, recuerda los objetivos del caso y las normas básicas de simulación.
-J1 tiene que indicar de una batería de afirmaciones la/las correctas en cuanto a las normas de simulación clínica que trabajamos.
-
--	Si cometes errores durante la simulación, te penalizará en tu nota de la asignatura. (falso)
--	El error es nuestro amigo.Si cometes errores durante la simulación, te servirán para reflexionar durante el debriefing y no cometerlos en la vida real. (verdadero)
--	Tus actos durante el escenario no serán juzgados. Aprovecha para aprender al máximo. (verdadero)
--	Es muy importante leer la documentación previa al caso (guías, protocolos, documentación aportada en el curso, etc.). (verdadero)
--	Puedes venir a hacer la simulación sin haber leído nada antes.Es un juego y el objetivo es pasárselo bien(falso).
--	Nos hemos esforzado en hacer el escenario lo más real posible.No obstante, la fidelidad al 100% es imposible, por lo que te pedimos que trabajes en la simulación como si fuera la realidad con el fin aprovechar al máximo la experiencia. (verdadero).
-
-
-J1, B1, B2 y B3, se reúnen antes de pasar para indicar los roles de cada uno.J1 asigna a B su rol. 1. Vía aérea y respiración, 2. Circulación- masaje y 3. Monitor desfibrilador y VVP.
-
-MODULO 2 DEBRIEFING
-Defusing: P1 recibe a J1, B1, B2 y B3 al salir de la sala. Como en una escala, un termómetro que pueda seleccionar de verde-amarillo-rojo en cómo se siente (si se marca en rojo, se indique en el informe y nos salga un aviso al profesor, para poder abordarlo)
-P1 recibe en el aula de debriefing.
-Se planteará una línea de tiempo en el que se indicará en naranja lo que NO se ha hecho bien, y en verde lo que SI se ha hecho bien.Deben poder seleccionar lo que NO se ha hecho bien, y ahí dar las opciones de como SI se debería haber hecho.
-“Ahora que ya has visto lo que has hecho bien y en que puedes mejorar, ¿Qué incorporaría si lo realizara en otro momento?”
 
     */
 

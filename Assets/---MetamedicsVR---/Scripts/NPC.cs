@@ -144,8 +144,12 @@ public class NPC : MonoBehaviour
         NPCSpot.SpotType correctSpotType = GetCorrectSpotType(action);
         if (!currentSpot || currentSpot.type != correctSpotType)
         {
+            NPCSpot targetSpot = NPCSpotManager.GetInstance().GetNearestSpot(correctSpotType, transform.position);
+            if (targetSpot.npcInSpot)
+            {
+                targetSpot.npcInSpot.GiveOrder(NPCAction.Rest);
+            }
             animator.Play("Anim_Andar");
-            SetCurrentSpot(NPCSpotManager.GetInstance().GetAvailableSpot(correctSpotType));
             navMeshAgent.SetDestination(currentSpot.transform.position);
             yield return new WaitUntil(() => Vector3.Distance(currentSpot.transform.position, transform.position) < 0.5f);
             float lerpDuration = 0.5f;
@@ -256,13 +260,12 @@ public class NPC : MonoBehaviour
     {
         if (currentSpot)
         {
-            currentSpot.available = true;
+            currentSpot.npcInSpot = this;
         }
         currentSpot = npcSpot;
         if (currentSpot)
         {
-            currentSpot.available = false;
-            currentSpot.npcInSpot = characterName;
+            currentSpot.npcInSpot = null;
         }
     }
 

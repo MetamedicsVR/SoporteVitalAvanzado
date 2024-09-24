@@ -6,8 +6,7 @@ public class NPCSpot : MonoBehaviour
 {
     public SpotType type;
 
-    public bool available;
-    public NPCManager.NPCName npcInSpot;
+    public NPC npcInSpot;
 
     public enum SpotType
     {

@@ -9,10 +9,10 @@ using UnityEngine;
 
 public class NPCManager : MonoBehaviourInstance<NPCManager>
 {
-    public VoiceService[] voiceServices;
     public NPC[] npcs;
     public Animator patientAnimator;
     public GameObject[] patchesInPatient;
+
     private NPC selectedNPC;
     private Dictionary<NPC.NPCAction, List<string>> actionKeywords;
 
@@ -31,70 +31,29 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         actionKeywords[NPC.NPCAction.Rest] = new List<string>();
         actionKeywords[NPC.NPCAction.Rest].Add("para");
         actionKeywords[NPC.NPCAction.CheckConsciousness] = new List<string>();
-        actionKeywords[NPC.NPCAction.CheckConsciousness].Add("");
+        actionKeywords[NPC.NPCAction.CheckConsciousness].Add("conciencia");
         actionKeywords[NPC.NPCAction.CheckAirWay] = new List<string>();
-        actionKeywords[NPC.NPCAction.CheckAirWay].Add("");
+        actionKeywords[NPC.NPCAction.CheckAirWay].Add("aire");
         actionKeywords[NPC.NPCAction.Ventilations] = new List<string>();
         actionKeywords[NPC.NPCAction.Ventilations].Add("ventilacion");
         actionKeywords[NPC.NPCAction.CheckPulse] = new List<string>();
-        actionKeywords[NPC.NPCAction.CheckPulse].Add("");
+        actionKeywords[NPC.NPCAction.CheckPulse].Add("pulso");
         actionKeywords[NPC.NPCAction.Compressions] = new List<string>();
-        actionKeywords[NPC.NPCAction.Compressions].Add("");
+        actionKeywords[NPC.NPCAction.Compressions].Add("compresiones");
         actionKeywords[NPC.NPCAction.CheckDefibrilator] = new List<string>();
-        actionKeywords[NPC.NPCAction.CheckDefibrilator].Add("");
+        actionKeywords[NPC.NPCAction.CheckDefibrilator].Add("comprueba");
         actionKeywords[NPC.NPCAction.ChargeDefibrilator] = new List<string>();
-        actionKeywords[NPC.NPCAction.ChargeDefibrilator].Add("");
+        actionKeywords[NPC.NPCAction.ChargeDefibrilator].Add("carga");
         actionKeywords[NPC.NPCAction.DischargeDefibrilator] = new List<string>();
-        actionKeywords[NPC.NPCAction.DischargeDefibrilator].Add("");
+        actionKeywords[NPC.NPCAction.DischargeDefibrilator].Add("descarga");
         actionKeywords[NPC.NPCAction.Epinephrine] = new List<string>();
         actionKeywords[NPC.NPCAction.Epinephrine].Add("epinefrina");
         actionKeywords[NPC.NPCAction.Epinephrine].Add("adrenalina");
         actionKeywords[NPC.NPCAction.Lidocaine] = new List<string>();
-        actionKeywords[NPC.NPCAction.Lidocaine].Add("");
+        actionKeywords[NPC.NPCAction.Lidocaine].Add("lidocaina");
     }
 
-    private void Start()
-    {
-        foreach (VoiceService service in voiceServices)
-        {
-            if (service)
-            {
-                service.VoiceEvents.OnFullTranscription.AddListener(OnTranscriptionReceived);
-            }
-        }
-    }
-
-    private void OnTranscriptionReceived(string transcription)
-    {
-        string cleanText = Regex.Replace(transcription.Normalize(NormalizationForm.FormD), @"[^a-zA-Z\s]", "").ToLower();
-        string[] words = cleanText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-        List<NPCName> npcNames = CheckNPCNames(words);
-        if (npcNames.Count > 0)
-        {
-            if (npcNames.Count > 1)
-            {
-                SelectNPC(npcNames[npcNames.Count - 1]);
-            }
-            SelectNPC(npcNames[0]);
-        }
-        else if (selectedNPC)
-        {
-            foreach (string word in words)
-            {
-                if (ActionMatch(word))
-                {
-                    GiveOrder((NPC.NPCAction)Enum.Parse(typeof(NPC.NPCAction), word));
-                }
-            }
-        }
-        else
-        {
-            //Instrucción sin NPC seleccionado
-        }
-    }
-
-    private List<NPCName> CheckNPCNames(string[] words)
+    public List<NPCName> CheckNPCNames(string[] words)
     {
         List<NPCName> foundNames = new List<NPCName>();
         string[] npcNames = Enum.GetNames(typeof(NPCName));
@@ -106,6 +65,19 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
             }
         }
         return foundNames;
+    }
+
+    public List<string> ActionMatches(string[] words)
+    {
+        List<string> matches = new List<string>();
+        for (int i = 0; i < words.Length; i++)
+        {
+            if (ActionMatch(words[i]))
+            {
+                matches.Add(words[i]);
+            }
+        }
+        return matches;
     }
 
     public bool ActionMatch(string word)
