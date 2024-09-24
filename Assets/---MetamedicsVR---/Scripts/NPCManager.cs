@@ -12,7 +12,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     public VoiceService[] voiceServices;
     public NPC[] npcs;
     public Animator patientAnimator;
-
+    public GameObject[] patchesInPatient;
     private NPC selectedNPC;
     private Dictionary<NPC.NPCAction, List<string>> actionKeywords;
 

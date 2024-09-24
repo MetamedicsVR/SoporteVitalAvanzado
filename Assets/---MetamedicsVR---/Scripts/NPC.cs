@@ -11,6 +11,10 @@ public class NPC : MonoBehaviour
     [Header("Tools")]
     public GameObject ambu;
     public GameObject guedel;
+    public GameObject patches;
+    public GameObject vvp;
+    public GameObject syringe;
+    public GameObject medication;
 
     private Animator animator;
     private NavMeshAgent navMeshAgent;
@@ -29,31 +33,81 @@ public class NPC : MonoBehaviour
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+                StartCoroutine(FollowOrder(NPCAction.PlacePatches));
             }         
         }
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            if (characterName.Equals(NPCManager.NPCName.Chica))
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+                StartCoroutine(FollowOrder(NPCAction.CheckAirWay));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            if (characterName.Equals(NPCManager.NPCName.Negro))
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
                 StartCoroutine(FollowOrder(NPCAction.PutGuedel));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            if (characterName.Equals(NPCManager.NPCName.Rubio))
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
+                StartCoroutine(FollowOrder(NPCAction.CheckPulse));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha5))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.Compressions));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha6))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.Ventilations));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha7))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.CheckDefibrilator));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha7))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.ChargeDefibrilator));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha8))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.DischargeDefibrilator));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha9))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.Epinephrine));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha0))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            {
+                StartCoroutine(FollowOrder(NPCAction.Lidocaine));
             }
         }
     }
+
     private NPCAction currentAction;
     private Coroutine actionCoroutine;
 
@@ -68,8 +122,10 @@ public class NPC : MonoBehaviour
         Compressions,
         Ventilations,
         CheckDefibrilator,
+        PlacePatches,
         ChargeDefibrilator,
         DischargeDefibrilator,
+        PlaceVVP,
         Epinephrine,
         Lidocaine
     }
@@ -123,7 +179,7 @@ public class NPC : MonoBehaviour
 
                 animator.Play("Anim_ComprobarRespiracion");
                 NPCManager.GetInstance().patientAnimator.Play("Anim_ComprobarRespiracionPaciente");
-                yield return new WaitForSeconds(12);
+                yield return new WaitForSeconds(15);
                 break;
             case NPCAction.PutGuedel:
                 guedel.SetActive(true);
@@ -131,11 +187,11 @@ public class NPC : MonoBehaviour
                 NPCManager.GetInstance().patientAnimator.Play("Anim_IntroducirGuedelPaciente");
                 yield return new WaitForSeconds(2f);
                 guedel.SetActive(false);
-                yield return new WaitForSeconds(9999);
+                yield return new WaitForSeconds(7);
                 break;
             case NPCAction.CheckPulse:
-                animator.Play("Anim_GoToComprobarPulso");
-                yield return new WaitForSeconds(9999);
+                animator.Play("Anim_ComprobarPulso");
+                yield return new WaitForSeconds(11.2f);
                 break;
             case NPCAction.Compressions:
                 animator.Play("Anim_GoToComprimir");
@@ -149,15 +205,49 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.CheckDefibrilator:
+                animator.Play("");
+                yield return new WaitForSeconds(9999);
+                break;
+            case NPCAction.PlacePatches:
+                animator.Play("Anim_ColocarParchesDea");
+                yield return new WaitForSeconds(2f);
+                NPCManager.GetInstance().patchesInPatient[0].SetActive(true);
+                NPCManager.GetInstance().patchesInPatient[1].SetActive(true);
+                yield return new WaitForSeconds(9999);
+                // PLACE PATCHES HELIO
                 break;
             case NPCAction.ChargeDefibrilator:
+                animator.Play("");
+                yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.DischargeDefibrilator:
+                animator.Play("");
+                yield return new WaitForSeconds(9999);
+                break;
+            case NPCAction.PlaceVVP:
+                animator.Play("Anim_Colocaraguja");
+                yield return new WaitForSeconds(0.1f);
+                NPCManager.GetInstance().patientAnimator.Play("Anim_PacienteColocarAguja");
+                yield return new WaitForSeconds(9999);
+                // PLACE vvp HELIO
                 break;
             case NPCAction.Epinephrine:
+                syringe.SetActive(true);
+                medication.SetActive(true);
+                animator.Play("");
+                yield return new WaitForSeconds(9999);
+                syringe.SetActive(false);
+                medication.SetActive(false);
                 break;
             case NPCAction.Lidocaine:
+                syringe.SetActive(true);
+                medication.SetActive(true);
+                animator.Play("");
+                yield return new WaitForSeconds(9999);
+                syringe.SetActive(false);
+                medication.SetActive(false);
                 break;
+            
         }
         animator.Play("Anim_idle");
     }
@@ -193,6 +283,8 @@ public class NPC : MonoBehaviour
       
             case NPCAction.Ventilations:
             case NPCAction.PutGuedel:
+            case NPCAction.PlacePatches:
+            case NPCAction.PlaceVVP:
                 return NPCSpot.SpotType.Ventilations;
             case NPCAction.CheckConsciousness:
             case NPCAction.CheckAirWay:
