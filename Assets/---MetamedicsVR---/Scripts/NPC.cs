@@ -262,6 +262,7 @@ public class NPC : MonoBehaviour
         if (currentSpot)
         {
             currentSpot.available = false;
+            currentSpot.npcInSpot = characterName;
         }
     }
 
