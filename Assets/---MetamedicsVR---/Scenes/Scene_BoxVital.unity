@@ -6186,9 +6186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7128fe0a431a0b6418e9e8a3e9a91513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
-  available: 1
-  npcInSpot: 0
+  type: 5
+  npcInSpot: {fileID: 0}
 --- !u!1 &278107322
 GameObject:
   m_ObjectHideFlags: 0
@@ -9858,8 +9857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  available: 1
-  npcInSpot: 0
+  npcInSpot: {fileID: 0}
 --- !u!4 &474646562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9dd0a79f558c45c49bb5ffb461a8ed55,
@@ -12078,8 +12076,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  available: 1
-  npcInSpot: 0
+  npcInSpot: {fileID: 0}
 --- !u!1001 &580967200
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19046,8 +19043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  available: 1
-  npcInSpot: 0
+  npcInSpot: {fileID: 0}
 --- !u!1001 &750327222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23694,8 +23690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  available: 1
-  npcInSpot: 0
+  npcInSpot: {fileID: 0}
 --- !u!1 &904919893
 GameObject:
   m_ObjectHideFlags: 0
@@ -33446,8 +33441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  available: 1
-  npcInSpot: 0
+  npcInSpot: {fileID: 0}
 --- !u!1001 &1350538053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36640,8 +36634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  available: 1
-  npcInSpot: 0
+  npcInSpot: {fileID: 0}
 --- !u!4 &1480869203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6044b622f1d7f5b49a14bc23a8f920c3,
@@ -36699,8 +36692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
-  available: 1
-  npcInSpot: 0
+  npcInSpot: {fileID: 0}
 --- !u!4 &1488919833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0741fc5036035d145a42e046dbad1b30,
@@ -46788,7 +46780,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56bf12e2eb160044699252b008512cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voiceServices: []
   npcs:
   - {fileID: 0}
   - {fileID: 0}
@@ -46867,6 +46858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e1e6fc4e396074ca9f558efbb2d401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  voiceServices: []
   warningPanel: {fileID: 0}
   errorPanel: {fileID: 0}
   monitorAttached: 0

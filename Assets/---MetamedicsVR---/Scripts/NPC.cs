@@ -33,28 +33,28 @@ public class NPC : MonoBehaviour
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.ChargeDefibrilator));
+                StartCoroutine(FollowOrder(NPCAction.CheckDefibrilator));
             }         
         }
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.DischargeDefibrilator));
+                StartCoroutine(FollowOrder(NPCAction.PlacePatches));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.PlaceVVP));
+                StartCoroutine(FollowOrder(NPCAction.ChargeDefibrilator));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha4))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.Epinephrine));
+                StartCoroutine(FollowOrder(NPCAction.DischargeDefibrilator));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha5))
@@ -295,8 +295,7 @@ public class NPC : MonoBehaviour
     public NPCSpot.SpotType GetCorrectSpotType(NPCAction action)
     {
         switch (action)
-        {
-      
+        { 
             case NPCAction.Ventilations:
             case NPCAction.PutGuedel:
             case NPCAction.PlacePatches:
@@ -306,13 +305,15 @@ public class NPC : MonoBehaviour
             case NPCAction.CheckAirWay:
             case NPCAction.CheckPulse:
             case NPCAction.Compressions:
-            case NPCAction.CheckDefibrilator:
-            case NPCAction.ChargeDefibrilator:
-            case NPCAction.DischargeDefibrilator:
                 return NPCSpot.SpotType.Compressions;
             case NPCAction.Epinephrine:
             case NPCAction.Lidocaine:
                 return NPCSpot.SpotType.Medication;
+            case NPCAction.CheckDefibrilator:
+            case NPCAction.ChargeDefibrilator:
+            case NPCAction.DischargeDefibrilator:
+                return NPCSpot.SpotType.VitalSigns;
+
         }
         return NPCSpot.SpotType.Generic;
     }
