@@ -181,19 +181,19 @@ public class NPC : MonoBehaviour
             case NPCAction.CheckConsciousness:
 
                 animator.Play("Anim_ComprobarConciencia");
-                NPCManager.GetInstance().patientAnimator.Play("Anim_ComprobarConcienciaPaciente");
+                Patient.GetInstance().animator.Play("Anim_ComprobarConcienciaPaciente");
                 yield return new WaitForSeconds(7.5f);
                 break;
             case NPCAction.CheckAirWay:
 
                 animator.Play("Anim_ComprobarRespiracion");
-                NPCManager.GetInstance().patientAnimator.Play("Anim_ComprobarRespiracionPaciente");
+                Patient.GetInstance().animator.Play("Anim_ComprobarRespiracionPaciente");
                 yield return new WaitForSeconds(15);
                 break;
             case NPCAction.PutGuedel:
                 guedel.SetActive(true);
                 animator.Play("Anim_IntroducirGuedel");
-                NPCManager.GetInstance().patientAnimator.Play("Anim_IntroducirGuedelPaciente");
+                Patient.GetInstance().animator.Play("Anim_IntroducirGuedelPaciente");
                 yield return new WaitForSeconds(3f);
                 guedel.SetActive(false);
                 yield return new WaitForSeconds(7);
@@ -205,7 +205,7 @@ public class NPC : MonoBehaviour
             case NPCAction.Compressions:
                 animator.Play("Anim_GoToComprimir");
                 yield return new WaitForSeconds(0.75f);
-                NPCManager.GetInstance().patientAnimator.Play("Anim_Comprimido");
+                Patient.GetInstance().animator.Play("Anim_Comprimido");
                 yield return new WaitForSeconds(9999);
                 break;
             case NPCAction.Ventilations:
@@ -218,7 +218,7 @@ public class NPC : MonoBehaviour
                     {
                         if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
                         {
-                            NPCManager.GetInstance().patientAnimator.CrossFade("Anim_IdlePaciente", 0.7f);
+                            Patient.GetInstance().animator.CrossFade("Anim_IdlePaciente", 0.7f);
                             NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().CrossFade("Anim_idle", 0.7f);
                         }
                     }
@@ -231,7 +231,7 @@ public class NPC : MonoBehaviour
                     {
                         if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
                         {
-                            NPCManager.GetInstance().patientAnimator.Play("Anim_Comprimido");
+                            Patient.GetInstance().animator.Play("Anim_Comprimido");
                             NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().Play("Anim_Comprimir");
                         }
                     }
@@ -243,41 +243,41 @@ public class NPC : MonoBehaviour
             case NPCAction.CheckDefibrilator:
                 animator.Play("Anim_TocarBotonesDea");
                 yield return new WaitForSeconds(2);
-                NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
+                Patient.GetInstance().vitalSignsMonitor.enabled = true;
                 yield return new WaitForSeconds(6);
                 break;
             case NPCAction.PlacePatches:
                 animator.Play("Anim_ColocarParchesDea");
                 yield return new WaitForSeconds(1.5f);
-                NPCManager.GetInstance().patchesInPatient[0].SetActive(true);
+                Patient.GetInstance().patches[0].SetActive(true);
                 yield return new WaitForSeconds(0.5f);
-                NPCManager.GetInstance().patchesInPatient[1].SetActive(true);
+                Patient.GetInstance().patches[1].SetActive(true);
                 yield return new WaitForSeconds(5);
                 break;
             case NPCAction.ChargeDefibrilator:
                 animator.Play("Anim_TocarBotonesDea");
                 yield return new WaitForSeconds(2);
-                NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
+                Patient.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
                 yield return new WaitForSeconds(6);
                 break;
             case NPCAction.DischargeDefibrilator:
                 animator.Play("Anim_TocarBotonesDea");
              
                 yield return new WaitForSeconds(2);
-                NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
+                Patient.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
                 for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
                 {
                     if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
                     {
                         if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
                         {
-                            NPCManager.GetInstance().patientAnimator.CrossFade("Anim_IdlePaciente", 0.7f);
+                            Patient.GetInstance().animator.CrossFade("Anim_IdlePaciente", 0.7f);
                             NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().CrossFade("Anim_idle", 0.7f);
                         }
                     }
                 }
                 yield return new WaitForSeconds(0.5f);
-                NPCManager.GetInstance().patientAnimator.Play("Anim_RecibeShock");
+                Patient.GetInstance().animator.Play("Anim_RecibeShock");
                 yield return new WaitForSeconds(1.2f);
                 for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
                 {
@@ -285,7 +285,7 @@ public class NPC : MonoBehaviour
                     {
                         if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
                         {
-                            NPCManager.GetInstance().patientAnimator.Play("Anim_Comprimido");
+                            Patient.GetInstance().animator.Play("Anim_Comprimido");
                             NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().Play("Anim_Comprimir");
                         }
                     }
@@ -297,9 +297,9 @@ public class NPC : MonoBehaviour
             case NPCAction.PlaceVVP:
                 animator.Play("Anim_Colocaraguja");
                 //yield return new WaitForSeconds(0.1f);
-                NPCManager.GetInstance().patientAnimator.Play("Anim_PacienteColocarAguja");
+                Patient.GetInstance().animator.Play("Anim_PacienteColocarAguja");
                 yield return new WaitForSeconds(7.5f);
-                NPCManager.GetInstance().cableSuero.gameObject.SetActive(true);
+                Patient.GetInstance().cableSuero.SetActive(true);
                 yield return new WaitForSeconds(4);
                 break;
             case NPCAction.Epinephrine:

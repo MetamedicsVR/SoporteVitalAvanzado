@@ -10,10 +10,6 @@ using UnityEngine;
 public class NPCManager : MonoBehaviourInstance<NPCManager>
 {
     public NPC[] npcs;
-    public Animator patientAnimator;
-    public GameObject[] patchesInPatient;
-    public GameObject vitalSignsMonitor;
-    public GameObject cableSuero;
 
     private NPC selectedNPC;
     private Dictionary<NPC.NPCAction, List<string>> actionKeywords;
@@ -112,10 +108,5 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         {
             selectedNPC.GiveOrder(action);
         }
-    }
-
-    public void GotTranscription(string s)
-    {
-        print("El jugador ha dicho: " + s);
     }
 }
