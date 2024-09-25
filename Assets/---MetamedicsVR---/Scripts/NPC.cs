@@ -71,7 +71,7 @@ public class NPC : MonoBehaviour
                 StartCoroutine(FollowOrder(NPCAction.ChargeDefibrilator));
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha7))
+        if (Input.GetKeyUp(KeyCode.P))
         {
             if (characterName.Equals(NPCManager.NPCName.Negro))
             {
@@ -94,7 +94,7 @@ public class NPC : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Alpha9))
         {
-            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            if (characterName.Equals(NPCManager.NPCName.Chica))
             {
                 StartCoroutine(FollowOrder(NPCAction.Epinephrine));
             }
@@ -262,10 +262,37 @@ public class NPC : MonoBehaviour
                 break;
             case NPCAction.DischargeDefibrilator:
                 animator.Play("Anim_TocarBotonesDea");
+             
                 yield return new WaitForSeconds(2);
                 NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
-                yield return new WaitForSeconds(3.5f);
+                for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
+                {
+                    if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
+                    {
+                        if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
+                        {
+                            NPCManager.GetInstance().patientAnimator.CrossFade("Anim_IdlePaciente", 0.7f);
+                            NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().CrossFade("Anim_idle", 0.7f);
+                        }
+                    }
+                }
+                yield return new WaitForSeconds(0.5f);
                 NPCManager.GetInstance().patientAnimator.Play("Anim_RecibeShock");
+                yield return new WaitForSeconds(1.2f);
+                for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
+                {
+                    if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
+                    {
+                        if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
+                        {
+                            NPCManager.GetInstance().patientAnimator.Play("Anim_Comprimido");
+                            NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().Play("Anim_Comprimir");
+                        }
+                    }
+                }
+                yield return new WaitForSeconds(2f);
+                animator.CrossFade("Anim_idle", 0.6f);
+                yield return new WaitForSeconds(2f);
                 break;
             case NPCAction.PlaceVVP:
                 animator.Play("Anim_Colocaraguja");
@@ -273,22 +300,21 @@ public class NPC : MonoBehaviour
                 NPCManager.GetInstance().patientAnimator.Play("Anim_PacienteColocarAguja");
                 yield return new WaitForSeconds(7.5f);
                 NPCManager.GetInstance().cableSuero.gameObject.SetActive(true);
-                yield return new WaitForSeconds(9999);
+                yield return new WaitForSeconds(4);
                 break;
             case NPCAction.Epinephrine:
                 animator.Play("Anim_ExtraerMedicamento");
                 yield return new WaitForSeconds(1);
                 syringe.SetActive(true);
                 medication.SetActive(true);
-                yield return new WaitForSeconds(10);
+                yield return new WaitForSeconds(25f);
                 syringe.SetActive(false);
                 medication.SetActive(false);
-                NPCSpot targetSpot = NPCSpotManager.GetInstance().GetNearestSpot(correctSpotType, transform.position);
-                targetSpot.npcInSpot.GiveOrder(NPCAction.Epinephrine2);
+                animator.CrossFade("Anim_idle", 0.5f);
+                yield return new WaitForSeconds(4);
+                StartCoroutine(FollowOrder(NPCAction.Epinephrine2));
                 break;
-            case NPCAction.Epinephrine2:
-                animator.Play("Anim_ExtraerMedicamentoParte2");
-                yield return new WaitForSeconds(6);
+            case NPCAction.Epinephrine2:               
                 animator.Play("Anim_PincharSuero");
                 yield return new WaitForSeconds(5);
                 syringe.SetActive(false);
