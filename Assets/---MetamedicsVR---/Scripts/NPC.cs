@@ -33,63 +33,63 @@ public class NPC : MonoBehaviour
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.CheckDefibrilator));
+                StartCoroutine(FollowOrder(NPCAction.PutGuedel));
             }         
         }
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.PlacePatches));
+                StartCoroutine(FollowOrder(NPCAction.CheckPulse));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             if (characterName.Equals(NPCManager.NPCName.Calvo))
             {
-                StartCoroutine(FollowOrder(NPCAction.ChargeDefibrilator));
+                StartCoroutine(FollowOrder(NPCAction.Compressions));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            if (characterName.Equals(NPCManager.NPCName.Calvo))
-            {
-                StartCoroutine(FollowOrder(NPCAction.DischargeDefibrilator));
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha5))
-        {
-            if (characterName.Equals(NPCManager.NPCName.Calvo))
-            {
-                StartCoroutine(FollowOrder(NPCAction.Compressions));
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha6))
-        {
-            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            if (characterName.Equals(NPCManager.NPCName.Chica))
             {
                 StartCoroutine(FollowOrder(NPCAction.Ventilations));
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha7))
+        if (Input.GetKeyUp(KeyCode.Alpha5))
         {
-            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            if (characterName.Equals(NPCManager.NPCName.Negro))
             {
                 StartCoroutine(FollowOrder(NPCAction.CheckDefibrilator));
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha7))
+        if (Input.GetKeyUp(KeyCode.Alpha6))
         {
-            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            if (characterName.Equals(NPCManager.NPCName.Negro))
             {
                 StartCoroutine(FollowOrder(NPCAction.ChargeDefibrilator));
             }
         }
-        if (Input.GetKeyUp(KeyCode.Alpha8))
+        if (Input.GetKeyUp(KeyCode.Alpha7))
         {
-            if (characterName.Equals(NPCManager.NPCName.Calvo))
+            if (characterName.Equals(NPCManager.NPCName.Negro))
+            {
+                StartCoroutine(FollowOrder(NPCAction.PlacePatches));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha7))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Rubio))
             {
                 StartCoroutine(FollowOrder(NPCAction.DischargeDefibrilator));
+            }
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha8))
+        {
+            if (characterName.Equals(NPCManager.NPCName.Rubio))
+            {
+                StartCoroutine(FollowOrder(NPCAction.PlaceVVP));
             }
         }
         if (Input.GetKeyUp(KeyCode.Alpha9))
@@ -127,6 +127,7 @@ public class NPC : MonoBehaviour
         DischargeDefibrilator,
         PlaceVVP,
         Epinephrine,
+        Epinephrine2,
         Lidocaine
     }
 
@@ -154,6 +155,7 @@ public class NPC : MonoBehaviour
 
             navMeshAgent.SetDestination(currentSpot.transform.position);
             yield return new WaitUntil(() => Vector3.Distance(currentSpot.transform.position, transform.position) < 0.5f);
+        
             float lerpDuration = 0.5f;
             Vector3 startPosition = transform.position;
             Quaternion startingRotation = transform.rotation;
@@ -168,6 +170,7 @@ public class NPC : MonoBehaviour
             }
             transform.position = currentSpot.transform.position;
             transform.rotation = currentSpot.transform.rotation;
+        
         }
         switch (action)
         {
@@ -191,7 +194,7 @@ public class NPC : MonoBehaviour
                 guedel.SetActive(true);
                 animator.Play("Anim_IntroducirGuedel");
                 NPCManager.GetInstance().patientAnimator.Play("Anim_IntroducirGuedelPaciente");
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(3f);
                 guedel.SetActive(false);
                 yield return new WaitForSeconds(7);
                 break;
@@ -208,7 +211,34 @@ public class NPC : MonoBehaviour
             case NPCAction.Ventilations:
                 ambu.SetActive(true);
                 animator.Play("Anim_GoToVentilar");
-                yield return new WaitForSeconds(9999);
+            
+                for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
+                {
+                    if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
+                    {
+                        if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
+                        {
+                            NPCManager.GetInstance().patientAnimator.CrossFade("Anim_IdlePaciente", 0.7f);
+                            NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().CrossFade("Anim_idle", 0.7f);
+                        }
+                    }
+                }
+                yield return new WaitForSeconds(7.5f);
+        
+                for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
+                {
+                    if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
+                    {
+                        if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
+                        {
+                            NPCManager.GetInstance().patientAnimator.Play("Anim_Comprimido");
+                            NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().Play("Anim_Comprimir");
+                        }
+                    }
+                }
+                yield return new WaitForSeconds(2f);
+                animator.CrossFade("Anim_idle", 1);
+                yield return new WaitForSeconds(3f);
                 break;
             case NPCAction.CheckDefibrilator:
                 animator.Play("Anim_TocarBotonesDea");
@@ -234,7 +264,7 @@ public class NPC : MonoBehaviour
                 animator.Play("Anim_TocarBotonesDea");
                 yield return new WaitForSeconds(2);
                 NPCManager.GetInstance().vitalSignsMonitor.GetComponent<VitalLine>().enabled = true;
-                yield return new WaitForSeconds(8);
+                yield return new WaitForSeconds(3.5f);
                 NPCManager.GetInstance().patientAnimator.Play("Anim_RecibeShock");
                 break;
             case NPCAction.PlaceVVP:
@@ -253,6 +283,16 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(10);
                 syringe.SetActive(false);
                 medication.SetActive(false);
+                NPCSpot targetSpot = NPCSpotManager.GetInstance().GetNearestSpot(correctSpotType, transform.position);
+                targetSpot.npcInSpot.GiveOrder(NPCAction.Epinephrine2);
+                break;
+            case NPCAction.Epinephrine2:
+                animator.Play("Anim_ExtraerMedicamentoParte2");
+                yield return new WaitForSeconds(6);
+                animator.Play("Anim_PincharSuero");
+                yield return new WaitForSeconds(5);
+                syringe.SetActive(false);
+                medication.SetActive(false);
                 break;
             case NPCAction.Lidocaine:
                 syringe.SetActive(true);
@@ -266,18 +306,19 @@ public class NPC : MonoBehaviour
         }
         animator.Play("Anim_idle");
         actionCoroutine = null;
+
     }
 
     private void SetCurrentSpot(NPCSpot npcSpot)
     {
         if (currentSpot)
         {
-            currentSpot.npcInSpot = this;
+            currentSpot.npcInSpot = null;
         }
         currentSpot = npcSpot;
         if (currentSpot)
         {
-            currentSpot.npcInSpot = null;
+          currentSpot.npcInSpot = this;
         }
     }
 
@@ -313,7 +354,8 @@ public class NPC : MonoBehaviour
             case NPCAction.ChargeDefibrilator:
             case NPCAction.DischargeDefibrilator:
                 return NPCSpot.SpotType.VitalSigns;
-
+            case NPCAction.Epinephrine2:
+                return NPCSpot.SpotType.Dropper;
         }
         return NPCSpot.SpotType.Generic;
     }
