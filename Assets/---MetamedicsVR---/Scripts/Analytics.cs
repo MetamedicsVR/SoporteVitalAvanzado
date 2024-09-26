@@ -11,7 +11,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
     {
         public string timeStamp;
         public string characterName;
-        public NPC.NPCAction order;
+        public NPCManager.NPCAction order;
         public bool isCorrect;
         public string explanation;
     }
@@ -21,7 +21,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         data = new List<PlayerOrder>();
     }
 
-    public void InsertData(string characterName, NPC.NPCAction order, bool isCorrect, string explanation)
+    public void InsertData(string characterName, NPCManager.NPCAction order, bool isCorrect, string explanation)
     {
         float timeElapsed = Time.time;
         int minutes = (int)(timeElapsed / 60);
@@ -45,7 +45,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         return analyticsString;
     }
 
-    public string ActionDescription(NPC.NPCAction action)
+    public string ActionDescription(NPCManager.NPCAction action)
     {
         switch (action)
         {

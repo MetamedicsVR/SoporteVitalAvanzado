@@ -10,15 +10,16 @@ public class VitalLine : MonoBehaviour
     public Transform lineUp;
     public LineRenderer lineRenderer;
 
+    public DisplayMode displayMode = DisplayMode.Move;
     public float totalTimeInLine = 3;
     public float timeNoise = 0.1f;
-    //public float pulseNoise = 0.1f;
+    public float pulseNoise = 0.1f;
 
     public List<Tuple<float, float>> normalPulse;
     public List<Tuple<float, float>> ventriculparFibrilation;
     public List<Tuple<float, float>> testPulse;
 
-    private List<Tuple<float, float>> points = new List<Tuple<float, float>>();
+    private List<Tuple<float, float>> currentPoints = new List<Tuple<float, float>>();
     private PulseType currentPulseType = PulseType.Test;
 
     public enum PulseType
@@ -28,6 +29,12 @@ public class VitalLine : MonoBehaviour
         VentricularFibrillation,
         Random,
         Test
+    }
+
+    public enum DisplayMode
+    {
+        Move,
+        Sweep
     }
 
     public void ChangePulseType(PulseType pulseType)
@@ -40,9 +47,17 @@ public class VitalLine : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            UpdateLineTime();
-            AddNextPoint();
-            UpdateLineRenderer();
+            switch (displayMode)
+            {
+                case DisplayMode.Move:
+                    RemoveOldPoints();
+                    AddNextPoint();
+                    MovingLineRenderer();
+                    break;
+                case DisplayMode.Sweep:
+
+                    break;
+            }
         }
         else
         {
@@ -50,11 +65,11 @@ public class VitalLine : MonoBehaviour
         }
     }
 
-    private void UpdateLineTime()
+    private void RemoveOldPoints()
     {
-        while (points.Count > 0 && Time.time - points[0].item1 > totalTimeInLine)
+        while (currentPoints.Count > 0 && Time.time - currentPoints[0].item1 > totalTimeInLine)
         {
-            points.RemoveAt(0);
+            currentPoints.RemoveAt(0);
         }
     }
 
@@ -63,7 +78,7 @@ public class VitalLine : MonoBehaviour
         switch (currentPulseType)
         {
             case PulseType.Dead:
-                points.Add(new Tuple<float, float>(Time.time, 0.25f));
+                currentPoints.Add(new Tuple<float, float>(Time.time, 0.25f));
                 break;
             case PulseType.Normal:
                 AddPulsePoint(normalPulse);
@@ -72,14 +87,14 @@ public class VitalLine : MonoBehaviour
                 AddPulsePoint(ventriculparFibrilation);
                 break;
             case PulseType.Random:
-                if (points.Count > 0)
+                if (currentPoints.Count > 0)
                 {
-                    float lastValue = points[points.Count - 1].item2;
-                    points.Add(new Tuple<float, float>(Time.time, Mathf.Clamp(Random.Range(lastValue - 0.1f, lastValue + 0.1f), -1, 1)));
+                    float lastValue = currentPoints[currentPoints.Count - 1].item2;
+                    currentPoints.Add(new Tuple<float, float>(Time.time, Mathf.Clamp(Random.Range(lastValue - 0.1f, lastValue + 0.1f), -1, 1)));
                 }
                 else
                 {
-                    points.Add(new Tuple<float, float>(Time.time, Random.Range(-1f, 1f)));
+                    currentPoints.Add(new Tuple<float, float>(Time.time, Random.Range(-1f, 1f)));
                 }
                 break;
             case PulseType.Test:
@@ -98,19 +113,19 @@ public class VitalLine : MonoBehaviour
                 float t = (pulseTime - pulse[i].item1) / (pulse[i + 1].item1 - pulse[i].item1);
                 float pointValue = Mathf.Lerp(pulse[i].item2, pulse[i + 1].item2, t);
                 //points.Add(new Tuple<float, float>(Time.time, Mathf.Clamp(Random.Range(pointValue - pulseNoise, pointValue + pulseNoise), -1, 1)));
-                points.Add(new Tuple<float, float>(Time.time, pointValue));
+                currentPoints.Add(new Tuple<float, float>(Time.time, pointValue));
                 return;
             }
         }
     }
 
-    private void UpdateLineRenderer()
+    private void MovingLineRenderer()
     {
         Vector3 upVector = GetClosestPointOnLine(lineStart.position, lineEnd.position, lineUp.position) - lineUp.position;
-        Vector3[] positions = new Vector3[points.Count];
-        for (int i = 0; i < points.Count; i++)
+        Vector3[] positions = new Vector3[currentPoints.Count];
+        for (int i = 0; i < currentPoints.Count; i++)
         {
-            positions[i] = Vector3.Lerp(lineStart.position, lineEnd.position, (Time.time - points[i].item1) / totalTimeInLine) + upVector * points[i].item2;
+            positions[i] = Vector3.Lerp(lineStart.position, lineEnd.position, (Time.time - currentPoints[i].item1) / totalTimeInLine) + upVector * currentPoints[i].item2;
         }
         lineRenderer.positionCount = positions.Length;
         lineRenderer.SetPositions(positions);
