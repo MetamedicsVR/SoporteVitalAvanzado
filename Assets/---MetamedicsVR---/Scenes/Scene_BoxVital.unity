@@ -7498,7 +7498,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355412366}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e050c43c626bd043a86447e9763a310, type: 3}
   m_Name: 
@@ -7507,8 +7507,23 @@ MonoBehaviour:
   lineEnd: {fileID: 1735416285}
   lineUp: {fileID: 1689140301}
   lineRenderer: {fileID: 3667982066405759971}
-  totalTimeInLine: 3
-  pulse: []
+  totalTimeInLine: 7
+  timeNoise: 0.1
+  normalPulse: []
+  ventriculparFibrilation: []
+  testPulse:
+  - item1: 0
+    item2: 0
+  - item1: 1
+    item2: 0.6
+  - item1: 2
+    item2: -0.2
+  - item1: 3
+    item2: 0
+  - item1: 4
+    item2: 0.3
+  - item1: 6
+    item2: -0.2
 --- !u!4 &357580219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6044b622f1d7f5b49a14bc23a8f920c3,
@@ -53771,8 +53786,12 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 6.363901, y: 1.2743998, z: 1.4919405}
+  - {x: 6.3556886, y: 1.2365663, z: 1.4649575}
+  - {x: 6.366638, y: 1.287011, z: 1.4379748}
+  - {x: 6.3639, y: 1.2744, z: 1.4109919}
+  - {x: 6.359794, y: 1.2554833, z: 1.384009}
+  - {x: 6.366637, y: 1.2870114, z: 1.3300433}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

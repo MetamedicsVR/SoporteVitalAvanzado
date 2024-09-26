@@ -1,30 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Tuple<T1, T2>
 {
-	private T1 item1;
-	private T2 item2;
-
-	public T1 getItem1()
-	{
-		return this.item1;
-	}
-
-	public T2 getItem2()
-	{
-		return this.item2;
-	}
-
-	public void setItem1(T1 x)
-	{
-		this.item1 = x;
-	}
-
-	public void setItem2(T2 x)
-	{
-		this.item2 = x;
-	}
+	public T1 item1;
+	public T2 item2;
 
 	public Tuple(T1 item1, T2 item2)
 	{
@@ -36,7 +17,7 @@ public class Tuple<T1, T2>
 	{
 		for (int i = 0; i < list.Count; i++)
 		{
-			if (list[i].getItem1().Equals(item))
+			if (list[i].item1.Equals(item))
 			{
 				return i;
 			}
@@ -48,7 +29,7 @@ public class Tuple<T1, T2>
 	{
 		for (int i = 0; i < array.Length; i++)
 		{
-			if (array[i].getItem1().Equals(item))
+			if (array[i].item1.Equals(item))
 			{
 				return i;
 			}
@@ -60,7 +41,7 @@ public class Tuple<T1, T2>
 	{
 		for (int i = 0; i < list.Count; i++)
 		{
-			if (list[i].getItem2().Equals(item))
+			if (list[i].item2.Equals(item))
 			{
 				return i;
 			}
@@ -72,7 +53,7 @@ public class Tuple<T1, T2>
 	{
 		for (int i = 0; i < array.Length; i++)
 		{
-			if (array[i].getItem2().Equals(item))
+			if (array[i].item2.Equals(item))
 			{
 				return i;
 			}
