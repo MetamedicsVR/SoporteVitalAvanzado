@@ -112,7 +112,7 @@ public class VitalLine : MonoBehaviour
             {
                 float t = (pulseTime - pulse[i].item1) / (pulse[i + 1].item1 - pulse[i].item1);
                 float pointValue = Mathf.Lerp(pulse[i].item2, pulse[i + 1].item2, t);
-                //points.Add(new Tuple<float, float>(Time.time, Mathf.Clamp(Random.Range(pointValue - pulseNoise, pointValue + pulseNoise), -1, 1)));
+                //currentPoints.Add(new Tuple<float, float>(Time.time, Mathf.Clamp(Random.Range(pointValue - pulseNoise, pointValue + pulseNoise), -1, 1)));
                 currentPoints.Add(new Tuple<float, float>(Time.time, pointValue));
                 return;
             }

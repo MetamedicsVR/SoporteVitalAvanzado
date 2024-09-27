@@ -30,6 +30,10 @@ public class NPC : MonoBehaviour
         SetCurrentSpot(startingSpot);
     }
 
+    private void Update()
+    {
+      
+    }
 
     public void GiveOrder(NPCManager.NPCAction action)
     {

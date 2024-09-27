@@ -177,31 +177,31 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
-            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.PutGuedel);
+            FindNPC(NPCName.Carla).GiveOrder(NPCAction.PutGuedel);
         }
         if (Input.GetKeyUp(KeyCode.Alpha2))
         {
-            FindNPC(NPCName.David).GiveOrder(NPCAction.CheckPulse);
+            FindNPC(NPCName.Carla).GiveOrder(NPCAction.CheckPulse);
         }
         if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            FindNPC(NPCName.Jesús).GiveOrder(NPCAction.Compressions);
+            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.Compressions);
         }
         if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            FindNPC(NPCName.Carla).GiveOrder(NPCAction.Ventilations);
+            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.Ventilations);
         }
         if (Input.GetKeyUp(KeyCode.Alpha5))
         {
-            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.CheckDefibrilator);
+            FindNPC(NPCName.David).GiveOrder(NPCAction.CheckDefibrilator);
         }
         if (Input.GetKeyUp(KeyCode.Alpha6))
         {
-            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.ChargeDefibrilator);
+            FindNPC(NPCName.Jesús).GiveOrder(NPCAction.ChargeDefibrilator);
         }
         if (Input.GetKeyUp(KeyCode.P))
         {
-            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.PlacePatches);
+            FindNPC(NPCName.Jesús).GiveOrder(NPCAction.PlacePatches);
         }
         if (Input.GetKeyUp(KeyCode.Alpha7))
         {
