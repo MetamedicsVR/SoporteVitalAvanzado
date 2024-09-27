@@ -10,6 +10,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
 {
     public VoiceService[] voiceServices;
 
+    public PanelSeleccionManual panelSeleccion;
     public GameObject warningPanel;
     public GameObject errorPanel;
 
@@ -74,7 +75,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             {
                 NPCManager.NPCAction.Lidocaine
             }
-        }
+        };
     }
 
     private void Start()
@@ -152,6 +153,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         //2.Avisa al resto de los compañeros(entra B1, B2 y B3)
         yield return null;
         canGiveOrders = true;
+        panelSeleccion.gameObject.SetActive(true);
     }
 
     public bool IsNextStep(NPC npc, NPCManager.NPCAction action)
