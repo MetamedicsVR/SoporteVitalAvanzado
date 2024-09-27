@@ -160,6 +160,21 @@ public class NPC : MonoBehaviour
                 Patient.GetInstance().patches[1].SetActive(true);
                 yield return new WaitForSeconds(5);
                 break;
+            case NPCManager.NPCAction.AllOut:
+             
+                for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
+                {
+                    if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions || NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
+                    {
+                        if (NPCSpotManager.GetInstance().spots[i].npcInSpot)
+                        {
+                            NPCSpotManager.GetInstance().spots[i].npcInSpot.StartCoroutine(FollowOrder(NPCManager.NPCAction.Rest));
+                        }
+                    }
+                }
+                // QUE LOS QUE ESTAN EN LOS SPOTS DE VENTILACIONES Y COMPRESIONES SE DESCANSEN
+                yield return new WaitForSeconds(1f);
+                break;
             case NPCManager.NPCAction.ChargeDefibrilator:
                 animator.Play("Anim_TocarBotonesDea");
                 yield return new WaitForSeconds(2);

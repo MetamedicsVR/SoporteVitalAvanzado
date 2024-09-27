@@ -35,6 +35,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         CheckDefibrilator,
         PlacePatches,
         ChargeDefibrilator,
+        AllOut,
         DischargeDefibrilator,
         PlaceVVP,
         Epinephrine,
@@ -65,6 +66,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         actionKeywords[NPCAction.CheckDefibrilator] = new List<string>();
         actionKeywords[NPCAction.CheckDefibrilator].Add("enciende");
         actionKeywords[NPCAction.ChargeDefibrilator] = new List<string>();
+        actionKeywords[NPCAction.AllOut] = new List<string>();
         actionKeywords[NPCAction.ChargeDefibrilator].Add("carga");
         actionKeywords[NPCAction.DischargeDefibrilator] = new List<string>();
         actionKeywords[NPCAction.DischargeDefibrilator].Add("descarga");
@@ -139,6 +141,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     {
         switch (action)
         {
+            case NPCAction.AllOut:
             case NPCAction.Ventilations:
             case NPCAction.PutGuedel:
             case NPCAction.PlacePatches:

@@ -8684,6 +8684,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParentPanelSeleccionManual
       objectReference: {fileID: 0}
+    - target: {fileID: 1965629083102522985, guid: 854d17bc7dd15da4a879a940fcc02b47,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2723793564513543697, guid: 854d17bc7dd15da4a879a940fcc02b47,
         type: 3}
       propertyPath: m_AnchorMax.y
