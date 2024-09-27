@@ -2,6 +2,7 @@ using Meta.WitAi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -114,6 +115,8 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                     if (IsCorrectInstruction(chosenAction, out reason))
                     {
                         NPCManager.GetInstance().GiveOrder(chosenAction);
+                        nextStepIndex++;
+                        RefreshPanelOptions();
                     }
                 }
             }
@@ -154,6 +157,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         yield return null;
         canGiveOrders = true;
         panelSeleccion.gameObject.SetActive(true);
+        RefreshPanelOptions();
     }
 
     public bool IsNextStep(NPC npc, NPCManager.NPCAction action)
@@ -178,6 +182,26 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             }
         }
         return targetActions.Count + actionsToCheck.Count;
+    }
+
+    private void RefreshPanelOptions()
+    {
+        List<NPCManager.NPCAction> actions = new List<NPCManager.NPCAction>();
+        for (int i = 0; i < stepNeededActions[nextStepIndex].Count; i++)
+        {
+            actions.Add(stepNeededActions[nextStepIndex][i]);
+        }
+        NPCManager.NPCAction[] allActions = (NPCManager.NPCAction[])Enum.GetValues(typeof(NPCManager.NPCAction));
+        for (int i = actions.Count; i < 4; i++)
+        {
+            List<NPCManager.NPCAction> availableActions = allActions.Except(actions).ToList();
+            if (availableActions.Count > 0)
+            {
+                NPCManager.NPCAction randomAction = availableActions[new System.Random().Next(availableActions.Count)];
+                actions.Add(randomAction);
+            }
+        }
+        panelSeleccion.RecibirOpcionesDePaso(actions);
     }
 
 #if UNITY_EDITOR
