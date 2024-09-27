@@ -72,26 +72,13 @@ public class PanelSeleccionManual : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
-        //Debug
-        RecibirOpcionesDePaso(NPCManager.NPCAction.CheckConsciousness, NPCManager.NPCAction.CheckAirWay, NPCManager.NPCAction.PutGuedel, NPCManager.NPCAction.CheckPulse); // EJEMPLO
-        bool[] debugTestValores = new bool[] { true, false, false, false }; //Ejemplo
-        RefreshAvailableActions(debugTestValores);//Ejemplo
-        //Debug
-    }
+
 
     
 
-    public void RecibirOpcionesDePaso(NPCManager.NPCAction QuizAAction, NPCManager.NPCAction QuizBAction, NPCManager.NPCAction QuizCAction, NPCManager.NPCAction QuizDAction)
+    public void RecibirOpcionesDePaso(List<NPCManager.NPCAction> actions)
     {
-        givenActions = new List<NPCManager.NPCAction>
-        {
-            QuizAAction,
-            QuizBAction,
-            QuizCAction,
-            QuizDAction
-        };
+        givenActions = actions;
         Shuffle(givenActions);
         textoOriginalA = RecibirAccion(givenActions[0]);
         textoOriginalB = RecibirAccion(givenActions[1]);
@@ -148,6 +135,7 @@ public class PanelSeleccionManual : MonoBehaviour
         string reason;
         if (CPRTree.GetInstance().IsCorrectInstruction(givenActions[n], out reason))
         {
+            print("Correctoooooo    " + reason);
             NPCManager.GetInstance().GiveOrder(givenActions[n]);
         }
         else
@@ -161,7 +149,7 @@ public class PanelSeleccionManual : MonoBehaviour
 
     public void DesaparecePanelIncorrecto()
     {
-        textoPanelIncorrecto.transform.parent.GetComponent<Animator>().Play("PanelDisappear");
+        textoPanelIncorrecto.transform.parent.parent.GetComponent<Animator>().Play("PanelDisappear");
         Invoke(nameof(ApagaPanelIncorrecto), 1f);
     }
 
@@ -184,11 +172,9 @@ public class PanelSeleccionManual : MonoBehaviour
         panelSeleccionAcciones.SetActive(true);
     }
 
-    public void RefreshAvailableActions(bool[] actionsValueArray) //Tienene que pasarse siempre de  4
+    public void CerrarPanelAccionesAbrirPanelNPC()
     {
-        for (int i = 0; i < valorInternoDeOpciones.Length; i++)
-        {
-            valorInternoDeOpciones[i] = actionsValueArray[i];
-        }
+        panelSeleccionNPC.SetActive(true);
+        panelSeleccionAcciones.SetActive(false);
     }
 }

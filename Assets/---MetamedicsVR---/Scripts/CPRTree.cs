@@ -88,7 +88,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 service.VoiceEvents.OnFullTranscription.AddListener(OnTranscriptionReceived);
             }
         }
-        canGiveOrders = false;
+        canGiveOrders = false;  
         StartCoroutine(Experience());
     }
 
@@ -187,7 +187,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
     private void RefreshPanelOptions()
     {
         List<NPCManager.NPCAction> actions = new List<NPCManager.NPCAction>();
-        for (int i = 0; i < stepNeededActions[nextStepIndex].Count; i++)
+        for (int i = 0; i <stepNeededActions[nextStepIndex].Count; i++)
         {
             actions.Add(stepNeededActions[nextStepIndex][i]);
         }
