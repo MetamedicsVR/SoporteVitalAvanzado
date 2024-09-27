@@ -21,7 +21,10 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         Rubén,
         Jesús
     }
-
+    private void Start()
+    {
+        StartCoroutine(CallTeam());
+    }
     public enum NPCAction
     {
         Rest,
@@ -224,4 +227,18 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         }
     }
 #endif
+
+
+    private IEnumerator CallTeam()
+    {
+        yield return new WaitForSeconds(1);
+        for (int i = 0; i < npcs.Length; i++)
+        {
+            npcs[i].gameObject.SetActive(true);
+            selectedNPC = npcs[i];
+            selectedNPC.GiveOrder(NPCAction.Rest);
+            yield return new WaitForSeconds(2);
+
+        }
+    }
 }
