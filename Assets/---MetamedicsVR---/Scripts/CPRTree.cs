@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class CPRTree : MonoBehaviour
+public class CPRTree : MonoBehaviourInstance<CPRTree>
 {
     public VoiceService[] voiceServices;
 
@@ -20,15 +20,61 @@ public class CPRTree : MonoBehaviour
 
     private List<List<NPCManager.NPCAction>> stepNeededActions;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         stepNeededActions = new List<List<NPCManager.NPCAction>>()
         {
             new List<NPCManager.NPCAction>()
             {
                 NPCManager.NPCAction.CheckConsciousness
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.CheckPulse
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.CheckAirWay
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.PutGuedel
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.Ventilations,
+                NPCManager.NPCAction.Compressions
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.CheckDefibrilator
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.ChargeDefibrilator
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.PlacePatches
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.DischargeDefibrilator
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.PlaceVVP
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.Epinephrine
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.Lidocaine
             }
-        };
+        }
     }
 
     private void Start()
@@ -62,21 +108,11 @@ public class CPRTree : MonoBehaviour
                 List<string> actionMatches = NPCManager.GetInstance().ActionMatches(words);
                 if (actionMatches.Count > 0)
                 {
-                    NPCManager.NPCAction choseAction = (NPCManager.NPCAction)Enum.Parse(typeof(NPCManager.NPCAction), actionMatches[actionMatches.Count - 1]);
-                    if (selectedNPC.CanPerformAction(choseAction))
+                    NPCManager.NPCAction chosenAction = (NPCManager.NPCAction)Enum.Parse(typeof(NPCManager.NPCAction), actionMatches[actionMatches.Count - 1]);
+                    string reason;
+                    if (IsCorrectInstruction(chosenAction, out reason))
                     {
-                        if (IsNextStep(selectedNPC, choseAction))
-                        {
-                            NPCManager.GetInstance().GiveOrder(choseAction);
-                        }
-                        else
-                        {
-                            //Acción errónea
-                        }
-                    }
-                    else
-                    {
-                        //No puede realizar la acción
+                        NPCManager.GetInstance().GiveOrder(chosenAction);
                     }
                 }
             }
@@ -84,6 +120,29 @@ public class CPRTree : MonoBehaviour
             {
                 //Instrucción sin NPC seleccionado
             }
+        }
+    }
+
+    public bool IsCorrectInstruction(NPCManager.NPCAction action, out string reason)
+    {
+        NPC selectedNPC = NPCManager.GetInstance().GetSelectedNPC();
+        if (selectedNPC.CanPerformAction(action))
+        {
+            if (IsNextStep(selectedNPC, action))
+            {
+                reason = "";
+                return true;
+            }
+            else
+            {
+                reason = "No es la acción que el NPC debe realizar";
+                return false;
+            }
+        }
+        else
+        {
+            reason = "El NPC no puede realizar la acción";
+            return false;
         }
     }
 

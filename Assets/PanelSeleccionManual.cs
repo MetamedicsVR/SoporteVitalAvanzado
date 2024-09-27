@@ -85,23 +85,18 @@ public class PanelSeleccionManual : MonoBehaviour
 
     public void RecibirOpcionesDePaso(NPCManager.NPCAction QuizAAction, NPCManager.NPCAction QuizBAction, NPCManager.NPCAction QuizCAction, NPCManager.NPCAction QuizDAction)
     {
-        textoOriginalA = RecibirAccion(QuizAAction);
-        textoOriginalB = RecibirAccion(QuizBAction);
-        textoOriginalC = RecibirAccion(QuizCAction);
-        textoOriginalD = RecibirAccion(QuizDAction);
-        AssignRandomTexts();
-         givenActions = new List<NPCManager.NPCAction>
+        givenActions = new List<NPCManager.NPCAction>
         {
             QuizAAction,
             QuizBAction,
             QuizCAction,
             QuizDAction
         };
-    }
-
-    void AssignRandomTexts()
-    {
-        // Creamos una lista con todos los textos originales.
+        Shuffle(givenActions);
+        textoOriginalA = RecibirAccion(givenActions[0]);
+        textoOriginalB = RecibirAccion(givenActions[1]);
+        textoOriginalC = RecibirAccion(givenActions[2]);
+        textoOriginalD = RecibirAccion(givenActions[3]);
         List<string> textos = new List<string>
         {
             textoOriginalA,
@@ -109,13 +104,6 @@ public class PanelSeleccionManual : MonoBehaviour
             textoOriginalC,
             textoOriginalD
         };
-
-        
-
-        // Barajamos la lista para que los textos estén en orden aleatorio.
-        Shuffle(textos);
-
-        // Asignamos los textos barajados al array.
         for (int i = 0; i < optionsTexts.Length; i++)
         {
             optionsTexts[i] = textos[i];
@@ -141,6 +129,7 @@ public class PanelSeleccionManual : MonoBehaviour
             }
             optionsTextsInGame[i].text += optionsTexts[i];
         }
+
     }
 
     void Shuffle<T>(List<T> list)
@@ -154,94 +143,19 @@ public class PanelSeleccionManual : MonoBehaviour
         }
     }
 
-    public void SeleccionaA() 
+    public void SeleccionaOpcion(int n) 
     {
-        if (valorInternoDeOpciones[0])
+        string reason;
+        if (CPRTree.GetInstance().IsCorrectInstruction(givenActions[n], out reason))
         {
-            print("Correcto");
-            for (int i = 0; i < givenActions.Count; i++)
-            {
-                print("Comparando -- " + optionsTextsInGame[0].text +" -- con  -- " + RecibirAccion(givenActions[i]));
-                if (optionsTextsInGame[0].text.Contains(RecibirAccion(givenActions[i])))
-                {
-                    selectedAction = givenActions[i];
-                    // IsCorrectInstruction(NPCManager.NPCAction selectedAction);
-                }
-            }
+            NPCManager.GetInstance().GiveOrder(givenActions[n]);
         }
         else
         {
-            textoPanelIncorrecto.text = (optionsTexts[0] + " es incorrecto en este paso");
+            textoPanelIncorrecto.text = (optionsTexts[0] + " es incorrecto en este paso: " + reason);
             textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
-            print(optionsTexts[0] + " Es incorrecto en este paso");
-            Invoke(nameof(DesaparecePanelIncorrecto),3);
-        }
-    }
-
-    public void SeleccionaB()
-    {
-        if (valorInternoDeOpciones[1])
-        {
-            print("Correcto");
-            for (int i = 0; i < givenActions.Count; i++)
-            {
-                print("Comparando -- " + optionsTextsInGame[1].text + " -- con  -- " + RecibirAccion(givenActions[i]));
-                if (optionsTextsInGame[1].text.Contains(RecibirAccion(givenActions[i])))
-                {
-                    selectedAction = givenActions[i];
-                    // IsCorrectInstruction(NPCManager.NPCAction selectedAction);
-                }
-            }
-        }
-        else
-        {
-            textoPanelIncorrecto.text = (optionsTexts[1] + " es incorrecto en este paso");
-            textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
-            print(optionsTexts[1] + " Es incorrecto en este paso");
-        }
-    }
-    public void SeleccionaC()
-    {
-        if (valorInternoDeOpciones[2])
-        {
-            print("Correcto");
-            for (int i = 0; i < givenActions.Count; i++)
-            {
-                print("Comparando -- " + optionsTextsInGame[2].text + " -- con  -- " + RecibirAccion(givenActions[i]));
-                if (optionsTextsInGame[2].text.Contains(RecibirAccion(givenActions[i])))
-                {
-                    selectedAction = givenActions[i];
-                    // IsCorrectInstruction(NPCManager.NPCAction selectedAction);
-                }
-            }
-        }
-        else
-        {
-            textoPanelIncorrecto.text = (optionsTexts[2] + " es incorrecto en este paso");
-            textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
-            print(optionsTexts[2] + " Es incorrecto en este paso");
-        }
-    }
-    public void SeleccionaD()
-    {
-        if (valorInternoDeOpciones[3])
-        {
-            print("Correcto");
-            for (int i = 0; i < givenActions.Count; i++)
-            {
-                print("Comparando -- " + optionsTextsInGame[3].text + " -- con  -- " + RecibirAccion(givenActions[i]));
-                if (optionsTextsInGame[3].text.Contains(RecibirAccion(givenActions[i])))
-                {
-                    selectedAction = givenActions[i];
-                    // IsCorrectInstruction(NPCManager.NPCAction selectedAction);
-                }
-            }
-        }
-        else
-        {
-            textoPanelIncorrecto.text = (optionsTexts[3] + " es incorrecto en este paso");
-            textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
-            print(optionsTexts[3] + " Es incorrecto en este paso");
+            print(optionsTexts[0] + " es incorrecto en este paso: " + reason);
+            Invoke(nameof(DesaparecePanelIncorrecto), 3);
         }
     }
 
