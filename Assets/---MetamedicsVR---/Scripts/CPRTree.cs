@@ -437,6 +437,11 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 break;
             case 28:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.CheckPulse);
+                GameManager.GetInstance().pantallaFibrilarVentriculationInDefibrilator.SetActive(false);
+                GameManager.GetInstance().pantallaFibrilarVentriculationPlayer.SetActive(false);
+                GameManager.GetInstance().pantallaSynusRythmInDefibrilator.SetActive(true);
+                GameManager.GetInstance().pantallaSynusRythmPlayer.SetActive(true);
+
                 break;
             case 29:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.CheckAirWay);
