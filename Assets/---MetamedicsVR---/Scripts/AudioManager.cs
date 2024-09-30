@@ -148,30 +148,11 @@ public class AudioManager : MonoBehaviourInstance<AudioManager>
 
 	public enum AudioName
 	{
-		Explanation,
-		SeahorsesExplanation,
-		BlowfishExplanation,
-		Turtles,
-		Dolphins,
-		Underwater_Whoosh_Start,
-		Underwater_Whoosh_End,
-		SeaHorsesStretch1,
-		SeaHorsesStretch2,
-		SeaHorsesStretch3,
-		SeaHorsesLetGo1,
-		SeaHorsesLetGo2,
-		SeaHorsesLetGo3,
-		BlowfishInspiration1,
-		BlowfishInspiration2,
-		BlowfishInspiration3,
-		BlowFishExpiration1,
-		BlowFishExpiration2,
-		BlowFishExpiration3,
+		Null
 	}
 
 	public enum AudioFolders
 	{
-		Blowfishes,
-		Seahorses
+
 	}
 }

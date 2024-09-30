@@ -11,7 +11,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
     {
         public string timeStamp;
         public string characterName;
-        public NPCManager.NPCAction order;
+        public string order;
         public bool isCorrect;
         public string explanation;
     }
@@ -29,7 +29,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         PlayerOrder playerOrder = new PlayerOrder();
         playerOrder.timeStamp = string.Format("{0:00}:{1:00}", minutes, seconds);
         playerOrder.characterName = characterName;
-        playerOrder.order = order;
+        playerOrder.order = ActionDescription(order);
         playerOrder.isCorrect = isCorrect;
         playerOrder.explanation = explanation;
         data.Add(playerOrder);
@@ -40,7 +40,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         string analyticsString = "Results:\r\n";
         for (int i = 0; i < data.Count; i++)
         {
-            analyticsString += data[i].characterName + ", " + ActionDescription(data[i].order) + " -> " + (data[i].isCorrect ? "Correct" : "Wrong") + ".\r\n";
+            analyticsString += data[i].characterName + ", " + data[i].order + " -> " + (data[i].isCorrect ? "Correct" : "Wrong") + ".\r\n";
         }
         return analyticsString;
     }

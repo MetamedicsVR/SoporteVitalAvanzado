@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class NPC : MonoBehaviour
 {
     public NPCManager.NPCName characterName;
+    public AudioSource audioSource;
     public NPCSpot startingSpot;
 
     [Header("Tools")]
@@ -30,11 +31,6 @@ public class NPC : MonoBehaviour
         SetCurrentSpot(startingSpot);
     }
 
-    private void Update()
-    {
-      
-    }
-
     public void GiveOrder(NPCManager.NPCAction action)
     {
         if (actionCoroutine != null)
@@ -46,6 +42,8 @@ public class NPC : MonoBehaviour
 
     private IEnumerator FollowOrder(NPCManager.NPCAction action)
     {
+        audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(action));
+        audioSource.Play();
         NPCSpot.SpotType correctSpotType = NPCManager.GetInstance().GetCorrectSpotType(action);
         if (!currentSpot || currentSpot.type != correctSpotType)
         {
@@ -306,5 +304,37 @@ public class NPC : MonoBehaviour
     public bool CanPerformAction(NPCManager.NPCAction action)
     {
         return actionCoroutine == null || currentAction == NPCManager.NPCAction.Compressions || currentAction == NPCManager.NPCAction.Ventilations;
+    }
+
+    private AudioManager.AudioName ActionAudio(NPCManager.NPCAction action)
+    {
+        switch (characterName)
+        {
+            case NPCManager.NPCName.Carla:
+                switch (action)
+                {
+
+                }
+                break;
+            case NPCManager.NPCName.David:
+                switch (action)
+                {
+
+                }
+                break;
+            case NPCManager.NPCName.Rubén:
+                switch (action)
+                {
+
+                }
+                break;
+            case NPCManager.NPCName.Jesús:
+                switch (action)
+                {
+
+                }
+                break;
+        }
+        return AudioManager.AudioName.Null;
     }
 }

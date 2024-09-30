@@ -14816,6 +14816,11 @@ PrefabInstance:
       propertyPath: medication
       value: 
       objectReference: {fileID: 1082801796}
+    - target: {fileID: 6609640316712284916, guid: 20faf3984d188d54fa17d70f345eb879,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 458373111}
     - target: {fileID: 7782468435406075305, guid: 20faf3984d188d54fa17d70f345eb879,
         type: 3}
       propertyPath: m_Radius
@@ -19616,6 +19621,11 @@ PrefabInstance:
       propertyPath: medication
       value: 
       objectReference: {fileID: 1293247388}
+    - target: {fileID: 4596642763348280315, guid: 8190db0f3a18a4f41b9a6097cd70e09e,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 603560320}
     - target: {fileID: 4647270788547585437, guid: 8190db0f3a18a4f41b9a6097cd70e09e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -21940,6 +21950,11 @@ PrefabInstance:
       propertyPath: medication
       value: 
       objectReference: {fileID: 453978809}
+    - target: {fileID: 624996324519822010, guid: b2d3a170e9771e94d9ed18d6e0fb1d94,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 650798862}
     - target: {fileID: 640438224215300095, guid: b2d3a170e9771e94d9ed18d6e0fb1d94,
         type: 3}
       propertyPath: m_Radius
@@ -31191,6 +31206,11 @@ PrefabInstance:
       propertyPath: medication
       value: 
       objectReference: {fileID: 894196749}
+    - target: {fileID: 8740344040975431510, guid: 3fed658cb951dd44fad9f2d3004aa3fd,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1845984148}
     - target: {fileID: 8778581276921028142, guid: 3fed658cb951dd44fad9f2d3004aa3fd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
