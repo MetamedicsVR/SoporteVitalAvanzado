@@ -15100,13 +15100,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470176587}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.42261845, z: -0, w: -0.9063077}
+  m_LocalRotation: {x: -0, y: -0.12767637, z: -0, w: -0.99181587}
   m_LocalPosition: {x: 5.059, y: 0.066, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 512105878}
-  m_LocalEulerAnglesHint: {x: 0, y: 310, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 374.671, z: 0}
 --- !u!114 &470176589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16390,6 +16390,7 @@ Transform:
   - {fileID: 748264437}
   - {fileID: 470176588}
   - {fileID: 904566835}
+  - {fileID: 1095478926}
   - {fileID: 577607578}
   - {fileID: 1479421301}
   - {fileID: 275099114}
@@ -16413,6 +16414,7 @@ MonoBehaviour:
   - {fileID: 748264438}
   - {fileID: 470176589}
   - {fileID: 904566836}
+  - {fileID: 1095478927}
   - {fileID: 577607579}
   - {fileID: 1479421302}
   - {fileID: 1350419724}
@@ -17913,7 +17915,7 @@ GameObject:
   - component: {fileID: 577607578}
   - component: {fileID: 577607579}
   m_Layer: 0
-  m_Name: NPCSpot
+  m_Name: NPCSpot Dropper
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -26281,13 +26283,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748264436}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.86602545, z: 0, w: 0.49999994}
+  m_LocalRotation: {x: -0, y: 0.47361463, z: -0, w: 0.8807322}
   m_LocalPosition: {x: 1.3189998, y: 0.066, z: 3.014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 512105878}
-  m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 56.538, z: 0}
 --- !u!114 &748264438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31769,13 +31771,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904566834}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.8660254, z: -0, w: -0.5}
+  m_LocalRotation: {x: -0, y: 0.1507186, z: -0, w: 0.9885767}
   m_LocalPosition: {x: 4.58, y: 0.066, z: 2.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 512105878}
-  m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 17.337, z: 0}
 --- !u!114 &904566836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36217,6 +36219,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092887671}
   m_CullTransparentMesh: 1
+--- !u!1 &1095478925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1095478926}
+  - component: {fileID: 1095478927}
+  m_Layer: 0
+  m_Name: NPCSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1095478926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095478925}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.2827244, z: -0, w: 0.9592012}
+  m_LocalPosition: {x: 0.66, y: 0.066, z: -0.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 512105878}
+  m_LocalEulerAnglesHint: {x: 0, y: 32.846, z: 0}
+--- !u!114 &1095478927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095478925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7128fe0a431a0b6418e9e8a3e9a91513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  npcInSpot: {fileID: 0}
 --- !u!1001 &1096032716
 PrefabInstance:
   m_ObjectHideFlags: 0

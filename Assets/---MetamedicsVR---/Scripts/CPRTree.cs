@@ -33,11 +33,11 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             },
             new List<NPCManager.NPCAction>()
             {
-                NPCManager.NPCAction.CheckPulse
+                NPCManager.NPCAction.CheckAirWay
             },
             new List<NPCManager.NPCAction>()
             {
-                NPCManager.NPCAction.CheckAirWay
+                NPCManager.NPCAction.CheckPulse
             },
             new List<NPCManager.NPCAction>()
             {
@@ -50,11 +50,22 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             },
             new List<NPCManager.NPCAction>()
             {
+                NPCManager.NPCAction.Ventilations,
+                NPCManager.NPCAction.Compressions,
                 NPCManager.NPCAction.CheckDefibrilator
             },
             new List<NPCManager.NPCAction>()
             {
+                NPCManager.NPCAction.Ventilations,
+                NPCManager.NPCAction.Compressions,
                 NPCManager.NPCAction.ChargeDefibrilator
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.ChargeDefibrilator,
+                NPCManager.NPCAction.Rest,
+                NPCManager.NPCAction.Rest,
+                NPCManager.NPCAction.Rest
             },
             new List<NPCManager.NPCAction>()
             {
@@ -75,7 +86,12 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             new List<NPCManager.NPCAction>()
             {
                 NPCManager.NPCAction.Lidocaine
-            }
+            },
+            new List<NPCManager.NPCAction>()
+            {
+                NPCManager.NPCAction.Ventilations,
+                NPCManager.NPCAction.Compressions
+            },
         };
     }
 
@@ -111,7 +127,8 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 if (actionMatches.Count > 0)
                 {
                     NPCManager.NPCAction chosenAction = (NPCManager.NPCAction)Enum.Parse(typeof(NPCManager.NPCAction), actionMatches[actionMatches.Count - 1]);
-                    TryGiveInstruction(chosenAction);
+                    string reason;
+                    TryGiveInstruction(chosenAction, out reason);
                 }
             }
             else
@@ -121,24 +138,36 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         }
     }
 
-    public string TryGiveInstruction(NPCManager.NPCAction chosenAction)
+    public bool TryGiveInstruction(NPCManager.NPCAction chosenAction, out string reason)
     {
-        string reason;
-        if (IsCorrectInstruction(chosenAction, out reason))
+        print(NPCManager.GetInstance().GetSelectedNPC().characterName + " va a " + chosenAction);
+        bool stepEnded;
+        if (IsCorrectInstruction(chosenAction, out reason, out stepEnded))
         {
             NPCManager.GetInstance().GiveOrder(chosenAction);
-            nextStepIndex++;
+            if (stepEnded)
+            {
+                nextStepIndex++;
+                /*
+                print("NEXT INDEX: " + nextStepIndex);
+                for (int i = 0; i < stepNeededActions[nextStepIndex].Count; i++)
+                {
+                    print("- " + stepNeededActions[nextStepIndex][i]);
+                }
+                */
+            }
             RefreshPanelOptions();
+            return true;
         }
-        return reason;
+        return false;
     }
 
-    public bool IsCorrectInstruction(NPCManager.NPCAction action, out string reason)
+    public bool IsCorrectInstruction(NPCManager.NPCAction action, out string reason, out bool stepEnded)
     {
         NPC selectedNPC = NPCManager.GetInstance().GetSelectedNPC();
         if (selectedNPC.CanPerformAction(action))
         {
-            if (IsNextStep(selectedNPC, action))
+            if (IsCloserToStep(selectedNPC, action, out stepEnded))
             {
                 reason = "";
                 return true;
@@ -152,6 +181,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         else
         {
             reason = "El NPC no puede realizar la acción";
+            stepEnded = false;
             return false;
         }
     }
@@ -166,7 +196,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             NPCManager.GetInstance().FindNPC(npcName).gameObject.SetActive(true);
             NPCManager.GetInstance().SelectNPC(npcName);
             NPCManager.GetInstance().GiveOrder(NPCManager.NPCAction.Rest);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(1);
         }
         yield return null;
         canGiveOrders = true;
@@ -174,8 +204,9 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         RefreshPanelOptions();
     }
 
-    public bool IsNextStep(NPC npc, NPCManager.NPCAction action)
+    public bool IsCloserToStep(NPC npc, NPCManager.NPCAction action, out bool stepEnded)
     {
+        /*
         print("Next index: " + nextStepIndex);
         print("Step needed actions:");
         {
@@ -184,8 +215,9 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 print("- " + stepNeededActions[nextStepIndex][i]);
             }
         }
+        */
         List<NPCManager.NPCAction> currentActions = NPCManager.GetInstance().GetCurrentNPCActions();
-        currentActions.RemoveAll(action => action == NPCManager.NPCAction.Rest);
+        /*
         print("Current Actions:");
         {
             for (int i = 0; i < currentActions.Count; i++)
@@ -193,9 +225,11 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 print("- " + currentActions[i]);
             }
         }
+        */
         List<NPCManager.NPCAction> futureCurrentActions = new List<NPCManager.NPCAction>(currentActions);
-        currentActions.Remove(npc.GetCurrentAction());
+        futureCurrentActions.Remove(npc.GetCurrentAction());
         futureCurrentActions.Add(action);
+        
         print("Future Actions:");
         {
             for (int i = 0; i < futureCurrentActions.Count; i++)
@@ -203,12 +237,20 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 print("- " + futureCurrentActions[i]);
             }
         }
-        return ActionsDiference(nextStepIndex, futureCurrentActions) < ActionsDiference(nextStepIndex, currentActions);
+        
+        int currentDifference = ActionsDiference(nextStepIndex, currentActions);
+        int futureDifference = ActionsDiference(nextStepIndex, futureCurrentActions);
+
+        stepEnded = futureDifference == 0;
+        print("Step Ended, difference = " + futureDifference);
+
+        return futureDifference < currentDifference;
     }
 
     public int ActionsDiference(int stepIndex, List<NPCManager.NPCAction> actionsToCheck)
     {
         List<NPCManager.NPCAction> targetActions = new List<NPCManager.NPCAction>(stepNeededActions[stepIndex]);
+        /*
         print("Target Actions:");
         {
             for (int i = 0; i < stepNeededActions[stepIndex].Count; i++)
@@ -216,6 +258,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 print("- " + stepNeededActions[stepIndex][i]);
             }
         }
+        */
         for (int i = actionsToCheck.Count - 1; i >= 0; i--)
         {
             if (targetActions.Contains(actionsToCheck[i]))
@@ -224,8 +267,23 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 actionsToCheck.RemoveAt(i);
             }
         }
-        print(targetActions.Count + actionsToCheck.Count);
-        return targetActions.Count + actionsToCheck.Count;
+        /*
+        print("TARGET ACTIONS:");
+        {
+            for (int i = 0; i < targetActions.Count; i++)
+            {
+                print("- " + targetActions[i]);
+            }
+        }
+        print("ACTIONS TO CHECK:");
+        {
+            for (int i = 0; i < actionsToCheck.Count; i++)
+            {
+                print("- " + actionsToCheck[i]);
+            }
+        }
+        */
+        return targetActions.Count;
     }
 
     private void RefreshPanelOptions()
@@ -253,111 +311,115 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (Time.timeScale == 1)
+            {
+                Time.timeScale = 5;
+            }
+            else
+            {
+                Time.timeScale = 1;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.N))
         {
             test++;
-            print("Test Next: " + test);
-            switch (test)
-            {
-                case 0:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    break;
-                case 1:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.CheckConsciousness);
-                    break;
-                case 2:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.CheckAirWay);
-                    break;
-                case 3:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.CheckPulse);
-                    break;
-                case 4:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.PutGuedel);
-                    break;
-                case 5:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.Ventilations);
-                    break;
-                case 6:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.Compressions);
-                    //NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubio);
-                    //TryGiveInstruction(NPCManager.NPCAction.CheckDefibrilator);
-                    break;
-                case 7:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
-                    TryGiveInstruction(NPCManager.NPCAction.ChargeDefibrilator);
-                    break;
-                case 8:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    break;
-                case 9:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
-                    TryGiveInstruction(NPCManager.NPCAction.DischargeDefibrilator);
-                    break;
-                case 10:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.Ventilations);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.Compressions);
-                    break;
-                case 11:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
-                    TryGiveInstruction(NPCManager.NPCAction.Compressions);
-                    break;
-                case 12:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    break;
-                case 13:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.CheckAirWay);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
-                    TryGiveInstruction(NPCManager.NPCAction.CheckPulse);
-                    break;
-                case 14:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.Rest);
-                    break;
-                case 15:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.Ventilations);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
-                    TryGiveInstruction(NPCManager.NPCAction.Compressions);
-                    break;
-                case 16:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
-                    TryGiveInstruction(NPCManager.NPCAction.Epinephrine);
-                    break;
-                case 17:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
-                    TryGiveInstruction(NPCManager.NPCAction.Lidocaine);
-                    break;
-                case 18:
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
-                    TryGiveInstruction(NPCManager.NPCAction.CheckAirWay);
-                    NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
-                    TryGiveInstruction(NPCManager.NPCAction.CheckPulse);
-                    break;
-            }
+            Test();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Test();
+        }
+    }
+
+    private void Test()
+    {
+        string reason;
+        switch (test)
+        {
+            case 0:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
+                TryGiveInstruction(NPCManager.NPCAction.Rest, out reason);
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
+                TryGiveInstruction(NPCManager.NPCAction.Rest, out reason);
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
+                TryGiveInstruction(NPCManager.NPCAction.Rest, out reason);
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
+                TryGiveInstruction(NPCManager.NPCAction.Rest, out reason);
+                break;
+            case 1:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
+                TryGiveInstruction(NPCManager.NPCAction.CheckConsciousness, out reason);
+                break;
+            case 2:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
+                TryGiveInstruction(NPCManager.NPCAction.CheckAirWay, out reason);
+                break;
+            case 3:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
+                TryGiveInstruction(NPCManager.NPCAction.CheckPulse, out reason);
+                break;
+            case 4:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
+                TryGiveInstruction(NPCManager.NPCAction.PutGuedel, out reason);
+                break;
+            case 5:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
+                TryGiveInstruction(NPCManager.NPCAction.Ventilations, out reason);
+                break;
+            case 6:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
+                TryGiveInstruction(NPCManager.NPCAction.Compressions, out reason);
+                break;
+            case 7:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
+                TryGiveInstruction(NPCManager.NPCAction.CheckDefibrilator, out reason);
+                break;
+            case 8:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
+                TryGiveInstruction(NPCManager.NPCAction.ChargeDefibrilator, out reason);
+                break;
+            case 9:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
+                TryGiveInstruction(NPCManager.NPCAction.Rest, out reason);
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
+                TryGiveInstruction(NPCManager.NPCAction.Rest, out reason);
+                break;
+            case 10:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
+                TryGiveInstruction(NPCManager.NPCAction.PlacePatches, out reason);
+                break;
+            case 11:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
+                TryGiveInstruction(NPCManager.NPCAction.DischargeDefibrilator, out reason);
+                break;
+            case 12:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
+                TryGiveInstruction(NPCManager.NPCAction.PlaceVVP, out reason);
+                break;
+            case 13:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
+                TryGiveInstruction(NPCManager.NPCAction.Epinephrine, out reason);
+                break;
+            case 14:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.David);
+                TryGiveInstruction(NPCManager.NPCAction.Lidocaine, out reason);
+                break;
+            case 15:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
+                TryGiveInstruction(NPCManager.NPCAction.Ventilations, out reason);
+                break;
+            case 16:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Rubén);
+                TryGiveInstruction(NPCManager.NPCAction.Compressions, out reason);
+                break;
+            case 17:
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Carla);
+                TryGiveInstruction(NPCManager.NPCAction.CheckAirWay, out reason);
+                NPCManager.GetInstance().SelectNPC(NPCManager.NPCName.Jesús);
+                TryGiveInstruction(NPCManager.NPCAction.CheckPulse, out reason);
+                break;
         }
     }
 #endif
@@ -405,4 +467,4 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
     */
 
 
-}
+    }

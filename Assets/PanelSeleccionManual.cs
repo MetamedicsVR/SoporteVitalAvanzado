@@ -133,16 +133,14 @@ public class PanelSeleccionManual : MonoBehaviour
     public void SeleccionaOpcion(int n) 
     {
         string reason;
-        if (CPRTree.GetInstance().IsCorrectInstruction(givenActions[n], out reason))
+        if (CPRTree.GetInstance().TryGiveInstruction(givenActions[n], out reason))
         {
-            print("Correctoooooo    " + reason);
             NPCManager.GetInstance().GiveOrder(givenActions[n]);
         }
         else
         {
             textoPanelIncorrecto.text = (optionsTexts[0] + " es incorrecto en este paso: " + reason);
             textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
-            print(optionsTexts[0] + " es incorrecto en este paso: " + reason);
             Invoke(nameof(DesaparecePanelIncorrecto), 3);
         }
     }

@@ -42,12 +42,52 @@ public class NPC : MonoBehaviour
 
     private IEnumerator FollowOrder(NPCManager.NPCAction action)
     {
+        switch (currentAction)
+        {
+            case NPCManager.NPCAction.Rest:
+                break;
+            case NPCManager.NPCAction.Walk:
+                break;
+            case NPCManager.NPCAction.CheckConsciousness:
+                break;
+            case NPCManager.NPCAction.CheckAirWay:
+                break;
+            case NPCManager.NPCAction.PutGuedel:
+                break;
+            case NPCManager.NPCAction.CheckPulse:
+                break;
+            case NPCManager.NPCAction.Compressions:
+                Patient.GetInstance().animator.Play("");
+                break;
+            case NPCManager.NPCAction.Ventilations:
+                break;
+            case NPCManager.NPCAction.CheckDefibrilator:
+                break;
+            case NPCManager.NPCAction.PlacePatches:
+                break;
+            case NPCManager.NPCAction.ChargeDefibrilator:
+                break;
+            case NPCManager.NPCAction.AllOut:
+                break;
+            case NPCManager.NPCAction.DischargeDefibrilator:
+                break;
+            case NPCManager.NPCAction.PlaceVVP:
+                break;
+            case NPCManager.NPCAction.Epinephrine:
+                break;
+            case NPCManager.NPCAction.Epinephrine2:
+                break;
+            case NPCManager.NPCAction.Lidocaine:
+                break;
+            default:
+                break;
+        }
         audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(action));
         audioSource.Play();
         NPCSpot.SpotType correctSpotType = NPCManager.GetInstance().GetCorrectSpotType(action);
         if (!currentSpot || currentSpot.type != correctSpotType)
         {
-            NPCSpot targetSpot = NPCSpotManager.GetInstance().GetNearestSpot(correctSpotType, transform.position);
+            NPCSpot targetSpot = NPCSpotManager.GetInstance().GetNearestFreeSpot(correctSpotType, transform.position);
             if (targetSpot.npcInSpot)
             {
                 targetSpot.npcInSpot.GiveOrder(NPCManager.NPCAction.Rest);
@@ -75,6 +115,7 @@ public class NPC : MonoBehaviour
             transform.rotation = currentSpot.transform.rotation;
         }
         currentAction = action;
+        NPCSpot otherSpot;
         switch (action)
         {
             case NPCManager.NPCAction.Rest:
@@ -106,43 +147,28 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(11.2f);
                 break;
             case NPCManager.NPCAction.Compressions:
-                animator.Play("Anim_GoToComprimir");
-                yield return new WaitForSeconds(0.75f);
-                Patient.GetInstance().animator.Play("Anim_Comprimido");
-                yield return new WaitForSeconds(9999);
+                otherSpot = NPCSpotManager.GetInstance().GetNearestSpot(NPCSpot.SpotType.Ventilations, Vector3.zero);
+                if (otherSpot.npcInSpot && otherSpot.npcInSpot.GetCurrentAction() == NPCManager.NPCAction.Ventilations)
+                {
+                    otherSpot.npcInSpot.ambu.SetActive(true);
+                    otherSpot.npcInSpot.animator.Play("Anim_GoToVentilar");
+                    yield return new WaitForSeconds(7.5f);
+                    otherSpot.npcInSpot.ambu.SetActive(false);
+                    animator.Play("Anim_GoToComprimir");
+                    Patient.GetInstance().animator.Play("Anim_Comprimido");
+                }
                 break;
             case NPCManager.NPCAction.Ventilations:
-                ambu.SetActive(true);
-                animator.Play("Anim_GoToVentilar");
-
-                for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
+                otherSpot = NPCSpotManager.GetInstance().GetNearestSpot(NPCSpot.SpotType.Compressions, Vector3.zero);
+                if (otherSpot.npcInSpot && otherSpot.npcInSpot.GetCurrentAction() == NPCManager.NPCAction.Compressions && otherSpot.npcInSpot.CurrentActionEnded())
                 {
-                    if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
-                    {
-                        if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
-                        {
-                            Patient.GetInstance().animator.CrossFade("Anim_IdlePaciente", 0.7f);
-                            NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().CrossFade("Anim_idle", 0.7f);
-                        }
-                    }
+                    ambu.SetActive(true);
+                    animator.Play("Anim_GoToVentilar");
+                    yield return new WaitForSeconds(7.5f);
+                    ambu.SetActive(false);
+                    otherSpot.npcInSpot.animator.Play("Anim_GoToComprimir");
+                    Patient.GetInstance().animator.Play("Anim_Comprimido");
                 }
-                yield return new WaitForSeconds(7.5f);
-
-                for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
-                {
-                    if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
-                    {
-                        if (NPCSpotManager.GetInstance().spots[i].npcInSpot != null)
-                        {
-                            Patient.GetInstance().animator.Play("Anim_Comprimido");
-                            NPCSpotManager.GetInstance().spots[i].npcInSpot.GetComponent<Animator>().Play("Anim_Comprimir");
-                        }
-                    }
-                }
-                yield return new WaitForSeconds(2f);
-                animator.CrossFade("Anim_idle", 1);
-                yield return new WaitForSeconds(3f);
-                ambu.SetActive(false);
                 break;
             case NPCManager.NPCAction.CheckDefibrilator:
                 animator.Play("Anim_TocarBotonesDea");
@@ -299,6 +325,11 @@ public class NPC : MonoBehaviour
     public NPCManager.NPCAction GetCurrentAction()
     {
         return currentAction;
+    }
+
+    public bool CurrentActionEnded()
+    {
+        return actionCoroutine == null;
     }
 
     public bool CanPerformAction(NPCManager.NPCAction action)
