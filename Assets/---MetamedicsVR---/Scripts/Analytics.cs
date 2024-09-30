@@ -52,12 +52,45 @@ public class Analytics : MonoBehaviourInstance<Analytics>
 
     public string ActionDescription(NPCManager.NPCAction action)
     {
-        switch (action)
+        switch (action) 
         {
             case NPCManager.NPCAction.Rest:
-                return "Se le ha dicho que descanse";
-                //...
+                return "Descansar";
+            case NPCManager.NPCAction.Walk:
+                return "Caminar al punto";
+            case NPCManager.NPCAction.CheckConsciousness:
+                return "Comprobar consciencia";
+            case NPCManager.NPCAction.CheckAirWay:
+                return "Comprobar vía aerea";
+            case NPCManager.NPCAction.PutGuedel:
+                return "Colocar Güedel";
+            case NPCManager.NPCAction.CheckPulse:
+                return "Comprobar pulso";
+            case NPCManager.NPCAction.Compressions:
+                return "Ciclo de compresiones";
+            case NPCManager.NPCAction.Ventilations:
+                return "Ciclo de ventilacioenes";
+            case NPCManager.NPCAction.CheckDefibrilator:
+                return "Comprobar desfibrilador";
+            case NPCManager.NPCAction.PlacePatches:
+                return "Coloca parches";
+            case NPCManager.NPCAction.ChargeDefibrilator:
+                return "Carga desfibrilador";
+            case NPCManager.NPCAction.AllOut:
+                return "Todos fuera";
+            case NPCManager.NPCAction.DischargeDefibrilator:
+                return "Dar descarga a 150 J";
+            case NPCManager.NPCAction.PlaceVVP:
+                return "Colocar vía";
+            case NPCManager.NPCAction.Epinephrine:
+                return "Epirefrina 1 mg";
+            case NPCManager.NPCAction.Epinephrine2:
+                return "Epirefrina 1 mg";
+            case NPCManager.NPCAction.Lidocaine:
+                return "Lidocaina 300 miligramos en 20 mililitros";
+            default:
+                return "NONE";
         }
-        return "";
+
     }
 }
