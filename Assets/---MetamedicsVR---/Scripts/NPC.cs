@@ -57,7 +57,7 @@ public class NPC : MonoBehaviour
             case NPCManager.NPCAction.CheckPulse:
                 break;
             case NPCManager.NPCAction.Compressions:
-                Patient.GetInstance().animator.Play("");
+                Patient.GetInstance().animator.Play("Anim_IdlePaciente");
                 break;
             case NPCManager.NPCAction.Ventilations:
                 break;
