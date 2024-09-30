@@ -92,6 +92,8 @@ public class NPC : MonoBehaviour
                 break;
             case NPCManager.NPCAction.Lidocaine:
                 break;
+            case NPCManager.NPCAction.Lidocaine2:
+                break;
             default:
                 break;
         }
@@ -269,11 +271,7 @@ public class NPC : MonoBehaviour
                 }
                 break;
             case NPCManager.NPCAction.Compressions:
-                if (!GameManager.GetInstance().gameObject.GetComponent<Timer>().running)
-                {
-                    GameManager.GetInstance().gameObject.GetComponent<Timer>().StartTimer();
-                    GameManager.GetInstance().gameObject.GetComponent<Timer>().ShowTimer();
-                }
+         
                 otherSpot = NPCSpotManager.GetInstance().GetNearestSpot(NPCSpot.SpotType.Ventilations, Vector3.zero);
                 if (otherSpot.npcInSpot && otherSpot.npcInSpot.GetCurrentAction() == NPCManager.NPCAction.Ventilations)
                 {
@@ -282,6 +280,11 @@ public class NPC : MonoBehaviour
                     yield return new WaitForSeconds(7.5f);
                     otherSpot.npcInSpot.ambu.SetActive(false);
                     animator.Play("Anim_GoToComprimir");
+                    if (!GameManager.GetInstance().gameObject.GetComponent<Timer>().running)
+                    {
+                        GameManager.GetInstance().gameObject.GetComponent<Timer>().StartTimer();
+                        GameManager.GetInstance().gameObject.GetComponent<Timer>().ShowTimer();
+                    }
                     yield return new WaitForSeconds(1);
                     Patient.GetInstance().animator.Play("Anim_Comprimido");
                 }
@@ -477,6 +480,7 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(4);
                 break;
             case NPCManager.NPCAction.Epinephrine:
+                ambu.SetActive(false);
                 animator.Play("Anim_ExtraerMedicamento");
                 yield return new WaitForSeconds(1);
                 syringe.SetActive(true);
@@ -489,6 +493,7 @@ public class NPC : MonoBehaviour
                 StartCoroutine(FollowOrder(NPCManager.NPCAction.Epinephrine2));
                 break;
             case NPCManager.NPCAction.Epinephrine2:
+                ambu.SetActive(false);
                 animator.Play("Anim_PincharSuero");
                 yield return new WaitForSeconds(6);
                 syringe.SetActive(false);
@@ -519,6 +524,7 @@ public class NPC : MonoBehaviour
                 }
                 break;
             case NPCManager.NPCAction.Lidocaine:
+                ambu.SetActive(false);
                 animator.Play("Anim_ExtraerMedicamento");
                 yield return new WaitForSeconds(1);
                 syringe.SetActive(true);
@@ -526,11 +532,12 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(25f);
                 syringe.SetActive(false);
                 medication.SetActive(false);
-                animator.CrossFade("Anim_idle", 0.5f);
+                //animator.CrossFade("Anim_idle", 0.5f);
                 yield return new WaitForSeconds(4);
                 StartCoroutine(FollowOrder(NPCManager.NPCAction.Lidocaine2));
                 break;
             case NPCManager.NPCAction.Lidocaine2:
+                ambu.SetActive(false);
                 animator.Play("Anim_PincharSuero");
                 yield return new WaitForSeconds(6);
                 syringe.SetActive(false);
@@ -559,11 +566,11 @@ public class NPC : MonoBehaviour
                     default:
                         break;
                 }
-                break;
                 if (GameManager.GetInstance().gameObject.GetComponent<Timer>().running)
                 {
                     GameManager.GetInstance().gameObject.GetComponent<Timer>().StopTimer();
                 }
+                break;      
         }
         actionCoroutine = null;
         if (nextAction != NPCManager.NPCAction.Rest)

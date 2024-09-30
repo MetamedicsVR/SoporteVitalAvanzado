@@ -65,6 +65,8 @@ public class PanelSeleccionManual : MonoBehaviour
                 return "Ordenar que coloque vía en brazo";
             case NPCManager.NPCAction.Epinephrine:
                 return "Ordenar que administre epinefrina";
+            case NPCManager.NPCAction.Lidocaine:
+                return "Ordenar que administre amiodarona";
             default:
                 return "";
         }
