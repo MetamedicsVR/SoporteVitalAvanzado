@@ -48,7 +48,7 @@ public class DebriefManager : MonoBehaviour
             bool isCorrect = random.Next(0, 2) == 0; // Genera true o false aleatoriamente
 
             // Crear una explicación básica para cada acción
-            string explanation = isCorrect ? "Action performed correctly" : "Action performed incorrectly";
+            string explanation = isCorrect ? "Action performed correctly --  " + " CUSTOM explanation: " + timeStamp + " ----- " : "Action performed Incorrectly --  " + " CUSTOM explanation: " + timeStamp + " ----- ";
 
             // Crear un PlayerOrder y asignar valores
             Analytics.PlayerOrder order = new Analytics.PlayerOrder();
@@ -70,6 +70,7 @@ public class DebriefManager : MonoBehaviour
     {
         satisfactionLevel = incomingSatisfactionLevel;
         satisfactionPanel.GetComponentInChildren<Animator>().Play("PanelDialogoDesaparece");
+        timelinePanel.SetActive(true);
     }
     
     public void LoadDataForDisplay(Analytics.PlayerOrder [] incommingOrderList) 
@@ -91,6 +92,7 @@ public class DebriefManager : MonoBehaviour
 
                 incorrectTimeStamps[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = incommingOrderList[i].order;
                 incorrectTimeStamps[i].transform.Find("TimeStep").GetComponent<TextMeshProUGUI>().text = incommingOrderList[i].timeStamp;
+                incorrectTimeStamps[i].transform.Find("PanelExplicacion").transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = incommingOrderList[i].explanation;
             }
         }
     }
@@ -122,4 +124,10 @@ public class DebriefManager : MonoBehaviour
         timelineFill = 1f;
         timelineImage.fillAmount = timelineFill;
     }
+
+    public void GetTimeLineCloserToSelect() 
+    {
+        timelinePanel.GetComponent<Animator>().Play("TextPanelTimeLineSeAcerca");
+    }
+
 }
