@@ -45,11 +45,18 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         return analyticsString;
     }
 
+    public List<PlayerOrder> GetData()
+    {
+        return data;
+    }
+
     public string ActionDescription(NPCManager.NPCAction action)
     {
         switch (action)
         {
-        
+            case NPCManager.NPCAction.Rest:
+                return "Se le ha dicho que descanse";
+                //...
         }
         return "";
     }
