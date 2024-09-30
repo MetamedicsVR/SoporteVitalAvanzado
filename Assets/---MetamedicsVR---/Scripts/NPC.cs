@@ -313,25 +313,165 @@ public class NPC : MonoBehaviour
             case NPCManager.NPCName.Carla:
                 switch (action)
                 {
-
+                    case NPCManager.NPCAction.Rest:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Walk:
+                        return AudioManager.AudioName.Null; 
+                    case NPCManager.NPCAction.CheckConsciousness:
+                        return AudioManager.AudioName._Comprobando_consciencia_Carla_;
+                    case NPCManager.NPCAction.CheckAirWay:
+                        return AudioManager.AudioName._Abriendo_via_aerea_Carla_;
+                    case NPCManager.NPCAction.PutGuedel:
+                        return AudioManager.AudioName._Colocando_canula_de_güedel_Carla_;
+                    case NPCManager.NPCAction.CheckPulse:
+                        return AudioManager.AudioName._Tomando_pulso_carotídeo_Carla_;
+                    case NPCManager.NPCAction.Compressions:
+                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_Carla_;
+                    case NPCManager.NPCAction.Ventilations:
+                        return AudioManager.AudioName._Ventilando_con_ambu_Carla_;
+                    case NPCManager.NPCAction.CheckDefibrilator:
+                        return AudioManager.AudioName._Monitorizando_con_defibrilador_Carla_;
+                    case NPCManager.NPCAction.PlacePatches:
+                        return AudioManager.AudioName._Colocando_parches_Carla_;
+                    case NPCManager.NPCAction.ChargeDefibrilator:
+                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_Carla_;
+                    case NPCManager.NPCAction.AllOut:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.DischargeDefibrilator:
+                        return AudioManager.AudioName._Dando_descarga_Carla_;
+                    case NPCManager.NPCAction.PlaceVVP:
+                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_Carla_;
+                    case NPCManager.NPCAction.Epinephrine:
+                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_Carla_;
+                    case NPCManager.NPCAction.Epinephrine2:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Lidocaine:
+                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_Carla_;
+                    default:
+                        break;
                 }
                 break;
             case NPCManager.NPCName.David:
                 switch (action)
                 {
-
+                    case NPCManager.NPCAction.Rest:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Walk:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.CheckConsciousness:
+                        return AudioManager.AudioName._Comprobando_consciencia_David_;
+                    case NPCManager.NPCAction.CheckAirWay:
+                        return AudioManager.AudioName._Abriendo_via_aerea_David_;
+                    case NPCManager.NPCAction.PutGuedel:
+                        return AudioManager.AudioName._Colocando_canula_de_güedel_David_;
+                    case NPCManager.NPCAction.CheckPulse:
+                        return AudioManager.AudioName._Tomando_pulso_carotídeo_David_;
+                    case NPCManager.NPCAction.Compressions:
+                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_David_;
+                    case NPCManager.NPCAction.Ventilations:
+                        return AudioManager.AudioName._Ventilando_con_ambu_David_;
+                    case NPCManager.NPCAction.CheckDefibrilator:
+                        return AudioManager.AudioName._Monitorizando_con_defibrilador_David_;
+                    case NPCManager.NPCAction.PlacePatches:
+                        return AudioManager.AudioName._Colocando_parches_David_;
+                    case NPCManager.NPCAction.ChargeDefibrilator:
+                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_David_;
+                    case NPCManager.NPCAction.AllOut:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.DischargeDefibrilator:
+                        return AudioManager.AudioName._Dando_descarga_David_;
+                    case NPCManager.NPCAction.PlaceVVP:
+                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_David_;
+                    case NPCManager.NPCAction.Epinephrine:
+                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_David_;
+                    case NPCManager.NPCAction.Epinephrine2:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Lidocaine:
+                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_David_;
+                    default:
+                        break;
                 }
                 break;
             case NPCManager.NPCName.Rubén:
                 switch (action)
                 {
-
+                    case NPCManager.NPCAction.Rest:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Walk:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.CheckConsciousness:
+                        return AudioManager.AudioName._Comprobando_consciencia_Rubén_;
+                    case NPCManager.NPCAction.CheckAirWay:
+                        return AudioManager.AudioName._Abriendo_via_aerea_Rubén_;
+                    case NPCManager.NPCAction.PutGuedel:
+                        return AudioManager.AudioName._Colocando_canula_de_güedel_Rubén_;
+                    case NPCManager.NPCAction.CheckPulse:
+                        return AudioManager.AudioName._Tomando_pulso_carotídeo_Rubén_;
+                    case NPCManager.NPCAction.Compressions:
+                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_Rubén_;
+                    case NPCManager.NPCAction.Ventilations:
+                        return AudioManager.AudioName._Ventilando_con_ambu_Rubén_1;
+                    case NPCManager.NPCAction.CheckDefibrilator:
+                        return AudioManager.AudioName._Monitorizando_con_defibrilador_Rubén_;
+                    case NPCManager.NPCAction.PlacePatches:
+                        return AudioManager.AudioName._Colocando_parches_Rubén_;
+                    case NPCManager.NPCAction.ChargeDefibrilator:
+                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_Rubén_;
+                    case NPCManager.NPCAction.AllOut:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.DischargeDefibrilator:
+                        return AudioManager.AudioName._Dando_descarga_Rubén_;
+                    case NPCManager.NPCAction.PlaceVVP:
+                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_Rubén_;
+                    case NPCManager.NPCAction.Epinephrine:
+                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_Rubén_;
+                    case NPCManager.NPCAction.Epinephrine2:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Lidocaine:
+                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_Rubén_;
+                    default:
+                        break;
                 }
                 break;
             case NPCManager.NPCName.Jesús:
                 switch (action)
                 {
-
+                    case NPCManager.NPCAction.Rest:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Walk:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.CheckConsciousness:
+                        return AudioManager.AudioName._Comprobando_consciencia_Jesús_;
+                    case NPCManager.NPCAction.CheckAirWay:
+                        return AudioManager.AudioName._Abriendo_via_aerea_Jesús_;
+                    case NPCManager.NPCAction.PutGuedel:
+                        return AudioManager.AudioName._Colocando_canula_de_güedel_Jesús_;
+                    case NPCManager.NPCAction.CheckPulse:
+                        return AudioManager.AudioName._Tomando_pulso_carotídeo_Jesús_;
+                    case NPCManager.NPCAction.Compressions:
+                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_Jesús_;
+                    case NPCManager.NPCAction.Ventilations:
+                        return AudioManager.AudioName._Ventilando_con_ambu_Jesús_;
+                    case NPCManager.NPCAction.CheckDefibrilator:
+                        return AudioManager.AudioName._Monitorizando_con_defibrilador_Jesús_;
+                    case NPCManager.NPCAction.PlacePatches:
+                        return AudioManager.AudioName._Colocando_parches_Jesús_;
+                    case NPCManager.NPCAction.ChargeDefibrilator:
+                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_Jesús_;
+                    case NPCManager.NPCAction.AllOut:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.DischargeDefibrilator:
+                        return AudioManager.AudioName._Dando_descarga_Jesús_;
+                    case NPCManager.NPCAction.PlaceVVP:
+                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_Jesús_;
+                    case NPCManager.NPCAction.Epinephrine:
+                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_Jesús_;
+                    case NPCManager.NPCAction.Epinephrine2:
+                        return AudioManager.AudioName.Null;
+                    case NPCManager.NPCAction.Lidocaine:
+                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_Jesús_;
+                    default:
+                        break;
                 }
                 break;
         }
