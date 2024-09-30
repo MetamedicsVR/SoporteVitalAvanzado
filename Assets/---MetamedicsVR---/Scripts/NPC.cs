@@ -42,6 +42,19 @@ public class NPC : MonoBehaviour
 
     private IEnumerator FollowOrder(NPCManager.NPCAction action)
     {
+        nextAction = action;
+        yield return EndLastAction();
+        currentAction = action;
+        nextAction = NPCManager.NPCAction.Rest;
+        audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(action));
+        audioSource.Play();
+        yield return WalkToSpot();
+        yield return StartNextAction();
+    }
+
+    private IEnumerator EndLastAction()
+    {
+        yield return null;
         switch (currentAction)
         {
             case NPCManager.NPCAction.Rest:
@@ -82,9 +95,11 @@ public class NPC : MonoBehaviour
             default:
                 break;
         }
-        audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(action));
-        audioSource.Play();
-        NPCSpot.SpotType correctSpotType = NPCManager.GetInstance().GetCorrectSpotType(action);
+    }
+
+    private IEnumerator WalkToSpot()
+    {
+        NPCSpot.SpotType correctSpotType = NPCManager.GetInstance().GetCorrectSpotType(currentAction);
         if (!currentSpot || currentSpot.type != correctSpotType)
         {
             NPCSpot targetSpot = NPCSpotManager.GetInstance().GetNearestFreeSpot(correctSpotType, transform.position);
@@ -93,6 +108,7 @@ public class NPC : MonoBehaviour
                 targetSpot.npcInSpot.GiveOrder(NPCManager.NPCAction.Rest);
             }
             SetCurrentSpot(targetSpot);
+            nextAction = currentAction;
             currentAction = NPCManager.NPCAction.Walk;
             animator.Play("Anim_Andar");
 
@@ -113,10 +129,15 @@ public class NPC : MonoBehaviour
             }
             transform.position = currentSpot.transform.position;
             transform.rotation = currentSpot.transform.rotation;
+            currentAction = nextAction;
+            nextAction = NPCManager.NPCAction.Rest;
         }
-        currentAction = action;
+    }
+
+    private IEnumerator StartNextAction()
+    {
         NPCSpot otherSpot;
-        switch (action)
+        switch (currentAction)
         {
             case NPCManager.NPCAction.Rest:
                 print("Rest");
@@ -132,7 +153,7 @@ public class NPC : MonoBehaviour
 
                 animator.Play("Anim_ComprobarRespiracion");
                 Patient.GetInstance().animator.Play("Anim_ComprobarRespiracionPaciente");
-                yield return new WaitForSeconds(15);
+                yield return new WaitForSeconds(14);
                 break;
             case NPCManager.NPCAction.PutGuedel:
                 guedel.SetActive(true);
@@ -185,7 +206,7 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(5);
                 break;
             case NPCManager.NPCAction.AllOut:
-             
+
                 for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
                 {
                     if (NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions || NPCSpotManager.GetInstance().spots[i].type == NPCSpot.SpotType.Compressions)
@@ -325,6 +346,11 @@ public class NPC : MonoBehaviour
     public NPCManager.NPCAction GetCurrentAction()
     {
         return currentAction;
+    }
+
+    public NPCManager.NPCAction GetNextAction()
+    {
+        return nextAction;
     }
 
     public bool CurrentActionEnded()

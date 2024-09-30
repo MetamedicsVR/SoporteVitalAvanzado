@@ -170,7 +170,13 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         List<NPCAction> currentActions = new List<NPCAction>();
         for (int i = 0; i < npcs.Length; i++)
         {
-            currentActions.Add(npcs[i].GetCurrentAction());
+            if (npcs[i].GetCurrentAction() == NPCAction.Walk)
+            {
+                currentActions.Add(npcs[i].GetNextAction());
+            }
+            else {
+                currentActions.Add(npcs[i].GetCurrentAction());
+            }
         }
         return currentActions;
     }
