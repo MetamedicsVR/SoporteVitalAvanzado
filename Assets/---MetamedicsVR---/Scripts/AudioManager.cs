@@ -129,7 +129,7 @@ public class AudioManager : MonoBehaviourInstance<AudioManager>
 
 	private AudioClip SearchAudioClip(string name)
 	{
-		AudioClip clip = Resources.Load<AudioClip>("Audio/" + name);
+		AudioClip clip = Resources.Load<AudioClip>("Audios/" + name);
 		if(clip)
         {
 			return clip;
@@ -137,7 +137,7 @@ public class AudioManager : MonoBehaviourInstance<AudioManager>
 		AudioFolders[] folders = (AudioFolders[])Enum.GetValues(typeof(AudioFolders));
 		foreach (AudioFolders folder in folders)
 		{
-			clip = Resources.Load<AudioClip>("Audio/" + folder + "/" + name);
+			clip = Resources.Load<AudioClip>("Audios/" + folder + "/" + name);
 			if (clip)
 			{
 				return clip;
