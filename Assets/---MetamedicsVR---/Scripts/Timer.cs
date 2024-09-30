@@ -6,10 +6,10 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     public GameObject timerPanel;
-    public TextMeshPro timerText;
+    public TextMeshProUGUI timerText;
 
-    private float currentTime;
-    private bool running;
+    public float currentTime;
+    public bool running;
 
     private void Update()
     {
@@ -35,7 +35,11 @@ public class Timer : MonoBehaviour
 
     public void StopTimer()
     {
-        currentTime = 0;
+        //currentTime = 0;
+        int minutes = Mathf.FloorToInt(currentTime / 60);
+        int seconds = Mathf.FloorToInt(currentTime % 60);
+        GameManager.GetInstance().finalTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+        
         running = false;
     }
 

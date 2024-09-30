@@ -109,7 +109,7 @@ public class AudioManager : MonoBehaviourInstance<AudioManager>
 		return clip;
 	}
 
-	private AudioClip LoadAudioClip(AudioName name)
+	public AudioClip LoadAudioClip(AudioName name)
 	{
 		AudioClip clip = SearchAudioClip(name + "_" + LanguageManager.GetLanguageCode(LanguageManager.GetInstance().GetCurrentLanguage()));
 		if (clip)
@@ -312,8 +312,9 @@ public class AudioManager : MonoBehaviourInstance<AudioManager>
 		_Ventilación_com_ambu_David_,
 		_Ventilación_com_ambu_Jesús_,
 		_Ventilación_com_ambu_Rubén_,
-		Null
-	}
+		Null,
+        _No_tiene_pulso
+    }
 
 	public enum AudioFolders
 	{

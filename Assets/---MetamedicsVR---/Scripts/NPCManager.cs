@@ -40,7 +40,8 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         PlaceVVP,
         Epinephrine,
         Epinephrine2,
-        Lidocaine
+        Lidocaine,
+        Lidocaine2
     }
 
     protected override void OnInstance()
@@ -160,6 +161,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
             case NPCAction.DischargeDefibrilator:
                 return NPCSpot.SpotType.VitalSigns;
             case NPCAction.Epinephrine2:
+            case NPCAction.Lidocaine2:
                 return NPCSpot.SpotType.Dropper;
         }
         return NPCSpot.SpotType.Generic;

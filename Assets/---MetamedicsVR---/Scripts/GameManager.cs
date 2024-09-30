@@ -13,6 +13,15 @@ public class GameManager : MonoBehaviourInstance<GameManager>
     private Coroutine loadingScene;
     private MetaMedicsBuildSettings settings;
 
+
+    public GameObject pantallaFibrilarVentriculationInDefibrilator;
+    public GameObject pantallaSynusRythmInDefibrilator;
+    public GameObject pantallaFibrilarVentriculationPlayer;
+    public GameObject pantallaSynusRythmPlayer;
+
+    public GameObject askThemToComePanel;
+
+    public string finalTime;
     protected override void OnInstance()
     {
         DontDestroyOnLoad(gameObject);
@@ -88,6 +97,14 @@ public class GameManager : MonoBehaviourInstance<GameManager>
                 return "BoxVital";
         }
         return "";
+    }
+
+    public void FinishPatientStabilization() 
+    {
+        GameManager.GetInstance().pantallaFibrilarVentriculationInDefibrilator.SetActive(false);
+        GameManager.GetInstance().pantallaFibrilarVentriculationPlayer.SetActive(false);
+        GameManager.GetInstance().pantallaSynusRythmInDefibrilator.SetActive(true);
+        GameManager.GetInstance().pantallaSynusRythmPlayer.SetActive(true);
     }
 
     public enum SceneName
