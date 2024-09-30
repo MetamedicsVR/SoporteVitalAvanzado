@@ -570,7 +570,7 @@ public class NPC : MonoBehaviour
         {
             GiveOrder(nextAction);
         }
-        else
+        else if(currentAction != NPCManager.NPCAction.Compressions)
         {
             animator.Play("Anim_idle");
         }
@@ -578,7 +578,7 @@ public class NPC : MonoBehaviour
 
     private void SetCurrentSpot(NPCSpot npcSpot)
     {
-        if (currentSpot)
+        if (currentSpot && currentSpot.npcInSpot == this)
         {
             currentSpot.npcInSpot = null;
         }
