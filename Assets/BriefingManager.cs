@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BriefingManager : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class BriefingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("ShowPanelBriefing",12);
+        Invoke("ShowPanelBriefing",7);
         //Invoke("HidePanelBriefing", 15);// BORRAR CUANDO INTERACCION OK
         //Invoke("DebugInvokableQuiz01", 18);// BORRAR CUANDO INTERACCION OK
     }
@@ -141,4 +142,10 @@ public class BriefingManager : MonoBehaviour
         analiticsPanel.SetActive(false);
         briefingPanelEnd.SetActive(true);
     }
+
+    public void GoToVitalBox() 
+    {   
+            SceneManager.LoadScene("Scene_BoxVital");
+    }
+
 }

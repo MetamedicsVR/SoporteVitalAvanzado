@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviourInstance<GameManager>
 
     public GameObject askThemToComePanel;
 
+    public GameObject parentPanelSalir;
+
     public string finalTime;
     protected override void OnInstance()
     {
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviourInstance<GameManager>
         GameManager.GetInstance().pantallaFibrilarVentriculationPlayer.SetActive(false);
         GameManager.GetInstance().pantallaSynusRythmInDefibrilator.SetActive(true);
         GameManager.GetInstance().pantallaSynusRythmPlayer.SetActive(true);
+        parentPanelSalir.SetActive(true);
     }
 
     public enum SceneName
