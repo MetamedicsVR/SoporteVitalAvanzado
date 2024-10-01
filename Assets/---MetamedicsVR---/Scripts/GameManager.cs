@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviourInstance<GameManager>
     public bool allowSceneLoading = true;
     public GameMode currentGameMode { get; protected set; }
     public PlayersMode currentPlayersMode { get; protected set; }
-    public SceneName currentScene { get; protected set; } = SceneName.Lobby;
+    public SceneName currentScene { get; protected set; } = SceneName.Debriefing;
 
     private Coroutine loadingScene;
     private MetaMedicsBuildSettings settings;
@@ -93,19 +93,19 @@ public class GameManager : MonoBehaviourInstance<GameManager>
     {
         switch (sceneName)
         {
-            case SceneName.Lobby:
-                return "Lobby";
+            case SceneName.Debriefing:
+                return "Scene_Debriefing";
             case SceneName.Briefing:
-                return "Briefing";
+                return "Scene_Briefing";
             case SceneName.BoxVital:
-                return "BoxVital";
+                return "Scene_BoxVital";
         }
         return "";
     }
 
     public enum SceneName
     {
-        Lobby,
+        Debriefing,
         Briefing,
         BoxVital
     }

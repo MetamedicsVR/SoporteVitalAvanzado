@@ -3038,7 +3038,7 @@ GameObject:
   - component: {fileID: 101757147}
   - component: {fileID: 101757146}
   - component: {fileID: 101757145}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: VideoParentSinus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5190,7 +5190,7 @@ GameObject:
   - component: {fileID: 157390093}
   - component: {fileID: 157390095}
   - component: {fileID: 157390094}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BlackBlock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8164,7 +8164,7 @@ GameObject:
   - component: {fileID: 254692323}
   - component: {fileID: 254692322}
   - component: {fileID: 254692321}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: RawImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8643,7 +8643,7 @@ GameObject:
   - component: {fileID: 264596842}
   - component: {fileID: 264596841}
   - component: {fileID: 264596840}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: RawImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10570,7 +10570,7 @@ GameObject:
   - component: {fileID: 334810008}
   - component: {fileID: 334810010}
   - component: {fileID: 334810009}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BlackBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10634,6 +10634,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334810007}
   m_CullTransparentMesh: 1
+--- !u!1 &336173238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1965629083102522985, guid: 854d17bc7dd15da4a879a940fcc02b47,
+    type: 3}
+  m_PrefabInstance: {fileID: 955344381}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &337485831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16968,6 +16974,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &458373113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6609640316712284916, guid: 20faf3984d188d54fa17d70f345eb879,
+    type: 3}
+  m_PrefabInstance: {fileID: 458373104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72939981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &460602461 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2280323953816014065, guid: 20faf3984d188d54fa17d70f345eb879,
@@ -20159,7 +20177,7 @@ GameObject:
   - component: {fileID: 589442691}
   - component: {fileID: 589442690}
   - component: {fileID: 589442689}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: VideoParentFibrilacion COPIA PARA JUGADOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22634,6 +22652,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &603560322 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4596642763348280315, guid: 8190db0f3a18a4f41b9a6097cd70e09e,
+    type: 3}
+  m_PrefabInstance: {fileID: 603560313}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227429233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &607901549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25490,6 +25520,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &650798864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 624996324519822010, guid: b2d3a170e9771e94d9ed18d6e0fb1d94,
+    type: 3}
+  m_PrefabInstance: {fileID: 650798857}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496136257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &652835461
 GameObject:
   m_ObjectHideFlags: 0
@@ -25539,7 +25581,7 @@ GameObject:
   - component: {fileID: 653133342}
   - component: {fileID: 653133344}
   - component: {fileID: 653133343}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BlackBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30644,7 +30686,7 @@ GameObject:
   - component: {fileID: 834908442}
   - component: {fileID: 834908441}
   - component: {fileID: 834908440}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: VideoParentSinus  COPIA PARA JUGADOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34381,10 +34423,11 @@ MonoBehaviour:
   warningPanel: {fileID: 0}
   errorPanel: {fileID: 0}
   monitorAttached: 0
-  pantallaFibrilarVentriculationInDefibrilator: {fileID: 0}
-  pantallaSynusRythmInDefibrilator: {fileID: 0}
-  pantallaFibrilarVentriculationPlayer: {fileID: 0}
-  pantallaSynusRythmPlayer: {fileID: 0}
+  pantallaFibrilarVentriculationInDefibrilator: {fileID: 1554518753}
+  pantallaSynusRythmInDefibrilator: {fileID: 101757143}
+  pantallaFibrilarVentriculationPlayer: {fileID: 589442688}
+  pantallaSynusRythmPlayer: {fileID: 834908439}
+  timer: {fileID: 930295284}
 --- !u!114 &930295286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34398,10 +34441,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcs:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 603560322}
+  - {fileID: 458373113}
+  - {fileID: 650798864}
+  - {fileID: 1845984150}
 --- !u!4 &930295287
 Transform:
   m_ObjectHideFlags: 0
@@ -35970,7 +36013,7 @@ GameObject:
   - component: {fileID: 975108875}
   - component: {fileID: 975108877}
   - component: {fileID: 975108876}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BlackBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38972,7 +39015,7 @@ GameObject:
   - component: {fileID: 1092887675}
   - component: {fileID: 1092887674}
   - component: {fileID: 1092887673}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: RawImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45137,7 +45180,19 @@ MonoBehaviour:
       m_Calls: []
   _whenUnselect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1437921803}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _whenInteractorViewAdded:
     m_PersistentCalls:
       m_Calls: []
@@ -46627,7 +46682,7 @@ GameObject:
   - component: {fileID: 1336723632}
   - component: {fileID: 1336723634}
   - component: {fileID: 1336723633}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BlackBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47756,7 +47811,7 @@ GameObject:
   - component: {fileID: 1365567908}
   - component: {fileID: 1365567910}
   - component: {fileID: 1365567909}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BlackBlock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50110,7 +50165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowSceneLoading: 1
   askThemToComePanel: {fileID: 1673904672}
-  parentPanelSalir: {fileID: 0}
+  parentPanelSalir: {fileID: 336173238}
   finalTime: 
 --- !u!4 &1437921804
 Transform:
@@ -53566,7 +53621,7 @@ GameObject:
   - component: {fileID: 1554518757}
   - component: {fileID: 1554518756}
   - component: {fileID: 1554518755}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: VideoParentFibrilacion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58684,7 +58739,7 @@ GameObject:
   - component: {fileID: 1775355103}
   - component: {fileID: 1775355102}
   - component: {fileID: 1775355101}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: RawImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60991,6 +61046,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1845984150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8740344040975431510, guid: 3fed658cb951dd44fad9f2d3004aa3fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 885773299}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845984144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624e48123cf0a7d4dbbafda05e98081a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1846558562
 PrefabInstance:
   m_ObjectHideFlags: 0

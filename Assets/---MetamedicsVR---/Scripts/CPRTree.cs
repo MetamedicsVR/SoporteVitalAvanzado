@@ -463,10 +463,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.Lidocaine, true, "");
                 break;
             case 27:
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Rest, true, "");
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Rest, true, "");
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Compressions);
                 break;
             case 28:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.CheckPulse);
@@ -475,6 +472,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 pantallaFibrilarVentriculationPlayer.SetActive(false);
                 pantallaSynusRythmInDefibrilator.SetActive(true);
                 pantallaSynusRythmPlayer.SetActive(true);
+                GameManager.GetInstance().parentPanelSalir.SetActive(true);
                 break;
             case 29:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.CheckAirWay);

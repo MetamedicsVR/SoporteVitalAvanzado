@@ -5,12 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
+    path: Assets/---MetamedicsVR---/Scenes/Scene_Briefing.unity
+    guid: 31d61c75e225fe846a9606298166c85c
+  - enabled: 1
     path: Assets/---MetamedicsVR---/Scenes/Scene_BoxVital.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/---MetamedicsVR---/Scenes/Scene_PersonajesyTransfroms.unity
-    guid: 33e8f5830334dac44930627149c6aee6
+    path: Assets/---MetamedicsVR---/Scenes/Scene_Debriefing.unity
+    guid: 6669e6c953b99734e9289a12fcfbc4ca
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 619a44cddf4f0874cb39597071e4bc76,
       type: 2}
