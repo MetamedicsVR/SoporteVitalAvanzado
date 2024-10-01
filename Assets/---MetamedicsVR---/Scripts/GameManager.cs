@@ -51,6 +51,14 @@ public class GameManager : MonoBehaviourInstance<GameManager>
         Exam
     }
 
+    public void LoadScene(int sceneIndex)
+    {
+        if (allowSceneLoading && loadingScene == null)
+        {
+            loadingScene = StartCoroutine(LoadingScene((SceneName)sceneIndex));
+        }
+    }
+
     public void LoadScene(SceneName sceneName)
     {
         if (allowSceneLoading && loadingScene == null)

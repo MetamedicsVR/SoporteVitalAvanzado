@@ -16,10 +16,9 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         public string explanation;
     }
 
-    protected override void Awake()
+    protected override void OnInstance()
     {
-        base.Awake();
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
 
     public void ResetData()
