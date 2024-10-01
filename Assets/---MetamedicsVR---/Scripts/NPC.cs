@@ -303,8 +303,8 @@ public class NPC : MonoBehaviour
                 }
                 break;
             case NPCManager.NPCAction.CheckDefibrilator:
-                GameManager.GetInstance().pantallaFibrilarVentriculationInDefibrilator.SetActive(true);
-                GameManager.GetInstance().pantallaFibrilarVentriculationPlayer.SetActive(true);
+                CPRTree.GetInstance().pantallaFibrilarVentriculationInDefibrilator.SetActive(true);
+                CPRTree.GetInstance().pantallaFibrilarVentriculationPlayer.SetActive(true);
                 animator.Play("Anim_TocarBotonesDea");
                 yield return new WaitForSeconds(2);
                 Patient.GetInstance().vitalSignsMonitor.enabled = true;

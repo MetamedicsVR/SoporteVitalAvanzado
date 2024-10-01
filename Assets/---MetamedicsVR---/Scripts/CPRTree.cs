@@ -16,6 +16,10 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
     public GameObject errorPanel;
 
     public bool monitorAttached;
+    public GameObject pantallaFibrilarVentriculationInDefibrilator;
+    public GameObject pantallaSynusRythmInDefibrilator;
+    public GameObject pantallaFibrilarVentriculationPlayer;
+    public GameObject pantallaSynusRythmPlayer;
 
     private bool canGiveOrders;
     private int nextStepIndex;
@@ -465,10 +469,10 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             case 28:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.CheckPulse);
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.CheckPulse, true, "");
-                GameManager.GetInstance().pantallaFibrilarVentriculationInDefibrilator.SetActive(false);
-                GameManager.GetInstance().pantallaFibrilarVentriculationPlayer.SetActive(false);
-                GameManager.GetInstance().pantallaSynusRythmInDefibrilator.SetActive(true);
-                GameManager.GetInstance().pantallaSynusRythmPlayer.SetActive(true);
+                pantallaFibrilarVentriculationInDefibrilator.SetActive(false);
+                pantallaFibrilarVentriculationPlayer.SetActive(false);
+                pantallaSynusRythmInDefibrilator.SetActive(true);
+                pantallaSynusRythmPlayer.SetActive(true);
                 break;
             case 29:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.CheckAirWay);
