@@ -280,10 +280,10 @@ public class NPC : MonoBehaviour
                     yield return new WaitForSeconds(7.5f);
                     otherSpot.npcInSpot.ambu.SetActive(false);
                     animator.Play("Anim_GoToComprimir");
-                    if (!GameManager.GetInstance().gameObject.GetComponent<Timer>().running)
+                    if (!CPRTree.GetInstance().timer.running)
                     {
-                        GameManager.GetInstance().gameObject.GetComponent<Timer>().StartTimer();
-                        GameManager.GetInstance().gameObject.GetComponent<Timer>().ShowTimer();
+                        CPRTree.GetInstance().timer.StartTimer();
+                        CPRTree.GetInstance().timer.ShowTimer();
                     }
                     yield return new WaitForSeconds(1);
                     Patient.GetInstance().animator.Play("Anim_Comprimido");
@@ -566,10 +566,7 @@ public class NPC : MonoBehaviour
                     default:
                         break;
                 }
-                if (GameManager.GetInstance().gameObject.GetComponent<Timer>().running)
-                {
-                    GameManager.GetInstance().gameObject.GetComponent<Timer>().StopTimer();
-                }
+                CPRTree.GetInstance().timer.StopTimer();
                 break;      
         }
         actionCoroutine = null;

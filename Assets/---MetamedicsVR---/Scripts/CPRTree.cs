@@ -21,6 +21,8 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
     public GameObject pantallaFibrilarVentriculationPlayer;
     public GameObject pantallaSynusRythmPlayer;
 
+    public Timer timer;
+
     private bool canGiveOrders;
     private int nextStepIndex;
 
