@@ -348,107 +348,133 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 break;
             case 1:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.CheckConsciousness);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.CheckConsciousness, true, "");
                 break;
             case 2:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.CheckAirWay);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.CheckAirWay, true, "");
                 break;
             case 3:
-                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.CheckDefibrilator);
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.CheckDefibrilator);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.CheckDefibrilator, true, "");
                 break;
             case 4:
-                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.CheckPulse);
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.CheckPulse);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.CheckPulse, true, "");
                 break;
             case 5:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.PutGuedel);
-          
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.PutGuedel, true, "");
                 break;
             case 6:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.Ventilations);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.Ventilations, true, "");
                 break;
             case 7:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Compressions);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Compressions, true, "");
                 break;
             case 8:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.ChargeDefibrilator);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.ChargeDefibrilator, true, "");
                 break;
             case 9:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Rest);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Rest, true, "");
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.Rest);
-
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.Rest, true, "");
                 break;
             case 10:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.PlacePatches);
-
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.PlacePatches, true, "");
                 break;
             case 11:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.DischargeDefibrilator);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.DischargeDefibrilator, true, "");
                 break;
             case 12:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.PlaceVVP);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.PlaceVVP, true, "");
                 break;
             case 13:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.Ventilations);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.Ventilations, true, "");
                 break;
             case 14:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Compressions);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Compressions, true, "");
                 break;
             case 15:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.ChargeDefibrilator);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.ChargeDefibrilator, true, "");
                 break;
             case 16:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Rest);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Rest, true, "");
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.Rest);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.Rest, true, "");
                 break;
             case 17:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.DischargeDefibrilator);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.DischargeDefibrilator, true, "");
                 break;
             case 18:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Ventilations);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Ventilations, true, "");
                 break;
             case 19:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Compressions);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Compressions, true, "");
                 break;
             case 20:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.ChargeDefibrilator);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.ChargeDefibrilator, true, "");
                 break;
             case 21:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Rest);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Rest, true, "");
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Rest);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Rest, true, "");
                 break;
             case 22:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.DischargeDefibrilator);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.DischargeDefibrilator, true, "");
                 break;
             case 23:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Ventilations);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Ventilations, true, "");
                 break;
             case 24:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Compressions);
-          
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Compressions, true, "");
                 break;
             case 25:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.Epinephrine);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.Epinephrine, true, "");
                 break;
             case 26:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.Lidocaine);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.Lidocaine, true, "");
                 break;
             case 27:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Rest);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Rest, true, "");
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Rest);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Rest, true, "");
                 break;
             case 28:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.CheckPulse);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.CheckPulse, true, "");
                 GameManager.GetInstance().pantallaFibrilarVentriculationInDefibrilator.SetActive(false);
                 GameManager.GetInstance().pantallaFibrilarVentriculationPlayer.SetActive(false);
                 GameManager.GetInstance().pantallaSynusRythmInDefibrilator.SetActive(true);
                 GameManager.GetInstance().pantallaSynusRythmPlayer.SetActive(true);
-
                 break;
             case 29:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.CheckAirWay);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.CheckAirWay, true, "");
                 break;
-
         }
-
     }
 }
 #endif
