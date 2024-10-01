@@ -16,6 +16,12 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         public string explanation;
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(this);
+    }
+
     public void ResetData()
     {
         data = new List<PlayerOrder>();

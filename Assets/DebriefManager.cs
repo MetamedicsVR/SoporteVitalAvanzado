@@ -22,19 +22,21 @@ public class DebriefManager : MonoBehaviour
     void Start()
     {
         satisfactionPanel.SetActive(true);
-        DebugAnalytics();
+        LoadDataForDisplay(Analytics.GetInstance().GetData());
+        //DebugAnalytics();
     }
 
+#if UNITY_EDITOR
     //DEBUG
 
     public void DebugAnalytics()
     {
         // Definir los nombres de personajes y órdenes predefinidas
         string[] characterNames = { "Character1", "Character2", "Character3", "Character4", "Character5", "Character6", "Character7", "Character8", "Character9", "Character10", "Character11", "Character12", "Character13", "Character14", "Character15", "Character16", "Character17", "Character18" };
-        string[] orders = { "Jump", "Run", "Attack", "Defend","Jump2", "R2un", "Atta2ck", "Defe2nd", "Jum3p", "R3un", "Atta3ck", "D3efend","Ju4mp", "R4un", "Atta4ck", "De4end" ,"Jum17p", "R18un"};
+        string[] orders = { "Jump", "Run", "Attack", "Defend", "Jump2", "R2un", "Atta2ck", "Defe2nd", "Jum3p", "R3un", "Atta3ck", "D3efend", "Ju4mp", "R4un", "Atta4ck", "De4end", "Jum17p", "R18un" };
 
         // Crear una lista de PlayerOrders predefinidos
-        Analytics.PlayerOrder[] simulatedOrders = new Analytics.PlayerOrder[characterNames.Length];
+        List<Analytics.PlayerOrder> simulatedOrders = new List<Analytics.PlayerOrder>();
 
         System.Random random = new System.Random();
         for (int i = 0; i < characterNames.Length; i++)
@@ -65,6 +67,7 @@ public class DebriefManager : MonoBehaviour
         // Llamar a LoadDataForDisplay para visualizar los datos simulados
         LoadDataForDisplay(simulatedOrders);
     }
+#endif
 
     public void SetSatisfactionLevel(int incomingSatisfactionLevel) 
     {
@@ -73,9 +76,9 @@ public class DebriefManager : MonoBehaviour
         timelinePanel.SetActive(true);
     }
     
-    public void LoadDataForDisplay(Analytics.PlayerOrder [] incommingOrderList) 
+    public void LoadDataForDisplay(List<Analytics.PlayerOrder> incommingOrderList) 
     {
-        for (int i = 0; i < incommingOrderList.Length; i++)
+        for (int i = 0; i < incommingOrderList.Count; i++)
         {
             if (incommingOrderList[i].isCorrect)
             {
