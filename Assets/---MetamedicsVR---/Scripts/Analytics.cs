@@ -61,8 +61,6 @@ public class Analytics : MonoBehaviourInstance<Analytics>
         {
             case NPCManager.NPCAction.Rest:
                 return "Descansar";
-            case NPCManager.NPCAction.Walk:
-                return "Caminar al punto";
             case NPCManager.NPCAction.CheckConsciousness:
                 return "Comprobar consciencia";
             case NPCManager.NPCAction.CheckAirWay:
@@ -81,7 +79,7 @@ public class Analytics : MonoBehaviourInstance<Analytics>
                 return "Coloca parches";
             case NPCManager.NPCAction.ChargeDefibrilator:
                 return "Carga desfibrilador";
-            case NPCManager.NPCAction.AllOut:
+            case NPCManager.NPCAction.OutNow:
                 return "Todos fuera";
             case NPCManager.NPCAction.DischargeDefibrilator:
                 return "Dar descarga a 150 J";

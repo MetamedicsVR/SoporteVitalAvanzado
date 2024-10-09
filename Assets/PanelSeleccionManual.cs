@@ -37,10 +37,8 @@ public class PanelSeleccionManual : MonoBehaviour
     {
         switch (thisAction)
         {
-            case NPCManager.NPCAction.Rest:
-                return "Ordenar que descanse";             
-            case NPCManager.NPCAction.Walk:
-                return "";
+            case NPCManager.NPCAction.OutNow:
+                return "Ordenar que se alejen";
             case NPCManager.NPCAction.CheckConsciousness:
                 return "Ordenar que compruebe consciencia";
             case NPCManager.NPCAction.CheckAirWay:
@@ -72,11 +70,6 @@ public class PanelSeleccionManual : MonoBehaviour
         }
 
     }
-
-    // Start is called before the first frame update
-
-
-    
 
     public void RecibirOpcionesDePaso(List<NPCManager.NPCAction> actions)
     {
@@ -157,6 +150,7 @@ public class PanelSeleccionManual : MonoBehaviour
     {
         textoPanelIncorrecto.transform.parent.gameObject.SetActive(false);
     }
+
     public void SeleccionarNPC(int seleccion) //0 Carla // 1 David //2 Ruben // 3 Jesus
     {
         print("Selecionado NPC " + seleccion);

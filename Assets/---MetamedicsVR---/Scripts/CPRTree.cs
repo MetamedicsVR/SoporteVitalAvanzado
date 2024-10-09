@@ -103,15 +103,8 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
 
     private void Start()
     {
-        foreach (VoiceService service in voiceServices)
-        {
-            if (service)
-            {
-                service.VoiceEvents.OnFullTranscription.AddListener(OnTranscriptionReceived);
-            }
-        }
         canGiveOrders = false;  
-        //StartCoroutine(Experience());
+        StartCoroutine(Experience());
     }
 
 
@@ -119,13 +112,11 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
     {
         StartCoroutine(Experience());
     }
-    private void OnTranscriptionReceived(string transcription)
+
+    public void NewWords(List<string> words)
     {
         if (canGiveOrders)
         {
-            string cleanText = Regex.Replace(transcription.Normalize(NormalizationForm.FormD), @"[^a-zA-Z\s]", "").ToLower();
-            string[] words = cleanText.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
             List<NPCManager.NPCName> npcNames = NPCManager.GetInstance().CheckNPCNames(words);
             if (npcNames.Count > 0)
             {
@@ -134,6 +125,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             NPC selectedNPC = NPCManager.GetInstance().GetSelectedNPC();
             if (selectedNPC)
             {
+                panelSeleccion.CerrarPanelNPCAbrirPanelAcciones();
                 List<string> actionMatches = NPCManager.GetInstance().ActionMatches(words);
                 if (actionMatches.Count > 0)
                 {
@@ -176,23 +168,14 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
     public bool IsCorrectInstruction(NPCManager.NPCAction action, out string reason, out bool stepEnded)
     {
         NPC selectedNPC = NPCManager.GetInstance().GetSelectedNPC();
-        if (selectedNPC.CanPerformAction(action))
+        if (IsCloserToStep(selectedNPC, action, out stepEnded))
         {
-            if (IsCloserToStep(selectedNPC, action, out stepEnded))
-            {
-                reason = "";
-                return true;
-            }
-            else
-            {
-                reason = "No es la acción que el NPC debe realizar";
-                return false;
-            }
+            reason = "";
+            return true;
         }
         else
         {
-            reason = "El NPC no puede realizar la acción";
-            stepEnded = false;
+            reason = "No es la acción que el NPC debe realizar";
             return false;
         }
     }
@@ -206,7 +189,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         {
             NPCManager.GetInstance().FindNPC(npcName).gameObject.SetActive(true);
             NPCManager.GetInstance().SelectNPC(npcName);
-            NPCManager.GetInstance().GiveOrder(NPCManager.NPCAction.Rest);
+            NPCManager.GetInstance().GiveOrder(NPCManager.NPCAction.OutNow);
             yield return new WaitForSeconds(1);
         }
         yield return null;
@@ -240,7 +223,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         List<NPCManager.NPCAction> futureCurrentActions = new List<NPCManager.NPCAction>(currentActions);
         futureCurrentActions.Remove(npc.GetCurrentAction());
         futureCurrentActions.Add(action);
-        
+        /*
         print("Future Actions:");
         {
             for (int i = 0; i < futureCurrentActions.Count; i++)
@@ -248,7 +231,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 print("- " + futureCurrentActions[i]);
             }
         }
-        
+        */
         int currentDifference = ActionsDiference(nextStepIndex, currentActions);
         int futureDifference = ActionsDiference(nextStepIndex, futureCurrentActions);
 
@@ -385,10 +368,10 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.ChargeDefibrilator, true, "");
                 break;
             case 9:
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Rest, true, "");
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.Rest, true, "");
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.OutNow);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.OutNow, true, "");
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.OutNow);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.OutNow, true, "");
                 break;
             case 10:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.PlacePatches);
@@ -415,10 +398,10 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.ChargeDefibrilator, true, "");
                 break;
             case 16:
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Rest, true, "");
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.Rest, true, "");
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.OutNow);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.OutNow, true, "");
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Jesús).GiveOrder(NPCManager.NPCAction.OutNow);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Jesús.ToString(), NPCManager.NPCAction.OutNow, true, "");
                 break;
             case 17:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.DischargeDefibrilator);
@@ -437,10 +420,10 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.ChargeDefibrilator, true, "");
                 break;
             case 21:
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.Rest, true, "");
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Rest);
-                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.Rest, true, "");
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.OutNow);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.OutNow, true, "");
+                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.OutNow);
+                Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.OutNow, true, "");
                 break;
             case 22:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.David).GiveOrder(NPCManager.NPCAction.DischargeDefibrilator);

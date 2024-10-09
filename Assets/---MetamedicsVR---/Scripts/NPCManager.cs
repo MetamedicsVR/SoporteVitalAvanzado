@@ -25,7 +25,6 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     public enum NPCAction
     {
         Rest,
-        Walk,
         CheckConsciousness,
         CheckAirWay,
         PutGuedel,
@@ -35,22 +34,20 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         CheckDefibrilator,
         PlacePatches,
         ChargeDefibrilator,
-        AllOut,
+        OutNow,
         DischargeDefibrilator,
         PlaceVVP,
         Epinephrine,
         Epinephrine2,
         Lidocaine,
-        Lidocaine2
+        Lidocaine2,
+        OutAfterEnd
     }
 
     protected override void OnInstance()
     {
         base.OnInstance();
         actionKeywords = new Dictionary<NPCAction, List<string>>();
-        actionKeywords[NPCAction.Rest] = new List<string>();
-        actionKeywords[NPCAction.Rest].Add("para");
-        actionKeywords[NPCAction.Rest].Add("descansa");
         actionKeywords[NPCAction.CheckConsciousness] = new List<string>();
         actionKeywords[NPCAction.CheckConsciousness].Add("conciencia");
         actionKeywords[NPCAction.CheckConsciousness].Add("conciente");
@@ -67,11 +64,13 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         actionKeywords[NPCAction.CheckDefibrilator] = new List<string>();
         actionKeywords[NPCAction.CheckDefibrilator].Add("enciende");
         actionKeywords[NPCAction.ChargeDefibrilator] = new List<string>();
-        actionKeywords[NPCAction.AllOut] = new List<string>();
         actionKeywords[NPCAction.ChargeDefibrilator].Add("carga");
         actionKeywords[NPCAction.DischargeDefibrilator] = new List<string>();
         actionKeywords[NPCAction.DischargeDefibrilator].Add("descarga");
         actionKeywords[NPCAction.DischargeDefibrilator].Add("shock");
+        actionKeywords[NPCAction.OutNow] = new List<string>();
+        actionKeywords[NPCAction.OutNow].Add("fuera");
+        actionKeywords[NPCAction.OutNow].Add("alejaos");
         actionKeywords[NPCAction.Epinephrine] = new List<string>();
         actionKeywords[NPCAction.Epinephrine].Add("epinefrina");
         actionKeywords[NPCAction.Epinephrine].Add("adrenalina");
@@ -79,11 +78,11 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         actionKeywords[NPCAction.Lidocaine].Add("lidocaina");
     }
 
-    public List<NPCName> CheckNPCNames(string[] words)
+    public List<NPCName> CheckNPCNames(List<string> words)
     {
         List<NPCName> foundNames = new List<NPCName>();
         string[] npcNames = Enum.GetNames(typeof(NPCName));
-        for (int i = 0; i < words.Length; i++)
+        for (int i = 0; i < words.Count; i++)
         {
             if (npcNames.Contains(words[i]))
             {
@@ -93,10 +92,10 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         return foundNames;
     }
 
-    public List<string> ActionMatches(string[] words)
+    public List<string> ActionMatches(List<string> words)
     {
         List<string> matches = new List<string>();
-        for (int i = 0; i < words.Length; i++)
+        for (int i = 0; i < words.Count; i++)
         {
             if (ActionMatch(words[i]))
             {
@@ -142,7 +141,6 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     {
         switch (action)
         {
-            case NPCAction.AllOut:
             case NPCAction.Ventilations:
             case NPCAction.PutGuedel:
             case NPCAction.PlacePatches:
@@ -172,67 +170,8 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
         List<NPCAction> currentActions = new List<NPCAction>();
         for (int i = 0; i < npcs.Length; i++)
         {
-            if (npcs[i].GetCurrentAction() == NPCAction.Walk)
-            {
-                currentActions.Add(npcs[i].GetNextAction());
-            }
-            else {
-                currentActions.Add(npcs[i].GetCurrentAction());
-            }
+            currentActions.Add(npcs[i].GetCurrentAction());
         }
         return currentActions;
     }
-
-/*
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            FindNPC(NPCName.Carla).GiveOrder(NPCAction.PutGuedel);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
-            FindNPC(NPCName.Carla).GiveOrder(NPCAction.CheckPulse);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.Compressions);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha4))
-        {
-            FindNPC(NPCName.Rubén).GiveOrder(NPCAction.Ventilations);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha5))
-        {
-            FindNPC(NPCName.David).GiveOrder(NPCAction.CheckDefibrilator);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha6))
-        {
-            FindNPC(NPCName.Jesús).GiveOrder(NPCAction.ChargeDefibrilator);
-        }
-        if (Input.GetKeyUp(KeyCode.P))
-        {
-            FindNPC(NPCName.Jesús).GiveOrder(NPCAction.PlacePatches);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha7))
-        {
-            FindNPC(NPCName.David).GiveOrder(NPCAction.DischargeDefibrilator);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha8))
-        {
-            FindNPC(NPCName.David).GiveOrder(NPCAction.PlaceVVP);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha9))
-        {
-            FindNPC(NPCName.Carla).GiveOrder(NPCAction.Epinephrine);
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha0))
-        {
-            FindNPC(NPCName.Jesús).GiveOrder(NPCAction.Lidocaine);
-        }
-    }
-#endif
-*/
-
 }
