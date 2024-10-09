@@ -41,7 +41,7 @@ public class NPC : MonoBehaviour
             {
                 StopCoroutine(FollowOrder());
                 SetCurrentAction(action);
-                audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(action));
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(ActionAudio(action), characterName);
                 audioSource.Play();
                 nextAction = NPCManager.NPCAction.Rest;
                 actionCoroutine = StartCoroutine(FollowOrder());
@@ -60,7 +60,7 @@ public class NPC : MonoBehaviour
             }
             else
             {
-                audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(action));
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(ActionAudio(action), characterName);
                 audioSource.Play();
                 nextAction = NPCManager.NPCAction.Rest;
             }
@@ -130,7 +130,7 @@ public class NPC : MonoBehaviour
         {
             if (currentAction == NPCManager.NPCAction.Compressions || currentAction == NPCManager.NPCAction.Ventilations)
             {
-                audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(currentAction));
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(ActionAudio(currentAction), characterName);
                 audioSource.Play();
             }
             NPCSpot targetSpot = NPCSpotManager.GetInstance().GetNearestFreeSpot(correctSpotType, transform.position);
@@ -172,55 +172,11 @@ public class NPC : MonoBehaviour
                 animator.Play("Anim_ComprobarConciencia");
                 Patient.GetInstance().animator.Play("Anim_ComprobarConcienciaPaciente");
                 yield return new WaitForSeconds(3f);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_usted_bien_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_usted_bien_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_usted_bien_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_usted_bien_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Está_usted_bien, characterName);
+                audioSource.Play();
                 yield return new WaitForSeconds(4.5f);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_inconsciente_Carla_);
-                        GetComponent<AudioSource>().Play();
-                  
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_inconsciente_David_);
-                        GetComponent<AudioSource>().Play();
-       
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_inconsciente_Rubén_);
-                        GetComponent<AudioSource>().Play();
-                      
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Está_inconsciente_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Está_inconsciente, characterName);
+                audioSource.Play();
                 break;
             case NPCManager.NPCAction.CheckAirWay:
 
@@ -230,30 +186,8 @@ public class NPC : MonoBehaviour
               
 
                 yield return new WaitForSeconds(10);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_respira_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_respira_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_respira_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_respira_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._No_respira, characterName);
+                audioSource.Play();
                 break;
             case NPCManager.NPCAction.PutGuedel:
                 guedel.SetActive(true);
@@ -266,30 +200,8 @@ public class NPC : MonoBehaviour
             case NPCManager.NPCAction.CheckPulse:
                 animator.Play("Anim_ComprobarPulso");
                 yield return new WaitForSeconds(11.2f);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_tiene_pulso_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_tiene_pulso_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_tiene_pulso_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._No_tiene_pulso_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._No_tiene_pulso, characterName);
+                audioSource.Play();
                 break;
             case NPCManager.NPCAction.Compressions:
                 otherSpot = NPCSpotManager.GetInstance().GetNearestSpot(NPCSpot.SpotType.Ventilations, Vector3.zero);
@@ -298,7 +210,7 @@ public class NPC : MonoBehaviour
                     SetCurrentAction(NPCManager.NPCAction.Rest);
                     yield return new WaitUntil(() => !otherSpot.npcInSpot || otherSpot.npcInSpot.currentAction == NPCManager.NPCAction.Rest);
                     SetCurrentAction(NPCManager.NPCAction.Compressions);
-                    audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(currentAction));
+                    audioSource.clip = AudioManager.GetInstance().GetNPCClip(ActionAudio(currentAction), characterName);
                     audioSource.Play();
                 }
                 animator.Play("Anim_GoToComprimir");
@@ -322,7 +234,7 @@ public class NPC : MonoBehaviour
                     SetCurrentAction(NPCManager.NPCAction.Rest);
                     yield return new WaitUntil(() => !otherSpot.npcInSpot || otherSpot.npcInSpot.currentAction == NPCManager.NPCAction.Rest);
                     SetCurrentAction(NPCManager.NPCAction.Ventilations);
-                    audioSource.clip = AudioManager.GetInstance().GetAudioClip(ActionAudio(currentAction));
+                    audioSource.clip = AudioManager.GetInstance().GetNPCClip(ActionAudio(currentAction), characterName);
                     audioSource.Play();
                 }
                 ambu.SetActive(true);
@@ -340,30 +252,8 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(2);
                 Patient.GetInstance().vitalSignsMonitor.enabled = true;
                 yield return new WaitForSeconds(4);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Paciente_monitorizado_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Paciente_monitorizado_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Paciente_monitorizado_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Paciente_monitorizado_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Paciente_monitorizado, characterName);
+                audioSource.Play();
                 yield return new WaitForSeconds(2);
                 break;
             case NPCManager.NPCAction.PlacePatches:
@@ -400,30 +290,8 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 Patient.GetInstance().animator.Play("Anim_RecibeShock");
                 yield return new WaitForSeconds(0.2f);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Descarga_completada_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Descarga_completada_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Descarga_completada_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Descarga_completada_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Descarga_completada, characterName);
+                audioSource.Play();
                 yield return new WaitForSeconds(1f);
                 for (int i = 0; i < NPCSpotManager.GetInstance().spots.Length; i++)
                 {
@@ -469,30 +337,8 @@ public class NPC : MonoBehaviour
                         }
                     }
                 }
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Vía_colocada_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Vía_colocada_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Vía_colocada_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Vía_colocada_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Vía_colocada, characterName);
+                audioSource.Play();
                 yield return new WaitForSeconds(4);
                 break;
             case NPCManager.NPCAction.Epinephrine:
@@ -515,30 +361,8 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(6);
                 syringe.SetActive(false);
                 medication.SetActive(false);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Adrenalina_administrada_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Adrenalina_administrada_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Adrenalina_administrada_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Adrenalina_administrada_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Adrenalina_administrada, characterName);
+                audioSource.Play();
                 break;
             case NPCManager.NPCAction.Lidocaine:
                 ambu.SetActive(false);
@@ -560,30 +384,8 @@ public class NPC : MonoBehaviour
                 yield return new WaitForSeconds(6);
                 syringe.SetActive(false);
                 medication.SetActive(false);
-                switch (characterName)
-                {
-                    case NPCManager.NPCName.Carla:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Amiodarona_administrada_Carla_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.David:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Amiodarona_administrada_David_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Rubén:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Amiodarona_administrada_Rubén_);
-                        GetComponent<AudioSource>().Play();
-
-                        break;
-                    case NPCManager.NPCName.Jesús:
-                        GetComponent<AudioSource>().clip = AudioManager.GetInstance().LoadAudioClip(AudioManager.AudioName._Adrenalina_administrada_Jesús_);
-                        GetComponent<AudioSource>().Play();
-                        break;
-                    default:
-                        break;
-                }
+                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Amiodarona_administrada, characterName);
+                audioSource.Play();
                 CPRTree.GetInstance().timer.StopTimer();
                 break;      
         }
@@ -634,147 +436,35 @@ public class NPC : MonoBehaviour
 
     private AudioManager.AudioName ActionAudio(NPCManager.NPCAction action)
     {
-        switch (characterName)
+        switch (action)
         {
-            case NPCManager.NPCName.Carla:
-                switch (action)
-                {
-                    case NPCManager.NPCAction.Rest:
-                        return AudioManager.AudioName.Null;
-                    case NPCManager.NPCAction.CheckConsciousness:
-                        return AudioManager.AudioName._Comprobando_consciencia_Carla_;
-                    case NPCManager.NPCAction.CheckAirWay:
-                        return AudioManager.AudioName._Abriendo_via_aerea_Carla_;
-                    case NPCManager.NPCAction.PutGuedel:
-                        return AudioManager.AudioName._Colocando_canula_de_güedel_Carla_;
-                    case NPCManager.NPCAction.CheckPulse:
-                        return AudioManager.AudioName._Tomando_pulso_carotídeo_Carla_;
-                    case NPCManager.NPCAction.Compressions:
-                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_Carla_;
-                    case NPCManager.NPCAction.Ventilations:
-                        return AudioManager.AudioName._Ventilando_con_ambu_Carla_;
-                    case NPCManager.NPCAction.CheckDefibrilator:
-                        return AudioManager.AudioName._Monitorizando_con_defibrilador_Carla_;
-                    case NPCManager.NPCAction.PlacePatches:
-                        return AudioManager.AudioName._Colocando_parches_Carla_;
-                    case NPCManager.NPCAction.ChargeDefibrilator:
-                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_Carla_;
-                    case NPCManager.NPCAction.DischargeDefibrilator:
-                        return AudioManager.AudioName._Dando_descarga_Carla_;
-                    case NPCManager.NPCAction.PlaceVVP:
-                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_Carla_;
-                    case NPCManager.NPCAction.Epinephrine:
-                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_Carla_;
-                    case NPCManager.NPCAction.Lidocaine:
-                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_Carla_;
-                    default:
-                        break;
-                }
-                break;
-            case NPCManager.NPCName.David:
-                switch (action)
-                {
-                    case NPCManager.NPCAction.Rest:
-                        return AudioManager.AudioName.Null;
-                    case NPCManager.NPCAction.CheckConsciousness:
-                        return AudioManager.AudioName._Comprobando_consciencia_David_;
-                    case NPCManager.NPCAction.CheckAirWay:
-                        return AudioManager.AudioName._Abriendo_via_aerea_David_;
-                    case NPCManager.NPCAction.PutGuedel:
-                        return AudioManager.AudioName._Colocando_canula_de_güedel_David_;
-                    case NPCManager.NPCAction.CheckPulse:
-                        return AudioManager.AudioName._Tomando_pulso_carotídeo_David_;
-                    case NPCManager.NPCAction.Compressions:
-                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_David_;
-                    case NPCManager.NPCAction.Ventilations:
-                        return AudioManager.AudioName._Ventilando_con_ambu_David_;
-                    case NPCManager.NPCAction.CheckDefibrilator:
-                        return AudioManager.AudioName._Monitorizando_con_defibrilador_David_;
-                    case NPCManager.NPCAction.PlacePatches:
-                        return AudioManager.AudioName._Colocando_parches_David_;
-                    case NPCManager.NPCAction.ChargeDefibrilator:
-                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_David_;
-                    case NPCManager.NPCAction.DischargeDefibrilator:
-                        return AudioManager.AudioName._Dando_descarga_David_;
-                    case NPCManager.NPCAction.PlaceVVP:
-                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_David_;
-                    case NPCManager.NPCAction.Epinephrine:
-                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_David_;
-                    case NPCManager.NPCAction.Lidocaine:
-                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_David_;
-                    default:
-                        break;
-                }
-                break;
-            case NPCManager.NPCName.Rubén:
-                switch (action)
-                {
-                    case NPCManager.NPCAction.Rest:
-                        return AudioManager.AudioName.Null;
-                    case NPCManager.NPCAction.CheckConsciousness:
-                        return AudioManager.AudioName._Comprobando_consciencia_Rubén_;
-                    case NPCManager.NPCAction.CheckAirWay:
-                        return AudioManager.AudioName._Abriendo_via_aerea_Rubén_;
-                    case NPCManager.NPCAction.PutGuedel:
-                        return AudioManager.AudioName._Colocando_canula_de_güedel_Rubén_;
-                    case NPCManager.NPCAction.CheckPulse:
-                        return AudioManager.AudioName._Tomando_pulso_carotídeo_Rubén_;
-                    case NPCManager.NPCAction.Compressions:
-                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_Rubén_;
-                    case NPCManager.NPCAction.Ventilations:
-                        return AudioManager.AudioName._Ventilando_con_ambu_Rubén_1;
-                    case NPCManager.NPCAction.CheckDefibrilator:
-                        return AudioManager.AudioName._Monitorizando_con_defibrilador_Rubén_;
-                    case NPCManager.NPCAction.PlacePatches:
-                        return AudioManager.AudioName._Colocando_parches_Rubén_;
-                    case NPCManager.NPCAction.ChargeDefibrilator:
-                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_Rubén_;
-                    case NPCManager.NPCAction.DischargeDefibrilator:
-                        return AudioManager.AudioName._Dando_descarga_Rubén_;
-                    case NPCManager.NPCAction.PlaceVVP:
-                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_Rubén_;
-                    case NPCManager.NPCAction.Epinephrine:
-                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_Rubén_;
-                    case NPCManager.NPCAction.Lidocaine:
-                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_Rubén_;
-                    default:
-                        break;
-                }
-                break;
-            case NPCManager.NPCName.Jesús:
-                switch (action)
-                {
-                    case NPCManager.NPCAction.Rest:
-                        return AudioManager.AudioName.Null;
-                    case NPCManager.NPCAction.CheckConsciousness:
-                        return AudioManager.AudioName._Comprobando_consciencia_Jesús_;
-                    case NPCManager.NPCAction.CheckAirWay:
-                        return AudioManager.AudioName._Abriendo_via_aerea_Jesús_;
-                    case NPCManager.NPCAction.PutGuedel:
-                        return AudioManager.AudioName._Colocando_canula_de_güedel_Jesús_;
-                    case NPCManager.NPCAction.CheckPulse:
-                        return AudioManager.AudioName._Tomando_pulso_carotídeo_Jesús_;
-                    case NPCManager.NPCAction.Compressions:
-                        return AudioManager.AudioName._Empezando_ciclo_de_compresiones_Jesús_;
-                    case NPCManager.NPCAction.Ventilations:
-                        return AudioManager.AudioName._Ventilando_con_ambu_Jesús_;
-                    case NPCManager.NPCAction.CheckDefibrilator:
-                        return AudioManager.AudioName._Monitorizando_con_defibrilador_Jesús_;
-                    case NPCManager.NPCAction.PlacePatches:
-                        return AudioManager.AudioName._Colocando_parches_Jesús_;
-                    case NPCManager.NPCAction.ChargeDefibrilator:
-                        return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios_Jesús_;
-                    case NPCManager.NPCAction.DischargeDefibrilator:
-                        return AudioManager.AudioName._Dando_descarga_Jesús_;
-                    case NPCManager.NPCAction.PlaceVVP:
-                        return AudioManager.AudioName._Cogiendo_vía_en_el_brazo_Jesús_;
-                    case NPCManager.NPCAction.Epinephrine:
-                        return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa_Jesús_;
-                    case NPCManager.NPCAction.Lidocaine:
-                        return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7_Jesús_;
-                    default:
-                        break;
-                }
+            case NPCManager.NPCAction.CheckConsciousness:
+                return AudioManager.AudioName._Comprobando_consciencia;
+            case NPCManager.NPCAction.CheckAirWay:
+                return AudioManager.AudioName._Abriendo_via_aerea;
+            case NPCManager.NPCAction.PutGuedel:
+                return AudioManager.AudioName._Colocando_canula_de_güedel;
+            case NPCManager.NPCAction.CheckPulse:
+                return AudioManager.AudioName._Tomando_pulso_carotídeo;
+            case NPCManager.NPCAction.Compressions:
+                return AudioManager.AudioName._Empezando_ciclo_de_compresiones;
+            case NPCManager.NPCAction.Ventilations:
+                return AudioManager.AudioName._Ventilando_con_ambu;
+            case NPCManager.NPCAction.CheckDefibrilator:
+                return AudioManager.AudioName._Monitorizando_con_defibrilador;
+            case NPCManager.NPCAction.PlacePatches:
+                return AudioManager.AudioName._Colocando_parches;
+            case NPCManager.NPCAction.ChargeDefibrilator:
+                return AudioManager.AudioName._Cargando_desfibrilador_a_150_julios;
+            case NPCManager.NPCAction.DischargeDefibrilator:
+                return AudioManager.AudioName._Dando_descarga;
+            case NPCManager.NPCAction.PlaceVVP:
+                return AudioManager.AudioName._Cogiendo_vía_en_el_brazo;
+            case NPCManager.NPCAction.Epinephrine:
+                return AudioManager.AudioName._Inyectando_1_miligramo_de_adrenalina_Intravenosa;
+            case NPCManager.NPCAction.Lidocaine:
+                return AudioManager.AudioName._Inyectando_300_miligramos_amiodarona_en_20_mililit_c1cce3a7;
+            default:
                 break;
         }
         return AudioManager.AudioName.Null;

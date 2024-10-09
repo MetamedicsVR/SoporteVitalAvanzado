@@ -10,5 +10,6 @@ public class Patient : MonoBehaviourInstance<Patient>
     public VitalLine vitalSignsMonitor;
     public GameObject cableSuero;
 
-
+    public bool isBreathing;
+    public bool hasPulse;
 }
