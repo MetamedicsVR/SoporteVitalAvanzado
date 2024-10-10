@@ -5,35 +5,106 @@ using UnityEngine;
 
 public class PanelSeleccionManual : MonoBehaviour
 {
-
     public TextMeshProUGUI[] optionsTextsInGame;
     public TextMeshProUGUI textoPanelIncorrecto;
 
-    public string textoOriginalA;
-    public string textoOriginalB;
-    public string textoOriginalC;
-    public string textoOriginalD;
-
-    public GameObject buttonA;
-    public GameObject buttonB;
-    public GameObject buttonC;
-    public GameObject buttonD;
-
-    public string [] optionsTexts = new string[4];
+    private string [] optionsTexts = new string[4];
 
     public GameObject panelSeleccionNPC;
 
     public GameObject panelSeleccionAcciones;
 
-    public int selectedNPC;
+    private List<NPCManager.NPCAction> givenActions;
 
-    public NPCManager.NPCAction selectedAction;
+    private Coroutine showErrorPanelCoroutine;
 
-    public bool[] valorInternoDeOpciones;
+    public void AbrirPanelNPC()
+    {
+        panelSeleccionNPC.SetActive(true);
+        panelSeleccionAcciones.SetActive(false);
+    }
 
-    public List<NPCManager.NPCAction> givenActions;
+    public void SeleccionarNPC(int seleccion) //0 Carla // 1 David //2 Ruben // 3 Jesus
+    {
+        print("Selecionado NPC " + seleccion);
+        panelSeleccionNPC.GetComponent<Animator>().Play("PanelDisappear");
+        NPCManager.GetInstance().SelectNPC((NPCManager.NPCName)seleccion);
+        Invoke(nameof(AbrirPanelAcciones), 1);
+    }
 
-    public string RecibirAccion(NPCManager.NPCAction thisAction) 
+    public void SeleccionaOpcion(int n)
+    {
+        string reason;
+        if (CPRTree.GetInstance().TryGiveInstruction(givenActions[n], out reason))
+        {
+            NPCManager.GetInstance().GiveOrder(givenActions[n]);
+            AbrirPanelNPC();
+        }
+        else
+        {
+            if (showErrorPanelCoroutine != null)
+            {
+                StopCoroutine(showErrorPanelCoroutine);
+            }
+            showErrorPanelCoroutine = StartCoroutine(ShowingErrorPanel(reason));
+        }
+    }
+
+    private IEnumerator ShowingErrorPanel(string reason)
+    {
+        textoPanelIncorrecto.text = (optionsTexts[0] + " es incorrecto en este paso: " + reason);
+        textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
+        textoPanelIncorrecto.transform.parent.parent.GetComponent<Animator>().Play("PanelDisappear");
+        yield return new WaitForSeconds(1);
+        textoPanelIncorrecto.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void AbrirPanelAcciones()
+    {
+        panelSeleccionNPC.SetActive(false);
+        panelSeleccionAcciones.SetActive(true);
+    }
+
+    public void UpdateOptions(List<NPCManager.NPCAction> actions)
+    {
+        givenActions = actions;
+        Shuffle(givenActions);
+        List<string> textos = new List<string>
+        {
+            ActionText(givenActions[0]),
+            ActionText(givenActions[1]),
+            ActionText(givenActions[2]),
+            ActionText(givenActions[3])
+        };
+        for (int i = 0; i < optionsTexts.Length; i++)
+        {
+            optionsTexts[i] = textos[i];
+        }
+
+        for (int i = 0; i < optionsTextsInGame.Length; i++)
+        {
+            if (i == 0)
+            {
+                optionsTextsInGame[i].text = "A- ";
+            }
+            else if (i == 1)
+            {
+                optionsTextsInGame[i].text = "B- ";
+            }
+            else if (i == 2)
+            {
+                optionsTextsInGame[i].text = "C- ";
+            }
+            else if (i == 3)
+            {
+                optionsTextsInGame[i].text = "D- ";
+            }
+            optionsTextsInGame[i].text += optionsTexts[i];
+        }
+    }
+
+    public string ActionText(NPCManager.NPCAction thisAction) 
     {
         switch (thisAction)
         {
@@ -68,50 +139,6 @@ public class PanelSeleccionManual : MonoBehaviour
             default:
                 return "";
         }
-
-    }
-
-    public void RecibirOpcionesDePaso(List<NPCManager.NPCAction> actions)
-    {
-        givenActions = actions;
-        Shuffle(givenActions);
-        textoOriginalA = RecibirAccion(givenActions[0]);
-        textoOriginalB = RecibirAccion(givenActions[1]);
-        textoOriginalC = RecibirAccion(givenActions[2]);
-        textoOriginalD = RecibirAccion(givenActions[3]);
-        List<string> textos = new List<string>
-        {
-            textoOriginalA,
-            textoOriginalB,
-            textoOriginalC,
-            textoOriginalD
-        };
-        for (int i = 0; i < optionsTexts.Length; i++)
-        {
-            optionsTexts[i] = textos[i];
-        }
-
-        for (int i = 0; i < optionsTextsInGame.Length; i++)
-        {
-            if (i == 0)
-            {
-                optionsTextsInGame[i].text = "A- ";
-            }
-            else if (i == 1)
-            {
-                optionsTextsInGame[i].text = "B- ";
-            }
-            else if (i == 2)
-            {
-                optionsTextsInGame[i].text = "C- ";
-            }
-            else if (i == 3)
-            {
-                optionsTextsInGame[i].text = "D- ";
-            }
-            optionsTextsInGame[i].text += optionsTexts[i];
-        }
-
     }
 
     void Shuffle<T>(List<T> list)
@@ -123,52 +150,5 @@ public class PanelSeleccionManual : MonoBehaviour
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
         }
-    }
-
-    public void SeleccionaOpcion(int n) 
-    {
-        string reason;
-        if (CPRTree.GetInstance().TryGiveInstruction(givenActions[n], out reason))
-        {
-            NPCManager.GetInstance().GiveOrder(givenActions[n]);
-        }
-        else
-        {
-            textoPanelIncorrecto.text = (optionsTexts[0] + " es incorrecto en este paso: " + reason);
-            textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
-            Invoke(nameof(DesaparecePanelIncorrecto), 3);
-        }
-    }
-
-    public void DesaparecePanelIncorrecto()
-    {
-        textoPanelIncorrecto.transform.parent.parent.GetComponent<Animator>().Play("PanelDisappear");
-        Invoke(nameof(ApagaPanelIncorrecto), 1f);
-    }
-
-    public void ApagaPanelIncorrecto()
-    {
-        textoPanelIncorrecto.transform.parent.gameObject.SetActive(false);
-    }
-
-    public void SeleccionarNPC(int seleccion) //0 Carla // 1 David //2 Ruben // 3 Jesus
-    {
-        print("Selecionado NPC " + seleccion);
-        panelSeleccionNPC.GetComponent<Animator>().Play("PanelDisappear");
-        Invoke(nameof(CerrarPanelNPCAbrirPanelAcciones),1f);
-        selectedNPC = seleccion;
-        NPCManager.GetInstance().SelectNPC((NPCManager.NPCName)selectedNPC);
-    }
-
-    public void CerrarPanelNPCAbrirPanelAcciones() 
-    {
-        panelSeleccionNPC.SetActive(false);
-        panelSeleccionAcciones.SetActive(true);
-    }
-
-    public void CerrarPanelAccionesAbrirPanelNPC()
-    {
-        panelSeleccionNPC.SetActive(true);
-        panelSeleccionAcciones.SetActive(false);
     }
 }

@@ -23,11 +23,11 @@ public class VoiceController : MonoBehaviour
         {
             voiceService.VoiceEvents.OnPartialTranscription.AddListener(SendTranscription);
         }
-        StartRecording();
     }
 
     private void OnDestroy()
     {
+        EndRecording();
         if (voiceService != null)
         {
             voiceService.VoiceEvents.OnPartialTranscription.RemoveListener(SendTranscription);
@@ -47,11 +47,7 @@ public class VoiceController : MonoBehaviour
             }
         }
         lastWords = allWords.ToList();
-        //CPRTree.GetInstance().NewWords(newWords);
-        foreach (string s in newWords)
-        {
-            print("Palabras:" + s);
-        }
+        CPRTree.GetInstance().NewWords(newWords);
     }
 
     public void StartRecording()

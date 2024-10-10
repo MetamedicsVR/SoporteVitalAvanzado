@@ -9,9 +9,9 @@ using UnityEngine;
 
 public class CPRTree : MonoBehaviourInstance<CPRTree>
 {
-    public VoiceService[] voiceServices;
-
+    public VoiceController voiceController;
     public PanelSeleccionManual panelSeleccion;
+
     public GameObject warningPanel;
     public GameObject errorPanel;
 
@@ -113,23 +113,51 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         StartCoroutine(Experience());
     }
 
+    public IEnumerator Experience()
+    {
+        //1.El jugador valora la escena en la que se encuentra(Observar donde está el paciente y que todo es seguro)
+        //2.Avisa al resto de los compañeros(entra B1, B2 y B3)
+        //if (ExperienceSettings.IsUsingVoice())
+        {
+            voiceController.StartRecording();
+        }
+        //else
+        {
+            //panelSeleccion.AbrirPanelNPC();
+        }
+        yield return new WaitForSeconds(1);
+        foreach (NPCManager.NPCName npcName in Enum.GetValues(typeof(NPCManager.NPCName)))
+        {
+            NPCManager.GetInstance().FindNPC(npcName).gameObject.SetActive(true);
+            NPCManager.GetInstance().SelectNPC(npcName);
+            NPCManager.GetInstance().GiveOrder(NPCManager.NPCAction.OutNow);
+            yield return new WaitForSeconds(1);
+        }
+        canGiveOrders = true;
+        panelSeleccion.gameObject.SetActive(true);
+        RefreshPanelOptions();
+    }
+
     public void NewWords(List<string> words)
     {
+        print("TEST WORD:" + words[0]);
         if (canGiveOrders)
         {
-            List<NPCManager.NPCName> npcNames = NPCManager.GetInstance().CheckNPCNames(words);
+            List<NPCManager.NPCName> npcNames = NPCManager.GetInstance().CheckNames(words);
             if (npcNames.Count > 0)
             {
                 NPCManager.GetInstance().SelectNPC(npcNames[npcNames.Count - 1]);
+                print("TEST NAME: " + npcNames[npcNames.Count - 1]);
             }
             NPC selectedNPC = NPCManager.GetInstance().GetSelectedNPC();
             if (selectedNPC)
             {
-                panelSeleccion.CerrarPanelNPCAbrirPanelAcciones();
-                List<string> actionMatches = NPCManager.GetInstance().ActionMatches(words);
+                panelSeleccion.AbrirPanelAcciones();
+                List<NPCManager.NPCAction> actionMatches = NPCManager.GetInstance().CheckActions(words);
                 if (actionMatches.Count > 0)
                 {
-                    NPCManager.NPCAction chosenAction = (NPCManager.NPCAction)Enum.Parse(typeof(NPCManager.NPCAction), actionMatches[actionMatches.Count - 1]);
+                    NPCManager.NPCAction chosenAction = actionMatches[actionMatches.Count - 1];
+                    print("TEST ACTION: " + actionMatches[actionMatches.Count - 1]);
                     string reason;
                     TryGiveInstruction(chosenAction, out reason);
                 }
@@ -143,7 +171,6 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
 
     public bool TryGiveInstruction(NPCManager.NPCAction chosenAction, out string reason)
     {
-        print(NPCManager.GetInstance().GetSelectedNPC().characterName + " va a " + chosenAction);
         bool stepEnded;
         if (IsCorrectInstruction(chosenAction, out reason, out stepEnded))
         {
@@ -151,15 +178,8 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             if (stepEnded)
             {
                 nextStepIndex++;
-                /*
-                print("NEXT INDEX: " + nextStepIndex);
-                for (int i = 0; i < stepNeededActions[nextStepIndex].Count; i++)
-                {
-                    print("- " + stepNeededActions[nextStepIndex][i]);
-                }
-                */
+                RefreshPanelOptions();
             }
-            RefreshPanelOptions();
             return true;
         }
         return false;
@@ -178,24 +198,6 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             reason = "No es la acción que el NPC debe realizar";
             return false;
         }
-    }
-
-    public IEnumerator Experience()
-    {
-        //1.El jugador valora la escena en la que se encuentra(Observar donde está el paciente y que todo es seguro)
-        //2.Avisa al resto de los compañeros(entra B1, B2 y B3)
-        yield return new WaitForSeconds(1);
-        foreach (NPCManager.NPCName npcName in Enum.GetValues(typeof(NPCManager.NPCName)))
-        {
-            NPCManager.GetInstance().FindNPC(npcName).gameObject.SetActive(true);
-            NPCManager.GetInstance().SelectNPC(npcName);
-            NPCManager.GetInstance().GiveOrder(NPCManager.NPCAction.OutNow);
-            yield return new WaitForSeconds(1);
-        }
-        yield return null;
-        canGiveOrders = true;
-        panelSeleccion.gameObject.SetActive(true);
-        RefreshPanelOptions();
     }
 
     public bool IsCloserToStep(NPC npc, NPCManager.NPCAction action, out bool stepEnded)
@@ -286,8 +288,23 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         for (int i = 0; i <stepNeededActions[nextStepIndex].Count; i++)
         {
             actions.Add(stepNeededActions[nextStepIndex][i]);
+            print(stepNeededActions[nextStepIndex][i]);
         }
-        NPCManager.NPCAction[] allActions = (NPCManager.NPCAction[])Enum.GetValues(typeof(NPCManager.NPCAction));
+        NPCManager.NPCAction[] allActions = new NPCManager.NPCAction[] {
+            NPCManager.NPCAction.CheckConsciousness,
+            NPCManager.NPCAction.CheckAirWay,
+            NPCManager.NPCAction.PutGuedel,
+            NPCManager.NPCAction.CheckPulse,
+            NPCManager.NPCAction.Compressions,
+            NPCManager.NPCAction.Ventilations,
+            NPCManager.NPCAction.CheckDefibrilator,
+            NPCManager.NPCAction.PlacePatches,
+            NPCManager.NPCAction.ChargeDefibrilator,
+            NPCManager.NPCAction.DischargeDefibrilator,
+            NPCManager.NPCAction.PlaceVVP,
+            NPCManager.NPCAction.Epinephrine,
+            NPCManager.NPCAction.Lidocaine,
+        };
         for (int i = actions.Count; i < 4; i++)
         {
             List<NPCManager.NPCAction> availableActions = allActions.Except(actions).ToList();
@@ -297,11 +314,11 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 actions.Add(randomAction);
             }
         }
-        panelSeleccion.RecibirOpcionesDePaso(actions);
+        panelSeleccion.UpdateOptions(actions);
     }
 
 #if UNITY_EDITOR
-    private int test = -1;
+    private int test = 0;
 
     private void Update()
     {
@@ -332,9 +349,6 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         string reason;
         switch (test)
         {
-            case 0:
-                StartExperienceCorutine();
-                break;
             case 1:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.CheckConsciousness);
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.CheckConsciousness, true, "");
@@ -446,9 +460,6 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.David.ToString(), NPCManager.NPCAction.Lidocaine, true, "");
                 break;
             case 27:
-                NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.Compressions);
-                break;
-            case 28:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Carla).GiveOrder(NPCManager.NPCAction.CheckPulse);
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.Carla.ToString(), NPCManager.NPCAction.CheckPulse, true, "");
                 pantallaFibrilarVentriculationInDefibrilator.SetActive(false);
@@ -457,11 +468,12 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
                 pantallaSynusRythmPlayer.SetActive(true);
                 GameManager.GetInstance().parentPanelSalir.SetActive(true);
                 break;
-            case 29:
+            case 28:
                 NPCManager.GetInstance().FindNPC(NPCManager.NPCName.Rubén).GiveOrder(NPCManager.NPCAction.CheckAirWay);
                 Analytics.GetInstance().InsertData(NPCManager.NPCName.Rubén.ToString(), NPCManager.NPCAction.CheckAirWay, true, "");
                 break;
         }
+        RefreshPanelOptions();
     }
 }
 #endif

@@ -168,7 +168,6 @@ public class NPC : MonoBehaviour
         switch (currentAction)
         {
             case NPCManager.NPCAction.CheckConsciousness:
-                GameManager.GetInstance().askThemToComePanel.SetActive(false);
                 animator.Play("Anim_ComprobarConciencia");
                 Patient.GetInstance().animator.Play("Anim_ComprobarConcienciaPaciente");
                 yield return new WaitForSeconds(3f);
@@ -182,11 +181,15 @@ public class NPC : MonoBehaviour
 
                 animator.Play("Anim_ComprobarRespiracion");
                 Patient.GetInstance().animator.Play("Anim_ComprobarRespiracionPaciente");
-                yield return new WaitForSeconds(3);
-              
-
-                yield return new WaitForSeconds(10);
-                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._No_respira, characterName);
+                yield return new WaitForSeconds(13);
+                if (Patient.GetInstance().isBreathing)
+                {
+                    //audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Respira, characterName);
+                }
+                else
+                {
+                    audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._No_respira, characterName);
+                }
                 audioSource.Play();
                 break;
             case NPCManager.NPCAction.PutGuedel:
@@ -200,7 +203,14 @@ public class NPC : MonoBehaviour
             case NPCManager.NPCAction.CheckPulse:
                 animator.Play("Anim_ComprobarPulso");
                 yield return new WaitForSeconds(11.2f);
-                audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._No_tiene_pulso, characterName);
+                if (Patient.GetInstance().hasPulse)
+                {
+                    //audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._Tiene_pulso, characterName);
+                }
+                else
+                {
+                    audioSource.clip = AudioManager.GetInstance().GetNPCClip(AudioManager.AudioName._No_tiene_pulso, characterName);
+                }
                 audioSource.Play();
                 break;
             case NPCManager.NPCAction.Compressions:

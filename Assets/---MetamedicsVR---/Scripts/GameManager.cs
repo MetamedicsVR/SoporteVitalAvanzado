@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviourInstance<GameManager>
     private Coroutine loadingScene;
     private MetaMedicsBuildSettings settings;
 
-    public GameObject askThemToComePanel;
-
     public GameObject parentPanelSalir;
 
     public string finalTime;

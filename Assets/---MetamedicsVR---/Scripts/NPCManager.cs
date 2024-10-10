@@ -12,7 +12,7 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     public NPC[] npcs;
 
     private NPC selectedNPC;
-    private Dictionary<NPCAction, List<string>> actionKeywords;
+    private Dictionary<string, NPCAction> actionKeywords = new Dictionary<string, NPCAction>();
 
     public enum NPCName
     {
@@ -47,67 +47,59 @@ public class NPCManager : MonoBehaviourInstance<NPCManager>
     protected override void OnInstance()
     {
         base.OnInstance();
-        actionKeywords = new Dictionary<NPCAction, List<string>>();
-        actionKeywords[NPCAction.CheckConsciousness] = new List<string>();
-        actionKeywords[NPCAction.CheckConsciousness].Add("conciencia");
-        actionKeywords[NPCAction.CheckConsciousness].Add("conciente");
-        actionKeywords[NPCAction.CheckAirWay] = new List<string>();
-        actionKeywords[NPCAction.CheckAirWay].Add("aire");
-        actionKeywords[NPCAction.CheckAirWay].Add("respira");
-        actionKeywords[NPCAction.Ventilations] = new List<string>();
-        actionKeywords[NPCAction.Ventilations].Add("ventilacion");
-        actionKeywords[NPCAction.CheckPulse] = new List<string>();
-        actionKeywords[NPCAction.CheckPulse].Add("pulso");
-        actionKeywords[NPCAction.Compressions] = new List<string>();
-        actionKeywords[NPCAction.Compressions].Add("compresiones");
-        actionKeywords[NPCAction.Compressions].Add("comprime");
-        actionKeywords[NPCAction.CheckDefibrilator] = new List<string>();
-        actionKeywords[NPCAction.CheckDefibrilator].Add("enciende");
-        actionKeywords[NPCAction.ChargeDefibrilator] = new List<string>();
-        actionKeywords[NPCAction.ChargeDefibrilator].Add("carga");
-        actionKeywords[NPCAction.DischargeDefibrilator] = new List<string>();
-        actionKeywords[NPCAction.DischargeDefibrilator].Add("descarga");
-        actionKeywords[NPCAction.DischargeDefibrilator].Add("shock");
-        actionKeywords[NPCAction.OutNow] = new List<string>();
-        actionKeywords[NPCAction.OutNow].Add("fuera");
-        actionKeywords[NPCAction.OutNow].Add("alejaos");
-        actionKeywords[NPCAction.Epinephrine] = new List<string>();
-        actionKeywords[NPCAction.Epinephrine].Add("epinefrina");
-        actionKeywords[NPCAction.Epinephrine].Add("adrenalina");
-        actionKeywords[NPCAction.Lidocaine] = new List<string>();
-        actionKeywords[NPCAction.Lidocaine].Add("lidocaina");
+        actionKeywords["conciencia"] = NPCAction.CheckConsciousness;
+        actionKeywords["conciente"] = NPCAction.CheckConsciousness;
+        actionKeywords["aire"] = NPCAction.CheckAirWay;
+        actionKeywords["aerea"] = NPCAction.CheckAirWay;
+        actionKeywords["respira"] = NPCAction.CheckAirWay;
+        actionKeywords["canula"] = NPCAction.PutGuedel;
+        actionKeywords["ventilacion"] = NPCAction.Ventilations;
+        actionKeywords["ventilaciones"] = NPCAction.Ventilations;
+        actionKeywords["pulso"] = NPCAction.CheckPulse;
+        actionKeywords["compresion"] = NPCAction.Compressions;
+        actionKeywords["compresiones"] = NPCAction.Compressions;
+        actionKeywords["comprime"] = NPCAction.Compressions;
+        actionKeywords["enciende"] = NPCAction.CheckDefibrilator;
+        actionKeywords["carga"] = NPCAction.ChargeDefibrilator;
+        actionKeywords["descarga"] = NPCAction.DischargeDefibrilator;
+        actionKeywords["shock"] = NPCAction.DischargeDefibrilator;
+        actionKeywords["parches"] = NPCAction.PlacePatches;
+        actionKeywords["fuera"] = NPCAction.OutNow;
+        actionKeywords["alejaos"] = NPCAction.OutNow;
+        actionKeywords["apartaos"] = NPCAction.OutNow;
+        actionKeywords["intravenosa"] = NPCAction.PlaceVVP;
+        actionKeywords["epinefrina"] = NPCAction.Epinephrine;
+        actionKeywords["adrenalina"] = NPCAction.Epinephrine;
+        actionKeywords["lidocaina"] = NPCAction.Lidocaine;
+        actionKeywords["amiodarona"] = NPCAction.Lidocaine;
     }
 
-    public List<NPCName> CheckNPCNames(List<string> words)
+    public List<NPCName> CheckNames(List<string> words)
     {
-        List<NPCName> foundNames = new List<NPCName>();
-        string[] npcNames = Enum.GetNames(typeof(NPCName));
+        NPCName[] nameValues = (NPCName[])Enum.GetValues(typeof(NPCName));
+        string[] nameStrings = nameValues.Select(name => Regex.Replace(name.ToString().Normalize(NormalizationForm.FormD), @"[^a-zA-Z\s]", "").ToLower()).ToArray();
+        List<NPCName> nameFounds = new List<NPCName>();
         for (int i = 0; i < words.Count; i++)
         {
-            if (npcNames.Contains(words[i]))
+            if (nameStrings.Contains(words[i]))
             {
-                foundNames.Add((NPCName)Enum.Parse(typeof(NPCName), words[i]));
+                nameFounds.Add(nameValues[Array.IndexOf(nameStrings, words[i])]);
             }
         }
-        return foundNames;
+        return nameFounds;
     }
 
-    public List<string> ActionMatches(List<string> words)
+    public List<NPCAction> CheckActions(List<string> words)
     {
-        List<string> matches = new List<string>();
+        List<NPCAction> actionFounds = new List<NPCAction>();
         for (int i = 0; i < words.Count; i++)
         {
-            if (ActionMatch(words[i]))
+            if (actionKeywords.ContainsKey(words[i]))
             {
-                matches.Add(words[i]);
+                actionFounds.Add(actionKeywords[words[i]]);
             }
         }
-        return matches;
-    }
-
-    public bool ActionMatch(string word)
-    {
-        return ((NPCAction[])Enum.GetValues(typeof(NPCAction))).Select(action => action.ToString().ToLower()).ToArray().Contains(word);
+        return actionFounds;
     }
 
     public void SelectNPC(NPCName name)

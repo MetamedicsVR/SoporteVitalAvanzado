@@ -12,4 +12,41 @@ public class Patient : MonoBehaviourInstance<Patient>
 
     public bool isBreathing;
     public bool hasPulse;
+
+    private int compressions;
+    private int ventilations;
+    private int discharges;
+    private bool epinephrine;
+    private bool lidocaine;
+
+    public void VentilationCycle()
+    {
+        if (ventilations <= compressions)
+        {
+            ventilations++;
+        }
+    }
+
+    public void CompressionCycle()
+    {
+        if (compressions <= ventilations)
+        {
+            compressions++;
+        }
+    }
+
+    public void Discharge()
+    {
+        discharges++;
+    }
+
+    public void Epinephrine()
+    {
+        epinephrine = true;
+    }
+
+    public void Lidocaine()
+    {
+        lidocaine = true;
+    }
 }
