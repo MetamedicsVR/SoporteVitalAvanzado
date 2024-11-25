@@ -317,7 +317,6 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         panelSeleccion.UpdateOptions(actions);
     }
 
-#if UNITY_EDITOR
     private int test = 0;
 
     private void Update()
@@ -476,7 +475,7 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
         RefreshPanelOptions();
     }
 }
-#endif
+
 
     /*
 1.	El jugador valora la escena en la que se encuentra(Observar donde está el paciente y que todo es seguro). Se coloca los guantes.Error inocuo
