@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class PanelSeleccionManual : MonoBehaviour
 {
+    public TextMeshProUGUI panelTitle;
+
     public TextMeshProUGUI[] optionsTextsInGame;
-    public TextMeshProUGUI textoPanelIncorrecto;
 
     private string [] optionsTexts = new string[4];
 
     public GameObject panelSeleccionNPC;
-
     public GameObject panelSeleccionAcciones;
+    public GameObject panelIncorrecto;
+    public TextMeshProUGUI textoPanelIncorrecto;
 
     private List<NPCManager.NPCAction> givenActions;
 
@@ -20,12 +22,15 @@ public class PanelSeleccionManual : MonoBehaviour
 
     public void AbrirPanelNPC()
     {
+        panelTitle.text = "¿A quién le darás tu siguiente orden?";
         panelSeleccionNPC.SetActive(true);
         panelSeleccionAcciones.SetActive(false);
+        panelIncorrecto.SetActive(false);
     }
 
     public void SeleccionarNPC(int seleccion) //0 Carla // 1 David //2 Ruben // 3 Jesus
     {
+
         print("Selecionado NPC " + seleccion);
         panelSeleccionNPC.GetComponent<Animator>().Play("PanelDisappear");
         NPCManager.GetInstance().SelectNPC((NPCManager.NPCName)seleccion);
@@ -53,15 +58,16 @@ public class PanelSeleccionManual : MonoBehaviour
     private IEnumerator ShowingErrorPanel(string reason)
     {
         textoPanelIncorrecto.text = (optionsTexts[0] + " es incorrecto en este paso: " + reason);
-        textoPanelIncorrecto.transform.parent.gameObject.SetActive(true);
+        panelIncorrecto.SetActive(true);
         yield return new WaitForSeconds(3);
-        textoPanelIncorrecto.transform.parent.parent.GetComponent<Animator>().Play("PanelDisappear");
+        panelIncorrecto.GetComponent<Animator>().Play("PanelDisappear");
         yield return new WaitForSeconds(1);
-        textoPanelIncorrecto.transform.parent.gameObject.SetActive(false);
+        panelIncorrecto.SetActive(false);
     }
 
     public void AbrirPanelAcciones()
     {
+        panelTitle.text = "¿Qué acción debe realizar " + NPCManager.GetInstance().GetSelectedNPC().characterName.ToString() + "?";
         panelSeleccionNPC.SetActive(false);
         panelSeleccionAcciones.SetActive(true);
     }

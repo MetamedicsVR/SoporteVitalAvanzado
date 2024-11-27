@@ -117,13 +117,13 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
     {
         //1.El jugador valora la escena en la que se encuentra(Observar donde está el paciente y que todo es seguro)
         //2.Avisa al resto de los compañeros(entra B1, B2 y B3)
-        //if (ExperienceSettings.IsUsingVoice())
+        if (ExperienceSettings.IsUsingVoice())
         {
-            voiceController.StartRecording();
+            //voiceController.StartRecording();
         }
-        //else
+        else
         {
-            //panelSeleccion.AbrirPanelNPC();
+            panelSeleccion.AbrirPanelNPC();
         }
         yield return new WaitForSeconds(1);
         foreach (NPCManager.NPCName npcName in Enum.GetValues(typeof(NPCManager.NPCName)))
@@ -134,7 +134,6 @@ public class CPRTree : MonoBehaviourInstance<CPRTree>
             yield return new WaitForSeconds(1);
         }
         canGiveOrders = true;
-        panelSeleccion.gameObject.SetActive(true);
         RefreshPanelOptions();
     }
 
